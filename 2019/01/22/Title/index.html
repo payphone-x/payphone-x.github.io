@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.6.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="堆？怼？">
+<meta name="keywords" content="学习笔记,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-堆">
+<meta property="og:url" content="http://payphone-x.github.io/2019/01/22/Title/index.html">
+<meta property="og:site_name" content="PayPhone-X&#39;s Blog">
+<meta property="og:description" content="堆？怼？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZPT9.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZvSu.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jh3Oa.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZnJE.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZoIQ.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZw52.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jh5Uz.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jPFcp.jpg">
+<meta property="og:updated_time" content="2019-01-22T07:35:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-堆">
+<meta name="twitter:description" content="堆？怼？">
+<meta name="twitter:image" content="https://s1.ax2x.com/2019/01/22/5jZPT9.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://payphone-x.github.io/2019/01/22/Title/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据结构-堆 | PayPhone-X's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PayPhone-X's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Unknown</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-link"></i> <br>友链</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/22/Title/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="PayPhone-X">
+      <meta itemprop="description" content="Unknown">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PayPhone-X's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构-堆
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-22 11:51:58 / 修改时间：15:35:24" itemprop="dateCreated datePublished" datetime="2019-01-22T11:51:58+08:00">2019-01-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>堆？怼？<br><a id="more"></a></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>大前天（2019/1/19）作者回到机房，发现自己咕咕咕半个月后被学长嘲讽了，于是去找<em>Herself32</em>学堆……</p>
+<hr>
+<h3 id="何为堆？"><a href="#何为堆？" class="headerlink" title="何为堆？"></a>何为堆？</h3><blockquote>
+<p>堆（英语：heap)是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵树的数组对象。<br>                                                                                    ——百度百科</p>
+</blockquote>
+<p>度娘越来越坏了，只会装高冷。还是看看通俗易懂的解释吧。</p>
+<p>事实上，堆就是一颗完全二叉树，但它还要满足一个条件：</p>
+<blockquote>
+<ul>
+<li>堆中的每个节点不论怎么调整，都不小于(或不大于)它的父节点。</li>
+</ul>
+</blockquote>
+<p>根据这个条件，我们就可以把堆分成两种：<strong>大根堆</strong>和<strong>小根堆</strong>。</p>
+<p>就像下图，就是两个典型的小根堆和大根堆：</p>
+<p>小根堆：<br><img src="https://s1.ax2x.com/2019/01/22/5jZPT9.jpg" alt="5jZPT9.jpg"></p>
+<p>大根堆：<br><img src="https://s1.ax2x.com/2019/01/22/5jZvSu.jpg" alt="5jZvSu.jpg"></p>
+<p>怎么样，是不是很懵逼？</p>
+<p>那是因为我忘了告诉你小根堆和大根堆的定义了。</p>
+<p>我们将<strong>根节点最大的堆</strong>叫做<strong>大根堆</strong>， <strong>将根节点最小的堆</strong>叫做<strong>小根堆</strong>。</p>
+<p>但要注意：<strong>必须是每一颗子树都要满足条件</strong>，即每一颗子树的每一个节点都要比它的父节点大（或小）。</p>
+<p>这是按根节点的大小来分，如果按操作种类来分，那么常见的堆有二叉堆、斐波那契堆等。</p>
+<hr>
+<h3 id="如何存储一个堆？"><a href="#如何存储一个堆？" class="headerlink" title="如何存储一个堆？"></a>如何存储一个堆？</h3><p>看到这，你可能要问了：“既然这样，怎么存储一个堆呐？”</p>
+<p>别急，慢慢看就知道了。</p>
+<p>我们知道，堆是一种线性的数据结构，有唯一的后继。</p>
+<p>所以</p>
+<p><strong>开一维数组模拟啊</strong></p>
+<p>学过完全二叉树的同学都知道这样一句话：在完全二叉树中，一个节点的编号为x，则它的左儿子编号为2x， 右儿子编号为2x + 1。</p>
+<p>在前面我已经说过，堆也是一颗完全二叉树。</p>
+<p>因此，堆也满足这个性质。</p>
+<p>如果我们定义一个名为<em>Heap[]</em>的数组表示堆，那么</p>
+<blockquote>
+<ul>
+<li>$Heap[x]  \leq Heap[2x] \&amp; Heap[2x + 1]  $(小根堆)。 </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>$Heap[x]  \geq Heap[2x] \&amp; Heap[2x + 1]  $(大根堆)。</li>
+</ul>
+</blockquote>
+<p>同时，我们还可以看出，堆顶元素一定是最大（或最小）元素。</p>
+<hr>
+<h3 id="堆的操作。"><a href="#堆的操作。" class="headerlink" title="堆的操作。"></a>堆的操作。</h3><p>现在你可能要问：“这么麻烦的堆，有什么用吗？”</p>
+<p><del>当然是拿来怼人啦</del></p>
+<p>咳咳，一个堆支持以下4种操作：</p>
+<blockquote>
+<ul>
+<li>插入一个节点</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>删除堆顶元素</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>输出对顶元素</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>堆排序</li>
+</ul>
+</blockquote>
+<p>在讲这4种操作之前，我们先来看看堆的两种基本操作：<em>Shiftup</em> &amp; <em>Shiftdown</em>。<br>（ps.所有的操作都基于这两种基本操作）</p>
+<h4 id="Shiftup（ps-大根堆）"><a href="#Shiftup（ps-大根堆）" class="headerlink" title="Shiftup（ps.大根堆）"></a>Shiftup（ps.大根堆）</h4><p>众所周知，大根堆中的每一个父节点都大于它的任意子节点</p>
+<p>因此，我们在插入一个节点后需要把它与它的父节点比较</p>
+<p>如果它比它的父节点大，则交换，继续比较。</p>
+<p>否则，则退出循环。</p>
+<p>来看这个图：<br><img src="https://s1.ax2x.com/2019/01/22/5jh3Oa.jpg" alt="5jh3Oa.jpg"></p>
+<p>此时，我们在树的最后插入一个元素36（ps.插入元素时要在树的最后插入）：</p>
+<p><img src="https://s1.ax2x.com/2019/01/22/5jZnJE.jpg" alt="5jZnJE.jpg"></p>
+<p>现在开始Shiftup, 此时36与他的父节点19比较，发现自己比他大，进行交换。</p>
+<p><img src="https://s1.ax2x.com/2019/01/22/5jZoIQ.jpg" alt="5jZoIQ.jpg"></p>
+<p>交换后的36与它的父节点26比较，发现自己比他大，进行交换。</p>
+<p><img src="https://s1.ax2x.com/2019/01/22/5jZw52.jpg" alt="5jZw52.jpg"></p>
+<p>最后36与90比较，发现比不过了，于是认怂，break掉循环，结束。</p>
+<p><img src="https://s1.ax2x.com/2019/01/22/5jh5Uz.jpg" alt="5jh5Uz.jpg"></p>
+<p><strong>伪代码如下</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Shiftup</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;            <span class="comment">//x为节点下标</span></span><br><span class="line">    <span class="keyword">while</span>（x不是根节点）&#123;</span><br><span class="line">        <span class="keyword">if</span>（Heap[x] 大于它的父节点）&#123;</span><br><span class="line">            将Heap[x]与它的父节点交换;</span><br><span class="line">            x = x / <span class="number">2</span>;          <span class="comment">//父节点的下标为子节点下标除以2</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Shiftdown-ps-大根堆"><a href="#Shiftdown-ps-大根堆" class="headerlink" title="Shiftdown (ps.大根堆)"></a>Shiftdown (ps.大根堆)</h4><p>同理，有上浮就会有下沉。可以把<em>Shiftdown</em>看成<em>Shiftup</em>的反过程。</p>
+<p>唯一不同在于，<em>Shiftdown</em>有两个比较对象，分别是他的左儿子和右儿子。</p>
+<p>在交换之前，需要先找到它的左儿子和右儿子中较大的那一个。</p>
+<p>来看这个图：</p>
+<p><a href="https://imgse.com/i/5jPFcp" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jPFcp.jpg" alt="5jPFcp.jpg"></a></p>
+<p>此时，我们删除堆顶的90，并用最后一个元素顶替。成了下面这个样子：</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/21/sort-unique/" rel="next" title="sort&unique入坑笔记">
+                <i class="fa fa-chevron-left"></i> sort&unique入坑笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.jpg" alt="PayPhone-X">
+            
+              <p class="site-author-name" itemprop="name">PayPhone-X</p>
+              <p class="site-description motion-element" itemprop="description">Unknown</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为堆？"><span class="nav-number">2.</span> <span class="nav-text">何为堆？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何存储一个堆？"><span class="nav-number">3.</span> <span class="nav-text">如何存储一个堆？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的操作。"><span class="nav-number">4.</span> <span class="nav-text">堆的操作。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Shiftup（ps-大根堆）"><span class="nav-number">4.1.</span> <span class="nav-text">Shiftup（ps.大根堆）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shiftdown-ps-大根堆"><span class="nav-number">4.2.</span> <span class="nav-text">Shiftdown (ps.大根堆)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PayPhone-X</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {equationNumbers: { autoNumber: "AMS" }}
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/kutori.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacityDefault":1},"log":false});</script></body>
+</html>
