@@ -112,7 +112,11 @@
 <meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jZw52.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jh5Uz.jpg">
 <meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jPFcp.jpg">
-<meta property="og:updated_time" content="2019-01-22T07:42:46.000Z">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jPJbA.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jPqzh.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jadsy.jpg">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/22/5jabEB.png">
+<meta property="og:updated_time" content="2019-01-22T09:28:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-堆">
 <meta name="twitter:description" content="堆？怼？">
@@ -413,7 +417,7 @@
                 
               
 
-              <time title="创建时间：2019-01-22 11:51:58 / 修改时间：15:42:46" itemprop="dateCreated datePublished" datetime="2019-01-22T11:51:58+08:00">2019-01-22</time>
+              <time title="创建时间：2019-01-22 11:51:58 / 修改时间：17:28:14" itemprop="dateCreated datePublished" datetime="2019-01-22T11:51:58+08:00">2019-01-22</time>
             
 
             
@@ -539,7 +543,17 @@
 <p>在交换之前，需要先找到它的左儿子和右儿子中较大的那一个。</p>
 <p>来看这个图：</p>
 <p><a href="https://imgse.com/i/5jPFcp" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jPFcp.jpg" alt="5jPFcp.jpg"></a></p>
-<p>此时，我们删除堆顶的90，并用最后一个元素顶替。成了下面这个样子：</p>
+<p>此时，我们删除堆顶的90，成了下面这个样子：</p>
+<p><a href="https://imgse.com/i/5jPJbA" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jPJbA.jpg" alt="5jPJbA.jpg"></a></p>
+<p>最后一个元素会上来补位，就成了这样：</p>
+<p><a href="https://imgse.com/i/5jPqzh" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jPqzh.jpg" alt="5jPqzh.jpg"></a></p>
+<p>现在，<em>Shiftdown</em>开始了。<br>先将36与17比较，发现36更大，于是把36与19交换，成了下图的样子：</p>
+<p><a href="https://imgse.com/i/5jadsy" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jadsy.jpg" alt="5jadsy.jpg"></a></p>
+<p>再把25与26比较，发现26更大，于是把26与19交换，成了这样：</p>
+<p><a href="https://imgse.com/i/5jabEB" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/22/5jabEB.png" alt="5jabEB.png"></a></p>
+<p>现在，19已经没有子节点了。于是我们可以break掉循环，结束<em>Shiftdown</em>了</p>
+<p><strong>伪代码如下</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shiftdown</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> maxn,number;</span><br><span class="line"> <span class="keyword">while</span>(Heap[x]有子结点)&#123;</span><br><span class="line">  maxn = max(它的左子结点 ， 它的右子结点);</span><br><span class="line">		<span class="keyword">if</span>(maxn == 左子结点)&#123;</span><br><span class="line"> 		number = 左子结点的下标;</span><br><span class="line">  &#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(maxn ==右子节点)&#123;</span><br><span class="line">			number = 右子节点的下标; </span><br><span class="line"> 	&#125;</span><br><span class="line">		<span class="keyword">if</span>(Heap[x] &lt; a[number])&#123;</span><br><span class="line">            将Heap[x]与相对较小的子结点交换</span><br><span class="line">            x = number;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"> 	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
