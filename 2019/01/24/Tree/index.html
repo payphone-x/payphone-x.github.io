@@ -96,25 +96,40 @@
 
 
 
-  <meta name="description" content="本文转载自Herself32’s Blog。">
-<meta name="keywords" content="STL,学习笔记">
+  <meta name="description" content="高斯费马，树上开花">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sort&amp;unique入坑笔记">
-<meta property="og:url" content="http://payphone-x.github.io/2019/01/21/sort-unique/index.html">
+<meta property="og:title" content="数据结构-线段树">
+<meta property="og:url" content="http://payphone-x.github.io/2019/01/24/Tree/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="本文转载自Herself32’s Blog。">
+<meta property="og:description" content="高斯费马，树上开花">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-21T01:54:36.000Z">
+<meta property="og:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/keXl8I.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/keX4R1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmpys1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km8RTf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km820P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km8gmt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtzUx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtXr9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtxV1.png">
+<meta property="og:updated_time" content="2019-01-25T07:42:09.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sort&amp;unique入坑笔记">
-<meta name="twitter:description" content="本文转载自Herself32’s Blog。">
+<meta name="twitter:title" content="数据结构-线段树">
+<meta name="twitter:description" content="高斯费马，树上开花">
+<meta name="twitter:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/01/21/sort-unique/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/01/24/Tree/">
 
 
 
@@ -124,7 +139,7 @@
   };
 </script>
 
-  <title>sort&unique入坑笔记 | PayPhone-X's Blog</title>
+  <title>数据结构-线段树 | PayPhone-X's Blog</title>
   
 
 
@@ -361,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/21/sort-unique/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/24/Tree/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -378,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sort&unique入坑笔记
+          <h1 class="post-title" itemprop="name headline">数据结构-线段树
 
               
             
@@ -404,12 +419,24 @@
                 
               
 
-              <time title="创建时间：2019-01-21 09:47:26 / 修改时间：09:54:36" itemprop="dateCreated datePublished" datetime="2019-01-21T09:47:26+08:00">2019-01-21</time>
+              <time title="创建时间：2019-01-24 13:51:40" itemprop="dateCreated datePublished" datetime="2019-01-24T13:51:40+08:00">2019-01-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-25 15:42:09" itemprop="dateModified" datetime="2019-01-25T15:42:09+08:00">2019-01-25</time>
               
             
           </span>
@@ -442,34 +469,94 @@
       
 
       
-        <p>本文转载自<a href="https://herself32.github.io/2018/12/23/sort%E5%92%8Cunique/" target="_blank" rel="noopener">Herself32’s Blog</a>。</p>
+        <p>高斯费马，树上开花</p>
 <a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在昨天(2019/1/23)晚上的数论 &amp; 图论爆炸后，作者开始接受线段树的洗礼……</p>
+<hr>
+<h3 id="初始约定："><a href="#初始约定：" class="headerlink" title="初始约定："></a>初始约定：</h3><p>在本文中，很多时候会出现[begin , end]</p>
+<p>这表示一段数组上的区间：从begin 到 end</p>
+<p>其中，begin为开头，end为结尾。</p>
+<p>就像下图：</p>
+<p><a href="https://imgse.com/i/5jEGTp" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/23/5jEGTp.png" alt="5jEGTp.png"></a></p>
+<p>但值得一提的是，<strong>begin在这个区间内，但end不在</strong>。</p>
+<hr>
+<h3 id="何为线段树？"><a href="#何为线段树？" class="headerlink" title="何为线段树？"></a>何为线段树？</h3><p>老惯例，先看百度百科：</p>
 <blockquote>
-<p>把STL放在心底，永远都有惊喜<br>                        ——《Tonight Forever》</p>
+<p>线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。<br>                                                                                      ——百度百科</p>
 </blockquote>
-<p>众所周知，排序在程序中会有很多的妙用。</p>
-<p>但无论是冒泡、快排、插入排序、桶排等各种花样，总需要好多次的实践才能熟记于心。</p>
-<p>用没有快捷的方法呢？</p>
-<p>当然，$sort$是STL给出的答案。</p>
-<h3 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h3><h4 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h4><p>首先你需要：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
-<p>其实命名空间可要可不要，如果去掉的话，在使用时就加一个<code>std::</code>即可啦QAQ。</p>
-<p>C++STLsort函数有(2~3)个参数。</p>
-<p>为什么是(2~3)个参数呢？</p>
-<p>因为在排序时，我们可以自己选择升序或降序。</p>
-<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>如果对于一个数组进行升序排序，那么<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num[<span class="number">120</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">119</span>;i++)<span class="built_in">cin</span>&gt;&gt;num[i];</span><br><span class="line">sort(num+<span class="number">1</span>,num+n+<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p><strong>重点！</strong>：sort函数使用模板$sort(start-place,end-place)$</p>
-<p>start-place：排序起点。<br>end-place：排序终点。</p>
-<p>那么如果对于一个数组降序排序时，怎么写呢？</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br><span class="line">sort(num+<span class="number">1</span>,num+n+<span class="number">1</span>,cmp);</span><br></pre></td></tr></table></figure>
-<h4 id="和其他STL搭配"><a href="#和其他STL搭配" class="headerlink" title="和其他STL搭配"></a>和其他STL搭配</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v;</span><br><span class="line">sort(v.begin(),v.end());</span><br></pre></td></tr></table></figure>
-<h3 id="UNIQUE"><a href="#UNIQUE" class="headerlink" title="UNIQUE"></a>UNIQUE</h3><p>unique的功能是对数组伪去重，即把重叠的数字置于数组最后。</p>
-<h4 id="前置-1"><a href="#前置-1" class="headerlink" title="前置"></a>前置</h4><p>你需要：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
-<p>其实命名空间可要可不要，如果去掉的话，在使用时就加一个<code>std::</code>即可啦QAQ。</p>
-<h4 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num[<span class="number">120</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">119</span>;i++)<span class="built_in">cin</span>&gt;&gt;num[i];</span><br><span class="line">unique(num+<span class="number">1</span>,num+n+<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>若想得到去重后数组元素个数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unique(num+<span class="number">1</span>,num+n+<span class="number">1</span>)-num<span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><a href="https://www.luogu.org/problemnew/show/P1059" target="_blank" rel="noopener">luogu P1059</a></p>
-<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
+<p>算了……</p>
+<p>不看了……</p>
+<p>还是看下通俗点的解释吧。</p>
+<p>线段树就是一种有点特殊的二叉树<del>（废话）</del>。</p>
+<p>说它特殊，是因为他的每一个结点不只代表一个数，而是代表一段区间。</p>
+<p>就像下图：</p>
+<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
+<p>在上图中，树上的根节点代表整个序列之和（ps. [0 , 12]）</p>
+<p>树上每一个结点下面的[begin , end]代表下面的黄色点中相应区间的和。</p>
+<p>每一层向下分裂时，都把本层的区间拆为两部分，直到拆到不能再拆为止，不能再拆的部分就成了树的叶子结点，叶子结点代表单个元素。</p>
+<p>（ps.这就是为什么树上的叶子结点与下面的黄色点一一对应。）</p>
+<p>同样，线段树的每一颗子树也是一颗线段树。</p>
+<hr>
+<h3 id="线段树的基本操作："><a href="#线段树的基本操作：" class="headerlink" title="线段树的基本操作："></a>线段树的基本操作：</h3><p>跟其他数据结构一样，线段树也有它的基本操作。下面，我们就来看看。</p>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>在前面我们已经说过，线段树的每一个节点代表的不仅仅是一个数，而是一段区间</p>
+<p>那么……</p>
+<p>我们如何去查找一段区间的和呐？</p>
+<p>或者说……</p>
+<p>我们是不是<strong>不用遍历区间内的每一个叶子节点</strong>就能查找到区间之和呐？</p>
+<p>答案是肯定的。</p>
+<p>因为线段树中一个节点代表的是一段区间</p>
+<p>因此……</p>
+<p>如果两个节点都包含在所要搜索的区间之内，仅仅<strong>搜到它们的父节点</strong>即可得出答案。</p>
+<p>之后把所有搜到的节点的值相加，即可得出答案</p>
+<p>可以证明，拆分出区间的数量为$O(log n)$</p>
+<p>来看这个图：</p>
+<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
+<p>下面我们要查找[1 , 6]的区间范围和</p>
+<p>首先，我们从根节点开始遍历，在遍历[1 , 1]时，需要遍历到叶子结点。</p>
+<p><a href="https://imgchr.com/i/keXl8I" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/keXl8I.png" alt="keXl8I.png"></a></p>
+<p>但之后在遍历[2 , 3]时，就没那么麻烦了，直接到父节点遍历即可</p>
+<p><a href="https://imgchr.com/i/keX4R1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/keX4R1.png" alt="keX4R1.png"></a></p>
+<p>[4 , 6]更加快捷，直接遍历到第三层即可</p>
+<p><a href="https://imgchr.com/i/kmpys1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmpys1.png" alt="kmpys1.png"></a></p>
+<p>最后，把每一次的结果加起来，就是最后的结果了。</p>
+<p><del>是不是很简单（逃）</del></p>
+<hr>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><p>线段树每个节点表示的是一段区间，因此，像普通二叉树那样直接修改节点是不行的。</p>
+<p>但是……</p>
+<p>线段树的每一个叶子节点仅代表了一个数啊QvQ</p>
+<p>所以，我们可以<strong>从最简单的叶子节点入手</strong>，修改后更新它的每一个父节点，再继续更新父节点的父节点，再继续更新他的父节点的父节点的父节点 …… 直到更新到根节点为止。</p>
+<p>每一次修改，更新的节点数最多为树高。</p>
+<p>很显然，时间复杂度为$O(log n)$</p>
+<p>来看这个图：</p>
+<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
+<p>现在我们来把[3 , 3]的值改成5。</p>
+<p>首先， 我们先遍历到[3 , 3]，并把它改为5</p>
+<p><a href="https://imgchr.com/i/km8RTf" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km8RTf.png" alt="km8RTf.png"></a></p>
+<p>之后回溯，到它的父节点[2 , 3]，并把父节点的值改为71</p>
+<p><a href="https://imgchr.com/i/km820P" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km820P.png" alt="km820P.png"></a></p>
+<p>继续回溯，直到改完根节点为止。下面是成品图：</p>
+<p><a href="https://imgchr.com/i/km8gmt" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km8gmt.png" alt="km8gmt.png"></a></p>
+<p><del>好像也不难吧（逃 X2）</del></p>
+<hr>
+<h4 id="区间修改"><a href="#区间修改" class="headerlink" title="区间修改"></a>区间修改</h4><p>现在，我们已经知道如何修改线段树中单个叶子节点的值了</p>
+<p>那……</p>
+<p>如果给你一个<em>begin</em>和一个<em>end</em>，要求在[begin , end]中的每个元素+2，你怎样修改这整个区间的值呐？（<em>ps.</em>一个个修改会TLE哦）</p>
+<p>其实……</p>
+<p>我们可以<strong>把要修改的区间拆分成少量的节点，把修改的数直接修改在这些节点上</strong>就可以了。</p>
+<p>就像下图：</p>
+<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
+<p>现在，我们把区间[0 , 5]的值全部改为 1</p>
+<p>首先，在第二层，我们把代表[0 , 3]区间的点变成 1</p>
+<p><a href="https://imgchr.com/i/kmtzUx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtzUx.png" alt="kmtzUx.png"></a></p>
+<p>之后，在第三层，我们把代表[4 , 5]区间的点变成 1</p>
+<p><a href="https://imgchr.com/i/kmtXr9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtXr9.png" alt="kmtXr9.png"></a></p>
+<p>最后我们向上回溯，更新上面的节点，直到回溯至根节点。</p>
+<p><a href="https://imgchr.com/i/kmtxV1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtxV1.png" alt="kmtxV1.png"></a></p>
+<p>这样，我们就完成了对线段树区间的修改。</p>
+<p><del>应该不算多难吧(逃 X3)</del></p>
+<hr>
+<p>#### </p>
+
       
     </div>
 
@@ -492,9 +579,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/STL/" rel="tag"># STL</a>
-          
-            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -507,14 +592,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/01/23/STL/" rel="next" title="STL-常用STL（NOIP提高组）">
+                <i class="fa fa-chevron-left"></i> STL-常用STL（NOIP提高组）
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/22/Title/" rel="prev" title="数据结构-堆">
-                数据结构-堆 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/25/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -650,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SORT"><span class="nav-number">1.</span> <span class="nav-text">SORT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置"><span class="nav-number">1.1.</span> <span class="nav-text">前置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">1.2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和其他STL搭配"><span class="nav-number">1.3.</span> <span class="nav-text">和其他STL搭配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIQUE"><span class="nav-number">2.</span> <span class="nav-text">UNIQUE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置-1"><span class="nav-number">2.1.</span> <span class="nav-text">前置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法-1"><span class="nav-number">2.2.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始约定："><span class="nav-number">2.</span> <span class="nav-text">初始约定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为线段树？"><span class="nav-number">3.</span> <span class="nav-text">何为线段树？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线段树的基本操作："><span class="nav-number">4.</span> <span class="nav-text">线段树的基本操作：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询"><span class="nav-number">4.1.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改"><span class="nav-number">4.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区间修改"><span class="nav-number">4.3.</span> <span class="nav-text">区间修改</span></a></li></ol></li></ol></div>
             
 
           </div>
