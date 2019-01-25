@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZFptO.png">
-<meta property="og:updated_time" content="2019-01-24T03:34:56.000Z">
+<meta property="og:updated_time" content="2019-01-25T12:55:22.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STL-常用STL（NOIP提高组）">
 <meta name="twitter:description" content="把STL放在心底，永远都有惊喜                      ——《Tonight Forever》">
@@ -424,7 +424,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-24 11:34:56" itemprop="dateModified" datetime="2019-01-24T11:34:56+08:00">2019-01-24</time>
+                <time title="修改时间：2019-01-25 20:55:22" itemprop="dateModified" datetime="2019-01-25T20:55:22+08:00">2019-01-25</time>
               
             
           </span>
@@ -491,7 +491,7 @@
 </blockquote>
 <p>其中，我们数组的下标就是一个随机访问迭代器，所有的指针也都是随机访问迭代器。</p>
 <hr>
-<h3 id="Alogrithm库"><a href="#Alogrithm库" class="headerlink" title="Alogrithm库"></a>Alogrithm库</h3><p>依稀记得</p>
+<h3 id="Algorithm库"><a href="#Algorithm库" class="headerlink" title="Algorithm库"></a>Algorithm库</h3><p>依稀记得</p>
 <p>在$NOIP2018$前一秒</p>
 <p>我还没背下来这个头文件</p>
 <p>但这个头文件里真的有许多好用的模板。</p>
@@ -513,7 +513,7 @@
 <h4 id="Swap"><a href="#Swap" class="headerlink" title="Swap"></a>Swap</h4><p>这个函数用于交换两个变量的值</p>
 <p>模板如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line">swap(a , b);</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为$O(n)$</p>
+<p>时间复杂度为$O(1)$</p>
 <hr>
 <h4 id="Fill"><a href="#Fill" class="headerlink" title="Fill"></a>Fill</h4><p>这个函数用于向一个区间内填充指定的值</p>
 <p>模板如下：</p>
@@ -564,7 +564,7 @@
 <p>比如说</p>
 <p>1 ，2 ，3 ，4的全排列如下图</p>
 <p><a href="https://imgchr.com/i/kZFptO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZFptO.png" alt="kZFptO.png"></a></p>
-<p>代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>] = &#123;<span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span>&#125;;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt;<span class="built_in">endl</span>;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">while</span>(next_permutation(a, a + <span class="number">4</span>));</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
+<p>代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>] = &#123;<span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span>&#125;;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="built_in">endl</span>;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">while</span>(next_permutation(a, a + <span class="number">4</span>));</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
 <h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
       
     </div>
@@ -750,7 +750,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始约定"><span class="nav-number">2.</span> <span class="nav-text">初始约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器"><span class="nav-number">3.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alogrithm库"><span class="nav-number">4.</span> <span class="nav-text">Alogrithm库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX-amp-MIN"><span class="nav-number">4.1.</span> <span class="nav-text">MAX &amp; MIN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX-element-amp-MIN-element"><span class="nav-number">4.2.</span> <span class="nav-text">MAX_element &amp; MIN_element</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Swap"><span class="nav-number">4.3.</span> <span class="nav-text">Swap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fill"><span class="nav-number">4.4.</span> <span class="nav-text">Fill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Random-shuffle"><span class="nav-number">4.5.</span> <span class="nav-text">Random_shuffle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sort"><span class="nav-number">4.6.</span> <span class="nav-text">Sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unique"><span class="nav-number">4.7.</span> <span class="nav-text">Unique</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next-permutation"><span class="nav-number">4.8.</span> <span class="nav-text">Next_permutation</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#未完待续"><span class="nav-number"></span> <span class="nav-text">未完待续</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始约定"><span class="nav-number">2.</span> <span class="nav-text">初始约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器"><span class="nav-number">3.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Algorithm库"><span class="nav-number">4.</span> <span class="nav-text">Algorithm库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX-amp-MIN"><span class="nav-number">4.1.</span> <span class="nav-text">MAX &amp; MIN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MAX-element-amp-MIN-element"><span class="nav-number">4.2.</span> <span class="nav-text">MAX_element &amp; MIN_element</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Swap"><span class="nav-number">4.3.</span> <span class="nav-text">Swap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fill"><span class="nav-number">4.4.</span> <span class="nav-text">Fill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Random-shuffle"><span class="nav-number">4.5.</span> <span class="nav-text">Random_shuffle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sort"><span class="nav-number">4.6.</span> <span class="nav-text">Sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unique"><span class="nav-number">4.7.</span> <span class="nav-text">Unique</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next-permutation"><span class="nav-number">4.8.</span> <span class="nav-text">Next_permutation</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#未完待续"><span class="nav-number"></span> <span class="nav-text">未完待续</span></a></li></div>
             
 
           </div>
