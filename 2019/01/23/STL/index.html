@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZFptO.png">
-<meta property="og:updated_time" content="2019-01-25T12:55:22.619Z">
+<meta property="og:updated_time" content="2019-02-04T15:44:58.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STL-常用STL（NOIP提高组）">
 <meta name="twitter:description" content="把STL放在心底，永远都有惊喜                      ——《Tonight Forever》">
@@ -424,7 +424,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-25 20:55:22" itemprop="dateModified" datetime="2019-01-25T20:55:22+08:00">2019-01-25</time>
+                <time title="修改时间：2019-02-04 23:44:58" itemprop="dateModified" datetime="2019-02-04T23:44:58+08:00">2019-02-04</time>
               
             
           </span>
@@ -477,7 +477,7 @@
 </blockquote>
 <p>emm……</p>
 <p>这是什么鬼玩意……</p>
-<p>太令人懵逼了吧……</p>
+<p>不看了……</p>
 <p>其实，迭代器就是一个用来指示容器中元素位置的数据，就像数组的下标，可以指示某一个元素在数组中的位置。</p>
 <p>迭代器分为5种，分别是：</p>
 <blockquote>
@@ -527,8 +527,8 @@
 <p>fill函数是把数组中的每一个元素填充为指定的数值，</p>
 <p>而memset是逐字节填充。</p>
 <p>因此</p>
-<p>memset仅可以填充0 与 -1</p>
-<p>而fill可以填充每一个数字甚至字符。</p>
+<p>memset在填充较大的数值时很容易出锅……</p>
+<p>而fill不会。</p>
 <p>（ps.整段翻译成人话就是大部分情况下用fill就好啦 QvQ）</p>
 <hr>
 <h4 id="Random-shuffle"><a href="#Random-shuffle" class="headerlink" title="Random_shuffle"></a>Random_shuffle</h4><p>这个函数可以把一个给定区间的值全部随机排列。</p>
@@ -565,6 +565,7 @@
 <p>1 ，2 ，3 ，4的全排列如下图</p>
 <p><a href="https://imgchr.com/i/kZFptO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZFptO.png" alt="kZFptO.png"></a></p>
 <p>代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">4</span>] = &#123;<span class="number">1</span> , <span class="number">2</span> , <span class="number">3</span> , <span class="number">4</span>&#125;;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="built_in">endl</span>;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">while</span>(next_permutation(a, a + <span class="number">4</span>));</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
+<p>时间复杂度为$O(n!)$</p>
 <h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
       
     </div>
@@ -687,7 +688,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

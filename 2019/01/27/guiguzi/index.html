@@ -96,40 +96,25 @@
 
 
 
-  <meta name="description" content="高斯费马，树上开花">
-<meta name="keywords" content="数据结构">
+  <meta name="description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
+<meta name="keywords" content="题解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构-线段树">
-<meta property="og:url" content="http://payphone-x.github.io/2019/01/24/Tree/index.html">
+<meta property="og:title" content="HNOI 2006 鬼谷子的钱袋-题解">
+<meta property="og:url" content="http://payphone-x.github.io/2019/01/27/guiguzi/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="高斯费马，树上开花">
+<meta property="og:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/keXl8I.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/keX4R1.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmpys1.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km8RTf.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km820P.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/km8gmt.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZgrhd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtzUx.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtXr9.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/25/kmtxV1.png">
-<meta property="og:updated_time" content="2019-01-25T09:05:31.026Z">
+<meta property="og:updated_time" content="2019-01-27T08:59:51.967Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构-线段树">
-<meta name="twitter:description" content="高斯费马，树上开花">
-<meta name="twitter:image" content="https://s1.ax2x.com/2019/01/23/5jEGTp.png">
+<meta name="twitter:title" content="HNOI 2006 鬼谷子的钱袋-题解">
+<meta name="twitter:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/01/24/Tree/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/01/27/guiguzi/">
 
 
 
@@ -139,7 +124,7 @@
   };
 </script>
 
-  <title>数据结构-线段树 | PayPhone-X's Blog</title>
+  <title>HNOI 2006 鬼谷子的钱袋-题解 | PayPhone-X's Blog</title>
   
 
 
@@ -376,7 +361,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/24/Tree/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/27/guiguzi/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -393,7 +378,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构-线段树
+          <h1 class="post-title" itemprop="name headline">HNOI 2006 鬼谷子的钱袋-题解
 
               
             
@@ -419,24 +404,12 @@
                 
               
 
-              <time title="创建时间：2019-01-24 13:51:40" itemprop="dateCreated datePublished" datetime="2019-01-24T13:51:40+08:00">2019-01-24</time>
+              <time title="创建时间：2019-01-27 16:39:40 / 修改时间：16:59:51" itemprop="dateCreated datePublished" datetime="2019-01-27T16:39:40+08:00">2019-01-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-25 17:05:31" itemprop="dateModified" datetime="2019-01-25T17:05:31+08:00">2019-01-25</time>
               
             
           </span>
@@ -469,93 +442,48 @@
       
 
       
-        <p>高斯费马，树上开花</p>
-<a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在昨天(2019/1/23)晚上的数论 &amp; 图论爆炸后，作者开始接受线段树的洗礼……</p>
-<hr>
-<h3 id="初始约定："><a href="#初始约定：" class="headerlink" title="初始约定："></a>初始约定：</h3><p>在本文中，很多时候会出现[begin , end]</p>
-<p>这表示一段数组上的区间：从begin 到 end</p>
-<p>其中，begin为开头，end为结尾。</p>
-<p>就像下图：</p>
-<p><a href="https://imgse.com/i/5jEGTp" target="_blank" rel="noopener"><img src="https://s1.ax2x.com/2019/01/23/5jEGTp.png" alt="5jEGTp.png"></a></p>
-<p>但值得一提的是，<strong>begin在这个区间内，但end不在</strong>。</p>
-<hr>
-<h3 id="何为线段树？"><a href="#何为线段树？" class="headerlink" title="何为线段树？"></a>何为线段树？</h3><p>老惯例，先看百度百科：</p>
-<blockquote>
-<p>线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。<br>                                                                                      ——百度百科</p>
+        <blockquote>
+<p>钱？钱是什么？我对钱不感兴趣。我就没碰过钱。<br>                                         ——马云</p>
 </blockquote>
-<p>算了……</p>
-<p>不看了……</p>
-<p>还是看下通俗点的解释吧。</p>
-<p>线段树就是一种有点特殊的二叉树<del>（废话）</del>。</p>
-<p>说它特殊，是因为他的每一个结点不只代表一个数，而是代表一段区间。</p>
-<p>就像下图：</p>
-<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
-<p>在上图中，树上的根节点代表整个序列之和（ps. [0 , 12]）</p>
-<p>树上每一个结点下面的[begin , end]代表下面的黄色点中相应区间的和。</p>
-<p>每一层向下分裂时，都把本层的区间拆为两部分，直到拆到不能再拆为止，不能再拆的部分就成了树的叶子结点，叶子结点代表单个元素。</p>
-<p>（ps.这就是为什么树上的叶子结点与下面的黄色点一一对应。）</p>
-<p>同样，线段树的每一颗子树也是一颗线段树。</p>
+<a id="more"></a>
+<h3 id="题意描述："><a href="#题意描述：" class="headerlink" title="题意描述："></a>题意描述：</h3><p>鬼谷子非常聪明，正因为这样，他非常繁忙，经常有各诸侯车的特派员前来向他咨询时政。</p>
+<p>有一天，朋友告诉他在咸阳最大的拍卖行（聚宝商行）将要举行一场拍卖会，其中有一件宝物引起了他极大的兴趣，那就是无字天书。</p>
+<p>但是，他的行程安排得很满，他已经买好了去邯郸的长途马车票，不巧的是出发时间是在拍卖会快要结束的时候。</p>
+<p>于是，他决定事先做好准备，将自己的金币数好并用一个个的小钱袋装好，以便在他现有金币的支付能力下，任何数目的金币他都能用这些封闭好的小钱的组合来付账。</p>
+<p>鬼谷子也是一个非常节俭的人，他想方设法使自己在满足上述要求的前提下，所用的钱袋数最少，并且不有两个钱袋装有相同的大于1的金币数。</p>
+<p>假设他有m个金币，你能猜到他会用多少个钱袋，并且每个钱袋装多少个金币吗？</p>
 <hr>
-<h3 id="线段树的基本操作："><a href="#线段树的基本操作：" class="headerlink" title="线段树的基本操作："></a>线段树的基本操作：</h3><p>跟其他数据结构一样，线段树也有它的基本操作。下面，我们就来看看。</p>
-<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>在前面我们已经说过，线段树的每一个节点代表的不仅仅是一个数，而是一段区间</p>
-<p>那么……</p>
-<p>我们如何去查找一段区间的和呐？</p>
-<p>或者说……</p>
-<p>我们是不是<strong>不用遍历区间内的每一个叶子节点</strong>就能查找到区间之和呐？</p>
-<p>答案是肯定的。</p>
-<p>因为线段树中一个节点代表的是一段区间</p>
-<p>因此……</p>
-<p>如果两个节点都包含在所要搜索的区间之内，仅仅<strong>搜到它们的父节点</strong>即可得出答案。</p>
-<p>之后把所有搜到的节点的值相加，即可得出答案</p>
-<p>可以证明，拆分出区间的数量为$O(log n)$</p>
-<p>来看这个图：</p>
-<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
-<p>下面我们要查找[1 , 6]的区间范围和</p>
-<p>首先，我们从根节点开始遍历，在遍历[1 , 1]时，需要遍历到叶子结点。</p>
-<p><a href="https://imgchr.com/i/keXl8I" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/keXl8I.png" alt="keXl8I.png"></a></p>
-<p>但之后在遍历[2 , 3]时，就没那么麻烦了，直接到父节点遍历即可</p>
-<p><a href="https://imgchr.com/i/keX4R1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/keX4R1.png" alt="keX4R1.png"></a></p>
-<p>[4 , 6]更加快捷，直接遍历到第三层即可</p>
-<p><a href="https://imgchr.com/i/kmpys1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmpys1.png" alt="kmpys1.png"></a></p>
-<p>最后，把每一次的结果加起来，就是最后的结果了。</p>
-<p><del>是不是很简单（逃）</del></p>
+<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>包含一个整数，表示鬼谷子现有的总的金币数目m。</p>
 <hr>
-<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><p>线段树每个节点表示的是一段区间，因此，像普通二叉树那样直接修改节点是不行的。</p>
-<p>但是……</p>
-<p>线段树的每一个叶子节点仅代表了一个数啊QvQ</p>
-<p>所以，我们可以<strong>从最简单的叶子节点入手</strong>，修改后更新它的每一个父节点，再继续更新父节点的父节点，再继续更新他的父节点的父节点的父节点 …… 直到更新到根节点为止。</p>
-<p>每一次修改，更新的节点数最多为树高。</p>
-<p>很显然，时间复杂度为$O(log n)$</p>
-<p>来看这个图：</p>
-<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
-<p>现在我们来把[3 , 3]的值改成5。</p>
-<p>首先， 我们先遍历到[3 , 3]，并把它改为5</p>
-<p><a href="https://imgchr.com/i/km8RTf" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km8RTf.png" alt="km8RTf.png"></a></p>
-<p>之后回溯，到它的父节点[2 , 3]，并把父节点的值改为71</p>
-<p><a href="https://imgchr.com/i/km820P" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km820P.png" alt="km820P.png"></a></p>
-<p>继续回溯，直到改完根节点为止。下面是成品图：</p>
-<p><a href="https://imgchr.com/i/km8gmt" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/km8gmt.png" alt="km8gmt.png"></a></p>
-<p><del>好像也不难吧（逃 X2）</del></p>
+<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>两行，第一行一个整数h，表示所用钱袋个数</p>
+<p>第二行表示每个钱袋所装的金币个数，由小到大输出，空格隔开。</p>
 <hr>
-<h4 id="区间修改"><a href="#区间修改" class="headerlink" title="区间修改"></a>区间修改</h4><p>现在，我们已经知道如何修改线段树中单个叶子节点的值了</p>
+<h3 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h3><h5 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h5><blockquote>
+<p>3</p>
+</blockquote>
+<h5 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h5><blockquote>
+<p>2<br>1 2</p>
+</blockquote>
+<hr>
+<h3 id="数据范围和约定："><a href="#数据范围和约定：" class="headerlink" title="数据范围和约定："></a>数据范围和约定：</h3><p>对于$100%$的数据，$1 \leq m \leq 1000000000$(ps.10的9次方)。</p>
+<hr>
+<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p><del>一道二分水题（逃）</del></p>
+<p>可以脑补一下，如果m为40，我们需要表示哪些数呐？</p>
+<p>是不是只用表示0 ~ 20就可以啦！</p>
+<p>你看</p>
+<p>40可以表示为20 + 10 + 9 + 1（当然还可以表示成别的……）</p>
+<p>39可以表示为20 + 10 + 8 + 1</p>
+<p>……</p>
+<p>21可以表示为20 + 1</p>
 <p>那……</p>
-<p>如果给你一个<em>begin</em>和一个<em>end</em>，要求在[begin , end]中的每个元素+2，你怎样修改这整个区间的值呐？（<em>ps.</em>一个个修改会TLE哦）</p>
-<p>其实……</p>
-<p>我们可以<strong>把要修改的区间拆分成少量的节点，把修改的数直接修改在这些节点上</strong>就可以了。</p>
-<p>就像下图：</p>
-<p><a href="https://imgchr.com/i/kZgrhd" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/24/kZgrhd.png" alt="kZgrhd.png"></a></p>
-<p>现在，我们把区间[0 , 5]的值全部改为 1</p>
-<p>首先，在第二层，我们把代表[0 , 3]区间的点变成 1</p>
-<p><a href="https://imgchr.com/i/kmtzUx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtzUx.png" alt="kmtzUx.png"></a></p>
-<p>之后，在第三层，我们把代表[4 , 5]区间的点变成 1</p>
-<p><a href="https://imgchr.com/i/kmtXr9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtXr9.png" alt="kmtXr9.png"></a></p>
-<p>最后我们向上回溯，更新上面的节点，直到回溯至根节点。</p>
-<p><a href="https://imgchr.com/i/kmtxV1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/01/25/kmtxV1.png" alt="kmtxV1.png"></a></p>
-<p>这样，我们就完成了对线段树区间的修改。</p>
-<p><del>应该不算多难吧(逃 X3)</del></p>
+<p>如果要表示0 ~ 20，我们是不是只用表示0 ~ 10就可以啦！</p>
+<p>同理 0 ~ 10可以用0 ~ 5表示 ; 0 ~ 5可以用0 ~ 3表示。</p>
+<p>所以，<strong>n以内的数字可以用 1 到n / 2的数字表示 ，n / 2以内的数字又可以用到n / 4以内的数字表示……</strong></p>
+<p>是不是很简单啊（逃）</p>
 <hr>
-
+<h3 id="附件（AC标称，防作弊已开启）"><a href="#附件（AC标称，防作弊已开启）" class="headerlink" title="附件（AC标称，防作弊已开启）"></a>附件（AC标称，防作弊已开启）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algirothm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000001</span>];</span><br><span class="line"><span class="keyword">int</span> m, h = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">	<span class="keyword">while</span>(m &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(m % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">			m = m / <span class="number">2</span>;</span><br><span class="line">			a[h] = m;</span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			a[h] = m / <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">			m = m / <span class="number">2</span>; </span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	h --</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; h &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	sort(a + <span class="number">1</span>, a + <span class="number">1</span> + h);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= h; i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
     </div>
 
@@ -578,7 +506,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/题解/" rel="tag"># 题解</a>
           
         </div>
       
@@ -591,8 +519,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/23/STL/" rel="next" title="STL-常用STL（NOIP提高组）">
-                <i class="fa fa-chevron-left"></i> STL-常用STL（NOIP提高组）
+              <a href="/2019/01/25/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -600,10 +528,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/25/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -738,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始约定："><span class="nav-number">2.</span> <span class="nav-text">初始约定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为线段树？"><span class="nav-number">3.</span> <span class="nav-text">何为线段树？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线段树的基本操作："><span class="nav-number">4.</span> <span class="nav-text">线段树的基本操作：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询"><span class="nav-number">4.1.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改"><span class="nav-number">4.2.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区间修改"><span class="nav-number">4.3.</span> <span class="nav-text">区间修改</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意描述："><span class="nav-number">1.</span> <span class="nav-text">题意描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-Output-‘s-examples"><span class="nav-number">4.</span> <span class="nav-text">Input &amp; Output ‘s examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Input-‘s-eg"><span class="nav-number">4.0.1.</span> <span class="nav-text">Input ‘s eg</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Output-‘s-eg"><span class="nav-number">4.0.2.</span> <span class="nav-text">Output ‘s eg</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#数据范围和约定："><span class="nav-number">5.</span> <span class="nav-text">数据范围和约定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析："><span class="nav-number">6.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（AC标称，防作弊已开启）"><span class="nav-number">7.</span> <span class="nav-text">附件（AC标称，防作弊已开启）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
