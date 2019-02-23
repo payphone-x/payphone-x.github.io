@@ -96,25 +96,29 @@
 
 
 
-  <meta name="description" content="学好OI的基础是文化课                  ——唐sir">
-<meta name="keywords" content="文化课专栏,灌水区">
+  <meta name="description" content="知道Floyd的精神分析吗？">
+<meta name="keywords" content="图论,学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文化课 GO">
-<meta property="og:url" content="http://payphone-x.github.io/2019/02/12/wen-hua-ke-start/index.html">
+<meta property="og:title" content="图论算法-Floyd">
+<meta property="og:url" content="http://payphone-x.github.io/2019/02/23/Floyd/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="学好OI的基础是文化课                  ——唐sir">
+<meta property="og:description" content="知道Floyd的精神分析吗？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-12T07:53:37.086Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/23/khGAf0.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/23/khG3fx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/23/khJlDg.png">
+<meta property="og:updated_time" content="2019-02-23T08:14:49.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文化课 GO">
-<meta name="twitter:description" content="学好OI的基础是文化课                  ——唐sir">
+<meta name="twitter:title" content="图论算法-Floyd">
+<meta name="twitter:description" content="知道Floyd的精神分析吗？">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/23/khGAf0.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/02/12/wen-hua-ke-start/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/02/23/Floyd/">
 
 
 
@@ -124,7 +128,7 @@
   };
 </script>
 
-  <title>文化课 GO | PayPhone-X's Blog</title>
+  <title>图论算法-Floyd | PayPhone-X's Blog</title>
   
 
 
@@ -361,7 +365,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/02/12/wen-hua-ke-start/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/02/23/Floyd/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -378,7 +382,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">文化课 GO
+          <h1 class="post-title" itemprop="name headline">图论算法-Floyd
 
               
             
@@ -404,7 +408,7 @@
                 
               
 
-              <time title="创建时间：2019-02-12 15:27:14 / 修改时间：15:53:37" itemprop="dateCreated datePublished" datetime="2019-02-12T15:27:14+08:00">2019-02-12</time>
+              <time title="创建时间：2019-02-23 14:47:03 / 修改时间：16:14:49" itemprop="dateCreated datePublished" datetime="2019-02-23T14:47:03+08:00">2019-02-23</time>
             
 
             
@@ -442,20 +446,45 @@
       
 
       
-        <blockquote>
-<p>学好OI的基础是文化课<br>                  ——唐sir</p>
-</blockquote>
+        <p>知道Floyd的精神分析吗？</p>
 <a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经过一个假期的集训，Payphone-X发现自己太菜了。他想要变强！于是乎，他开始学习最短路。</p>
 <hr>
-<h1 id="文化课-GO"><a href="#文化课-GO" class="headerlink" title="文化课 GO"></a>文化课 GO</h1><p>咳咳……</p>
-<p>从今天开始，<em>Payphone-X</em>的文化课专栏要开始啦 <del>（虽然半个月前就该开始的个说）</del></p>
-<p>从此，作者的 <em>Blog</em>将要加入一部分文化课知识</p>
-<p>难度大概是<strong>初三复习中比较容易错的题目</strong>，<del>应该不会太难吧</del></p>
-<p>喜欢颓文化课的中考党们看过来啊</p>
-<p>当然了，也不要把本栏想的太过于正经了，很多毒瘤题目or题解也会一并刊登于文化课专栏中。</p>
-<p>更新时间嘛……尽量做到一周一更吧（机房有唐，班里有宋，在家还不让碰电脑QAQ）</p>
-<p>最后，祝大家文化课成绩像下面的代码一样<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> score;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    score ++;</span><br><span class="line">&#125;</span><br><span class="line">（没有<span class="keyword">return</span> <span class="number">0</span>哦）</span><br></pre></td></tr></table></figure></p>
-
+<h3 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h3><p>在开始最短路的学习之前，我们不妨看一道题目</p>
+<p><a href="https://imgchr.com/i/khGAf0" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/23/khGAf0.jpg" alt="khGAf0.jpg"></a></p>
+<p>暑假，小哼准备去一些城市旅游。</p>
+<p>在他旅行之前，他提前查了一下地图，发现有些城市之间有公路，有些城市之间则没有，城市之间的公路长度也不一样。</p>
+<p>地图如下</p>
+<p><a href="https://imgchr.com/i/khG3fx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/23/khG3fx.png" alt="khG3fx.png"></a></p>
+<p>为了节省经费以及方便计划，小哼希望在出发之前知道<strong>任意两个城市之间的最短路程</strong>。</p>
+<p>聪明的你，能帮帮可爱的小哼吗？</p>
+<p>（ps.最短路的所有题目不遵循三角不等式，so不要讽刺作者的数学了）</p>
+<hr>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><p>看完地图之后，是不是有了点想法。</p>
+<p>是不是觉得对每两个点跑dfs一遍就行了？</p>
+<p>嗯……</p>
+<p><del>你会TLE到飞起</del></p>
+<p>所以，还有别的办法吗？</p>
+<p>想一想……</p>
+<p>如果我们想让两个点的路径更短，是不是可以尝试一下引入第三个点？</p>
+<p>就像下图</p>
+<p><a href="https://imgchr.com/i/khJlDg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/23/khJlDg.png" alt="khJlDg.png"></a></p>
+<p>如果我们从A到C，再从 C到B，是不是比直接从A到B的距离更短。</p>
+<p>这，就是Floyd算法的核心。</p>
+<hr>
+<h3 id="Floyd的算法实现"><a href="#Floyd的算法实现" class="headerlink" title="Floyd的算法实现"></a>Floyd的算法实现</h3><p>Floyd算法的强大之处在于它是四大最短路算法中唯一一个求<strong>多元最短路</strong>的算法 </p>
+<p>额……</p>
+<p>好像忘了科普多元最短路了。</p>
+<p>最短路算法分为<strong>单元最短路</strong>与<strong>多元最短路</strong></p>
+<p>单元最短路指<strong>从一个点到除它以外所有点的最短路</strong>，而多元最短路指<strong>从每个点到除它以外所有点的最短路</strong></p>
+<p>而Floyd是唯一一个求多元最短路的算法。</p>
+<p>并且Floyd算法实现难度很低，只有3个循环与一个if语句。</p>
+<p>代码如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k =  <span class="number">1</span>; k &lt;= n; k++)&#123;   <span class="comment">//枚举中间的城市</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;    <span class="comment">//枚举起点城市</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)&#123;    <span class="comment">//枚举终点城市</span></span><br><span class="line">            <span class="keyword">if</span>(w[i][j] &gt; w[i][k] + w[k][j])&#123;    <span class="comment">//w[i][j]表示从i到j的最短路</span></span><br><span class="line">                w[i][j] = w[i][k] + w[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，Floyd也可以用来判断两个点是否连通，只需要稍加修改一下if之中的语句即可。</p>
+<p>时间复杂度为$O(n^3)$</p>
+<hr>
+<h3 id="附件-Floyd模板"><a href="#附件-Floyd模板" class="headerlink" title="附件(Floyd模板)"></a>附件(Floyd模板)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> a, b,chang;</span><br><span class="line"><span class="keyword">int</span> w[<span class="number">1000</span>][<span class="number">1000</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; chang;</span><br><span class="line">		 w[a][b] = chang;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(w[i][j] &gt; w[i][k] + w[k][j])&#123;</span><br><span class="line">					w[i][j] = w[i][k] + w[k][j];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; w[i][j] &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
     </div>
 
@@ -478,9 +507,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/文化课专栏/" rel="tag"># 文化课专栏</a>
+            <a href="/tags/图论/" rel="tag"># 图论</a>
           
-            <a href="/tags/灌水区/" rel="tag"># 灌水区</a>
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
           
         </div>
       
@@ -493,8 +522,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/27/HNOI2006/" rel="next" title="【HNOI】 2006 鬼谷子的钱袋-题解">
-                <i class="fa fa-chevron-left"></i> 【HNOI】 2006 鬼谷子的钱袋-题解
+              <a href="/2019/02/17/luoguP4643/" rel="next" title="【国家集训队】阿狸和桃子的游戏-题解">
+                <i class="fa fa-chevron-left"></i> 【国家集训队】阿狸和桃子的游戏-题解
               </a>
             
           </div>
@@ -502,10 +531,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/12/English-1/" rel="prev" title="文化课专栏-英语篇(1)">
-                文化课专栏-英语篇(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -656,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文化课-GO"><span class="nav-number">1.</span> <span class="nav-text">文化课 GO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入"><span class="nav-number">2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析"><span class="nav-number">3.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Floyd的算法实现"><span class="nav-number">4.</span> <span class="nav-text">Floyd的算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件-Floyd模板"><span class="nav-number">5.</span> <span class="nav-text">附件(Floyd模板)</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
