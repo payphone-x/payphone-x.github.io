@@ -96,25 +96,27 @@
 
 
 
-  <meta name="description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
-<meta name="keywords" content="题解,二分,各省省选">
+  <meta name="description" content="谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？">
+<meta name="keywords" content="图论,学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【HNOI】 2006 鬼谷子的钱袋-题解">
-<meta property="og:url" content="http://payphone-x.github.io/2019/01/27/HNOI2006/index.html">
+<meta property="og:title" content="图论算法-Dijkstra">
+<meta property="og:url" content="http://payphone-x.github.io/2019/02/27/Dijkstra/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
+<meta property="og:description" content="谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-23T03:05:47.658Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/27/kTRx54.png">
+<meta property="og:updated_time" content="2019-02-27T13:58:48.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【HNOI】 2006 鬼谷子的钱袋-题解">
-<meta name="twitter:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
+<meta name="twitter:title" content="图论算法-Dijkstra">
+<meta name="twitter:description" content="谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/27/kTRx54.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/01/27/HNOI2006/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/02/27/Dijkstra/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>【HNOI】 2006 鬼谷子的钱袋-题解 | PayPhone-X's Blog</title>
+  <title>图论算法-Dijkstra | PayPhone-X's Blog</title>
   
 
 
@@ -361,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/27/HNOI2006/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/02/27/Dijkstra/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -378,7 +380,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【HNOI】 2006 鬼谷子的钱袋-题解
+          <h1 class="post-title" itemprop="name headline">图论算法-Dijkstra
 
               
             
@@ -404,24 +406,12 @@
                 
               
 
-              <time title="创建时间：2019-01-27 16:39:40" itemprop="dateCreated datePublished" datetime="2019-01-27T16:39:40+08:00">2019-01-27</time>
+              <time title="创建时间：2019-02-27 19:18:25 / 修改时间：21:58:48" itemprop="dateCreated datePublished" datetime="2019-02-27T19:18:25+08:00">2019-02-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-23 11:05:47" itemprop="dateModified" datetime="2019-02-23T11:05:47+08:00">2019-02-23</time>
               
             
           </span>
@@ -454,48 +444,45 @@
       
 
       
-        <blockquote>
-<p>钱？钱是什么？我对钱不感兴趣。我就没碰过钱。<br>                                         ——马云</p>
-</blockquote>
+        <p>谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？</p>
 <a id="more"></a>
-<h3 id="题意描述："><a href="#题意描述：" class="headerlink" title="题意描述："></a>题意描述：</h3><p>鬼谷子非常聪明，正因为这样，他非常繁忙，经常有各诸侯车的特派员前来向他咨询时政。</p>
-<p>有一天，朋友告诉他在咸阳最大的拍卖行（聚宝商行）将要举行一场拍卖会，其中有一件宝物引起了他极大的兴趣，那就是无字天书。</p>
-<p>但是，他的行程安排得很满，他已经买好了去邯郸的长途马车票，不巧的是出发时间是在拍卖会快要结束的时候。</p>
-<p>于是，他决定事先做好准备，将自己的金币数好并用一个个的小钱袋装好，以便在他现有金币的支付能力下，任何数目的金币他都能用这些封闭好的小钱的组合来付账。</p>
-<p>鬼谷子也是一个非常节俭的人，他想方设法使自己在满足上述要求的前提下，所用的钱袋数最少，并且不有两个钱袋装有相同的大于1的金币数。</p>
-<p>假设他有m个金币，你能猜到他会用多少个钱袋，并且每个钱袋装多少个金币吗？</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末，<em>Payphone-X</em>学完了唯一的多元最短路，现在，他开始向单元最短路进击啦（给自己一个小小的鼓励）</p>
 <hr>
-<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>包含一个整数，表示鬼谷子现有的总的金币数目m。</p>
-<hr>
-<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>两行，第一行一个整数h，表示所用钱袋个数</p>
-<p>第二行表示每个钱袋所装的金币个数，由小到大输出，空格隔开。</p>
-<hr>
-<h3 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h3><h5 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h5><blockquote>
-<p>3</p>
+<h3 id="何为Dijkstra"><a href="#何为Dijkstra" class="headerlink" title="何为Dijkstra"></a>何为Dijkstra</h3><p>先看看百度百科对于Dijkstra的解释</p>
+<blockquote>
+<p>迪杰斯特拉算法是从一个顶点到其余各顶点的最短路径算法，解决的是有向图中最短路径问题。主要特点是以起始点为中心向外层扩展，直到扩展到终点为止。<br>                                                                                              ——百度百科</p>
 </blockquote>
-<h5 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h5><blockquote>
-<p>2<br>1 2</p>
-</blockquote>
-<hr>
-<h3 id="数据范围和约定："><a href="#数据范围和约定：" class="headerlink" title="数据范围和约定："></a>数据范围和约定：</h3><p>对于$100%$的数据，$1 \leq m \leq 1000000000$(ps.10的9次方)。</p>
-<hr>
-<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p><del>一道二分水题（逃）</del></p>
-<p>可以脑补一下，如果m为40，我们需要表示哪些数呐？</p>
-<p>是不是只用表示0 ~ 20就可以啦！</p>
-<p>你看</p>
-<p>40可以表示为20 + 10 + 9 + 1（当然还可以表示成别的……）</p>
-<p>39可以表示为20 + 10 + 8 + 1</p>
 <p>……</p>
-<p>21可以表示为20 + 1</p>
+<p>先不看了……</p>
+<p>度娘装高冷的毛病什么时候能改改啊……</p>
+<p>还是看看通俗点的解释吧</p>
+<p>在前边，我们已经学习了唯一的多元最短路，现在我们学习的<strong>Dijkstra是一种单元最短路算法</strong>。</p>
+<p>（不知道啥是单元最短路的请自觉滚回<a href="https://payphone-x.github.io/2019/02/23/Floyd/#more">Floyd</a>）</p>
+<p>时间复杂度为$O(n^2)$，比Floyd的暴力三循环快了好多的。</p>
+<p>但要注意，<strong>Dijkstra只适用于没有负边权的情况</strong>。也就是说，如果图中有一条边的边权为负数，就不可以使用Dijkstra了。</p>
+<hr>
+<h3 id="Dijkstra的算法实现"><a href="#Dijkstra的算法实现" class="headerlink" title="Dijkstra的算法实现"></a>Dijkstra的算法实现</h3><p>在讲算法实现之前，先上一组数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">6</span>    <span class="comment">// 5个点，6条边</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">4</span>     <span class="comment">//1与2之间有一条边权为4的边</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">2</span>     <span class="comment">//同上</span></span><br><span class="line"><span class="number">3</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>把图建出来大概是这样的</p>
+<p><a href="https://imgchr.com/i/kTRx54" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/27/kTRx54.png" alt="kTRx54.png"></a></p>
+<p>现在我们开始讲Dijkstra的算法实现。</p>
+<p>Dijkstra是一种类似于贪心的算法，步骤大概是下边这样：</p>
+<pre><code>1.选一个点做起始点。
+
+2.遍历与起始点相连的所有边，寻找出一条最短的记录下来。
+
+3.把这条边的另一个端点作为起始点，然后循环。
+</code></pre><p>下面我们来用数据模拟一下。</p>
+<p>首先，我们开一个number数组，用来存储1到点n的估计值。（说估计值是因为当前不一定是最短路，不理解的话一会就知道为什么了）</p>
+<p>之后，我们用一个邻接矩阵map存储点i到j的距离，并把map的所有元素初始化为无穷大。</p>
+<p>再定义一个minn，表示下一个起始点</p>
+<p>先从1号点开始，得到map[1][2] = 4, map[1][4] = 1，则number[2] = 4, number[4] = 1，3与5两个点没有搜索到，不更新，还是无穷大。</p>
+<p>很显然，现在的number数组还不是最终的答案。所以我们要进行第二次更新。</p>
 <p>那……</p>
-<p>如果要表示0 ~ 20，我们是不是只用表示0 ~ 10就可以啦！</p>
-<p>同理 0 ~ 10可以用0 ~ 5表示 ; 0 ~ 5可以用0 ~ 3表示。</p>
-<p>所以，<strong>n以内的数字可以用 1 到n / 2的数字表示 ，n / 2以内的数字又可以用到n / 4以内的数字表示……</strong></p>
-<p>是不是很简单啊（逃）</p>
-<hr>
-<h3 id="附件（AC标程，防作弊已开启）"><a href="#附件（AC标程，防作弊已开启）" class="headerlink" title="附件（AC标程，防作弊已开启）"></a>附件（AC标程，防作弊已开启）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algirothm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000001</span>];</span><br><span class="line"><span class="keyword">int</span> m, h = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">	<span class="keyword">while</span>(m &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(m % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">			m = m / <span class="number">2</span>;</span><br><span class="line">			a[h] = m;</span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			a[h] = m / <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">			m = m / <span class="number">2</span>; </span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	h --</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; h &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	sort(a + <span class="number">1</span>, a + <span class="number">1</span> + h);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= h; i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
+<p>为什么我们要把最短边的另一端点作为下一个起始点呐？</p>
+<p>想想看，如果我们把另一端点作为下一次搜索的起始点，就可以得到每一个点到该点的最短路。再加上从这一个端点到初始点的长度，就可以得到初始点到所有点的最短路啦</p>
+<p>之后不断循环</p>
+
       
     </div>
 
@@ -518,11 +505,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/题解/" rel="tag"># 题解</a>
+            <a href="/tags/图论/" rel="tag"># 图论</a>
           
-            <a href="/tags/二分/" rel="tag"># 二分</a>
-          
-            <a href="/tags/各省省选/" rel="tag"># 各省省选</a>
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
           
         </div>
       
@@ -535,8 +520,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/25/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2019/02/23/Floyd/" rel="next" title="图论算法-Floyd">
+                <i class="fa fa-chevron-left"></i> 图论算法-Floyd
               </a>
             
           </div>
@@ -544,10 +529,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/12/wen-hua-ke-start/" rel="prev" title="文化课 GO">
-                文化课 GO <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -698,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意描述："><span class="nav-number">1.</span> <span class="nav-text">题意描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-Output-‘s-examples"><span class="nav-number">4.</span> <span class="nav-text">Input &amp; Output ‘s examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Input-‘s-eg"><span class="nav-number">4.0.1.</span> <span class="nav-text">Input ‘s eg</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Output-‘s-eg"><span class="nav-number">4.0.2.</span> <span class="nav-text">Output ‘s eg</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#数据范围和约定："><span class="nav-number">5.</span> <span class="nav-text">数据范围和约定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析："><span class="nav-number">6.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（AC标程，防作弊已开启）"><span class="nav-number">7.</span> <span class="nav-text">附件（AC标程，防作弊已开启）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为Dijkstra"><span class="nav-number">2.</span> <span class="nav-text">何为Dijkstra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dijkstra的算法实现"><span class="nav-number">3.</span> <span class="nav-text">Dijkstra的算法实现</span></a></li></ol></div>
             
 
           </div>
