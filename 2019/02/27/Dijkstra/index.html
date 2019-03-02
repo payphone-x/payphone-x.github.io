@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
 <meta property="og:description" content="谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/02/27/kTRx54.png">
-<meta property="og:updated_time" content="2019-02-27T13:58:48.936Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/02/kqm14s.png">
+<meta property="og:updated_time" content="2019-03-02T11:52:36.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图论算法-Dijkstra">
 <meta name="twitter:description" content="谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/27/kTRx54.png">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/02/kqm14s.png">
 
 
 
@@ -406,12 +406,24 @@
                 
               
 
-              <time title="创建时间：2019-02-27 19:18:25 / 修改时间：21:58:48" itemprop="dateCreated datePublished" datetime="2019-02-27T19:18:25+08:00">2019-02-27</time>
+              <time title="创建时间：2019-02-27 19:18:25" itemprop="dateCreated datePublished" datetime="2019-02-27T19:18:25+08:00">2019-02-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-02 19:52:36" itemprop="dateModified" datetime="2019-03-02T19:52:36+08:00">2019-03-02</time>
               
             
           </span>
@@ -446,7 +458,7 @@
       
         <p>谁能告诉我这到底叫迪杰斯特拉还是叫迪杰克斯特拉？？？</p>
 <a id="more"></a>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末，<em>Payphone-X</em>学完了唯一的多元最短路，现在，他开始向单元最短路进击啦（给自己一个小小的鼓励）</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周末(2019/2/23)，Payphone-X学完了唯一的多元最短路，现在，他开始向单元最短路进击啦（给自己一个小小的鼓励）</p>
 <hr>
 <h3 id="何为Dijkstra"><a href="#何为Dijkstra" class="headerlink" title="何为Dijkstra"></a>何为Dijkstra</h3><p>先看看百度百科对于Dijkstra的解释</p>
 <blockquote>
@@ -462,9 +474,9 @@
 <p>但要注意，<strong>Dijkstra只适用于没有负边权的情况</strong>。也就是说，如果图中有一条边的边权为负数，就不可以使用Dijkstra了。</p>
 <hr>
 <h3 id="Dijkstra的算法实现"><a href="#Dijkstra的算法实现" class="headerlink" title="Dijkstra的算法实现"></a>Dijkstra的算法实现</h3><p>在讲算法实现之前，先上一组数据。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">6</span>    <span class="comment">// 5个点，6条边</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">4</span>     <span class="comment">//1与2之间有一条边权为4的边</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">2</span>     <span class="comment">//同上</span></span><br><span class="line"><span class="number">3</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">6</span>    <span class="comment">// 5个点，6条边</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">4</span>     <span class="comment">//1与2之间有一条边权为4的边</span></span><br><span class="line"><span class="number">2</span> <span class="number">3</span> <span class="number">2</span>     <span class="comment">//同上</span></span><br><span class="line"><span class="number">3</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"><span class="number">1</span> <span class="number">4</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">4</span> <span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">4</span> <span class="number">4</span></span><br><span class="line"><span class="number">1</span>   <span class="comment">//初始点为1</span></span><br></pre></td></tr></table></figure>
 <p>把图建出来大概是这样的</p>
-<p><a href="https://imgchr.com/i/kTRx54" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/27/kTRx54.png" alt="kTRx54.png"></a></p>
+<p><a href="https://imgchr.com/i/kqm14s" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/02/kqm14s.png" alt="kqm14s.png"></a></p>
 <p>现在我们开始讲Dijkstra的算法实现。</p>
 <p>Dijkstra是一种类似于贪心的算法，步骤大概是下边这样：</p>
 <pre><code>1.选一个点做起始点。
@@ -473,16 +485,22 @@
 
 3.把这条边的另一个端点作为起始点，然后循环。
 </code></pre><p>下面我们来用数据模拟一下。</p>
-<p>首先，我们开一个number数组，用来存储1到点n的估计值。（说估计值是因为当前不一定是最短路，不理解的话一会就知道为什么了）</p>
+<p>首先，我们开一个number数组，用来存储1到点n的估计值。（说估计值是因为<strong>当前不一定是最短路</strong>，不理解的话一会就知道为什么了）</p>
 <p>之后，我们用一个邻接矩阵map存储点i到j的距离，并把map的所有元素初始化为无穷大。</p>
-<p>再定义一个minn，表示下一个起始点</p>
+<p>再定义一个start，表示下一个起始点，一个minn，表示下一个起始点到原点的最短距离。</p>
 <p>先从1号点开始，得到map[1][2] = 4, map[1][4] = 1，则number[2] = 4, number[4] = 1，3与5两个点没有搜索到，不更新，还是无穷大。</p>
 <p>很显然，现在的number数组还不是最终的答案。所以我们要进行第二次更新。</p>
 <p>那……</p>
 <p>为什么我们要把最短边的另一端点作为下一个起始点呐？</p>
-<p>想想看，如果我们把另一端点作为下一次搜索的起始点，就可以得到每一个点到该点的最短路。再加上从这一个端点到初始点的长度，就可以得到初始点到所有点的最短路啦</p>
-<p>之后不断循环</p>
-
+<p>想想看，如果我们把另一端点作为下一次搜索的起始点，就可以得到每一个点到该点的最短路。再加上从这一个端点到初始点的最短路，就可以得到初始点到所有点的最短路啦</p>
+<p>之后不断循环，直到循环过所有数据为止 <del>（其实是作者太懒，不想推了）</del></p>
+<p>最后答案是0 4 6 1 12</p>
+<p>主体代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;	<span class="comment">//s为初始点编号 </span></span><br><span class="line">	<span class="built_in">memset</span>(number , <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(number));	<span class="comment">//初始化估计值数组 </span></span><br><span class="line">	<span class="keyword">int</span> start = s;		<span class="comment">//从初始点搜索 </span></span><br><span class="line">	bj[start] = <span class="literal">true</span>;	<span class="comment">//标记已被搜索 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		number[i] = min(number[i] , <span class="built_in">map</span>[start][i]);<span class="comment">//先更新一遍 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="keyword">int</span> minn = <span class="number">9999999</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(bj[j] == <span class="literal">false</span> &amp;&amp; number[j] &lt; minn)&#123;<span class="comment">//找到最近的点，并记录编号，便于下次搜索。 </span></span><br><span class="line">				minn = number[j];</span><br><span class="line">				start = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		bj[start] = <span class="literal">true</span>; <span class="comment">//注意这句话一定在for循环外，不然会有点搜不到 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">			number[j] = min(number[j] , number[start] + <span class="built_in">map</span>[start][j]); </span><br><span class="line">		&#125;   <span class="comment">//最后更新一遍 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>是不是很简单吖（逃）</p>
+<hr>
+<h3 id="附件（Dijkstra模板，邻接矩阵实现）"><a href="#附件（Dijkstra模板，邻接矩阵实现）" class="headerlink" title="附件（Dijkstra模板，邻接矩阵实现）"></a>附件（Dijkstra模板，邻接矩阵实现）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> number[<span class="number">10001</span>];	<span class="comment">//存储估计值 </span></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">map</span>[<span class="number">1001</span>][<span class="number">1001</span>];	<span class="comment">//存储邻接矩阵 </span></span><br><span class="line"><span class="keyword">int</span> m , n;</span><br><span class="line"><span class="keyword">int</span> bj[<span class="number">10001</span>];	<span class="comment">//用来标记该点是否搜索过 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;	<span class="comment">//s为初始点编号 </span></span><br><span class="line">	<span class="built_in">memset</span>(number , <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(number));	 <span class="comment">//初始化估计值数组 </span></span><br><span class="line">	<span class="keyword">int</span> start = s;		<span class="comment">//从初始点搜索 </span></span><br><span class="line">	bj[start] = <span class="literal">true</span>;	<span class="comment">//标记已被搜索 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		number[i] = min(number[i] , <span class="built_in">map</span>[start][i]);<span class="comment">//先更新一遍 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="keyword">int</span> minn = <span class="number">9999999</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(bj[j] == <span class="literal">false</span> &amp;&amp; number[j] &lt; minn)&#123;<span class="comment">//找到最近的点，并记录编号，便于下次搜索。 </span></span><br><span class="line">				minn = number[j];</span><br><span class="line">				start = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		bj[start] = <span class="literal">true</span>; <span class="comment">//注意这句话一定在for循环外，不然会有点搜不到 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">			number[j] = min(number[j] , number[start] + <span class="built_in">map</span>[start][j]); </span><br><span class="line">		&#125;<span class="comment">//最后更新一遍 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="built_in">memset</span>(<span class="built_in">map</span> , <span class="number">0x3f</span> , <span class="keyword">sizeof</span>(<span class="built_in">map</span>));	<span class="comment">//初始化邻接矩阵 </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">        <span class="keyword">int</span> a , b , c;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">        <span class="built_in">map</span>[a][b] = c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">    		<span class="keyword">if</span>(i == j)&#123;</span><br><span class="line">    			 <span class="built_in">map</span>[i][j] = <span class="number">0</span>;		<span class="comment">//自己到自己的距离为0 </span></span><br><span class="line">    		&#125;               </span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> yuan;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; yuan;</span><br><span class="line">    Dijkstra(yuan);<span class="comment">//输入源点。</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; number[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
     </div>
 
@@ -679,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为Dijkstra"><span class="nav-number">2.</span> <span class="nav-text">何为Dijkstra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dijkstra的算法实现"><span class="nav-number">3.</span> <span class="nav-text">Dijkstra的算法实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为Dijkstra"><span class="nav-number">2.</span> <span class="nav-text">何为Dijkstra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dijkstra的算法实现"><span class="nav-number">3.</span> <span class="nav-text">Dijkstra的算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（Dijkstra模板，邻接矩阵实现）"><span class="nav-number">4.</span> <span class="nav-text">附件（Dijkstra模板，邻接矩阵实现）</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
