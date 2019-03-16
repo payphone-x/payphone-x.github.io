@@ -96,25 +96,27 @@
 
 
 
-  <meta name="description" content="本文转载自Herself32’s Blog。">
-<meta name="keywords" content="学习笔记,STL">
+  <meta name="description" content="终于摆脱$O(n^2)$的空间复杂度啦">
+<meta name="keywords" content="图论,学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sort&amp;unique入坑笔记">
-<meta property="og:url" content="http://payphone-x.github.io/2019/01/21/sort-unique/index.html">
+<meta property="og:title" content="图论算法-邻接表">
+<meta property="og:url" content="http://payphone-x.github.io/2019/03/16/linjiebiao/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="本文转载自Herself32’s Blog。">
+<meta property="og:description" content="终于摆脱$O(n^2)$的空间复杂度啦">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-21T01:54:36.000Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/16/AV0bxs.png">
+<meta property="og:updated_time" content="2019-03-16T02:58:49.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sort&amp;unique入坑笔记">
-<meta name="twitter:description" content="本文转载自Herself32’s Blog。">
+<meta name="twitter:title" content="图论算法-邻接表">
+<meta name="twitter:description" content="终于摆脱$O(n^2)$的空间复杂度啦">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/16/AV0bxs.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/01/21/sort-unique/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/03/16/linjiebiao/">
 
 
 
@@ -124,7 +126,7 @@
   };
 </script>
 
-  <title>sort&unique入坑笔记 | PayPhone-X's Blog</title>
+  <title>图论算法-邻接表 | PayPhone-X's Blog</title>
   
 
 
@@ -361,7 +363,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/21/sort-unique/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/03/16/linjiebiao/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -378,7 +380,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">sort&unique入坑笔记
+          <h1 class="post-title" itemprop="name headline">图论算法-邻接表
 
               
             
@@ -404,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2019-01-21 09:47:26 / 修改时间：09:54:36" itemprop="dateCreated datePublished" datetime="2019-01-21T09:47:26+08:00">2019-01-21</time>
+              <time title="创建时间：2019-03-16 08:24:09 / 修改时间：10:58:49" itemprop="dateCreated datePublished" datetime="2019-03-16T08:24:09+08:00">2019-03-16</time>
             
 
             
@@ -442,34 +444,52 @@
       
 
       
-        <p>本文转载自<a href="https://herself32.github.io/2018/12/23/sort%E5%92%8Cunique/" target="_blank" rel="noopener">Herself32’s Blog</a>。</p>
+        <p>终于摆脱$O(n^2)$的空间复杂度啦</p>
 <a id="more"></a>
-<blockquote>
-<p>把STL放在心底，永远都有惊喜<br>                        ——《Tonight Forever》</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本周三(2019.3.13)，Payphone-X学完了Dijkstra，他要继续向SPFA前进。但是，他不会邻接表……于是便有了这篇Blog</p>
+<hr>
+<h3 id="初始约定"><a href="#初始约定" class="headerlink" title="初始约定"></a>初始约定</h3><p>在下文的邻接表讲解以及代码实现中，很多时候会出现(from , to , number)</p>
+<p>这表示一条边，从from到to ，编号为number。</p>
+<p>就像下图，为(1 , 2 , 0)：</p>
+<p><a href="https://imgchr.com/i/AV0bxs" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/16/AV0bxs.png" alt="AV0bxs.png"></a></p>
+<hr>
+<h3 id="何为邻接表？"><a href="#何为邻接表？" class="headerlink" title="何为邻接表？"></a>何为邻接表？</h3><blockquote>
+<p>邻接表，存储方法跟树的孩子链表示法相类似，是一种顺序分配和链式分配相结合的存储结构。如这个表头结点所对应的顶点存在相邻顶点，则把相邻顶点依次存放于表头结点所指向的单向链表中。<br>                                                                              ——百度百科</p>
 </blockquote>
-<p>众所周知，排序在程序中会有很多的妙用。</p>
-<p>但无论是冒泡、快排、插入排序、桶排等各种花样，总需要好多次的实践才能熟记于心。</p>
-<p>用没有快捷的方法呢？</p>
-<p>当然，$sort$是STL给出的答案。</p>
-<h3 id="SORT"><a href="#SORT" class="headerlink" title="SORT"></a>SORT</h3><h4 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h4><p>首先你需要：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
-<p>其实命名空间可要可不要，如果去掉的话，在使用时就加一个<code>std::</code>即可啦QAQ。</p>
-<p>C++STLsort函数有(2~3)个参数。</p>
-<p>为什么是(2~3)个参数呢？</p>
-<p>因为在排序时，我们可以自己选择升序或降序。</p>
-<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>如果对于一个数组进行升序排序，那么<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num[<span class="number">120</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">119</span>;i++)<span class="built_in">cin</span>&gt;&gt;num[i];</span><br><span class="line">sort(num+<span class="number">1</span>,num+n+<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p><strong>重点！</strong>：sort函数使用模板$sort(start-place,end-place)$</p>
-<p>start-place：排序起点。<br>end-place：排序终点。</p>
-<p>那么如果对于一个数组降序排序时，怎么写呢？</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a&gt;b;</span><br><span class="line">&#125;</span><br><span class="line">sort(num+<span class="number">1</span>,num+n+<span class="number">1</span>,cmp);</span><br></pre></td></tr></table></figure>
-<h4 id="和其他STL搭配"><a href="#和其他STL搭配" class="headerlink" title="和其他STL搭配"></a>和其他STL搭配</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v;</span><br><span class="line">sort(v.begin(),v.end());</span><br></pre></td></tr></table></figure>
-<h3 id="UNIQUE"><a href="#UNIQUE" class="headerlink" title="UNIQUE"></a>UNIQUE</h3><p>unique的功能是对数组伪去重，即把重叠的数字置于数组最后。</p>
-<h4 id="前置-1"><a href="#前置-1" class="headerlink" title="前置"></a>前置</h4><p>你需要：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
-<p>其实命名空间可要可不要，如果去掉的话，在使用时就加一个<code>std::</code>即可啦QAQ。</p>
-<h4 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num[<span class="number">120</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">119</span>;i++)<span class="built_in">cin</span>&gt;&gt;num[i];</span><br><span class="line">unique(num+<span class="number">1</span>,num+n+<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>若想得到去重后数组元素个数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unique(num+<span class="number">1</span>,num+n+<span class="number">1</span>)-num<span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p><a href="https://www.luogu.org/problemnew/show/P1059" target="_blank" rel="noopener">luogu P1059</a></p>
-<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
+<p>emm……</p>
+<p>算了……</p>
+<p>以后不能再用百度百科了……</p>
+<p>还是听听通俗的解释吧。</p>
+<p>顾名思义，邻接表是一种特殊的链表，用来表示一条边。</p>
+<p>无权图上，每一张链表存储了两个信息：</p>
+<p><strong>这条边的到达的节点 与 从出发点出发的上一条边</strong>。</p>
+<p>而有权图上，则存储了三个：</p>
+<p><strong>这条边的到达的节点 与 从出发点出发的上一条边 以及 边权</strong></p>
+<p>也就是说，邻接表是用边来存图，而邻接矩阵使用点来存图。</p>
+<hr>
+<h3 id="邻接表的实现"><a href="#邻接表的实现" class="headerlink" title="邻接表的实现"></a>邻接表的实现</h3><p>看到这，有的同学可能要问了：既然邻接表使用来存图的，那怎么实现它呐？</p>
+<p>别急……</p>
+<p>继续向下看就知道啦……</p>
+<p>邻接表存储的信息有两到三个<del>（不知道是哪几个的自觉面壁）</del>，并且每一条边都需要一张链表。</p>
+<p>所以说……</p>
+<p><strong>开结构体模拟啊</strong></p>
+<p>但一个结构体还不够，我们还需要开一个一维数组记录当前边的上一条边的编号，开一个int变量记录边数。</p>
+<p>代码实现是这样的(ps.无权图)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[<span class="number">10001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">10001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="add-edge"><a href="#add-edge" class="headerlink" title="add_edge"></a>add_edge</h4><p>现在，我们已经会建立邻接表了。</p>
+<p>那……</p>
+<p>我们如何加边呐？</p>
+<p>想想看，我们输入的是不是这条边的from与to？</p>
+<p>所以结构体的to就已经解决了啊。</p>
+<p>如果有变权的话就把输入的边权赋值给结构体中的边权就好啦</p>
+<p>所以边权也解决啦</p>
+<p>而上一条边，就是end数组中以from为下标的点啊</p>
+<p>所以last也解决了。</p>
+<p>最后<strong>别忘了更新一下end数组</strong>，使上一条边的编号变成刚刚加入的这条边。</p>
+<p>代码实现是这样的(ps.有向无权图)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="附件（邻接表模板，有向有权图）"><a href="#附件（邻接表模板，有向有权图）" class="headerlink" title="附件（邻接表模板，有向有权图）"></a>附件（邻接表模板，有向有权图）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">	<span class="keyword">int</span> longg;</span><br><span class="line">&#125;edge[<span class="number">10001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">10001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> longg)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	edge[edge_number].longg = longg;</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -492,9 +512,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+            <a href="/tags/图论/" rel="tag"># 图论</a>
           
-            <a href="/tags/STL/" rel="tag"># STL</a>
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
           
         </div>
       
@@ -507,15 +527,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/02/27/Dijkstra/" rel="next" title="图论算法-Dijkstra">
+                <i class="fa fa-chevron-left"></i> 图论算法-Dijkstra
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/22/Heap/" rel="prev" title="数据结构-堆">
-                数据结构-堆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -666,7 +686,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SORT"><span class="nav-number">1.</span> <span class="nav-text">SORT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置"><span class="nav-number">1.1.</span> <span class="nav-text">前置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法"><span class="nav-number">1.2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和其他STL搭配"><span class="nav-number">1.3.</span> <span class="nav-text">和其他STL搭配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIQUE"><span class="nav-number">2.</span> <span class="nav-text">UNIQUE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置-1"><span class="nav-number">2.1.</span> <span class="nav-text">前置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用方法-1"><span class="nav-number">2.2.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始约定"><span class="nav-number">2.</span> <span class="nav-text">初始约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为邻接表？"><span class="nav-number">3.</span> <span class="nav-text">何为邻接表？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邻接表的实现"><span class="nav-number">4.</span> <span class="nav-text">邻接表的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#add-edge"><span class="nav-number">4.1.</span> <span class="nav-text">add_edge</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（邻接表模板，有向有权图）"><span class="nav-number">5.</span> <span class="nav-text">附件（邻接表模板，有向有权图）</span></a></li></ol></div>
             
 
           </div>
