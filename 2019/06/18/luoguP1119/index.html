@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
 <meta property="og:description" content="西蒙·弗洛伊德曾经说过一句很有哲理的话，叫做：$$f[i][j] = min(f[i][j] , f[i][k] + f[k][j]);$$">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-18T07:16:24.684Z">
+<meta property="og:updated_time" content="2019-06-20T00:48:05.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【洛谷精选】灾后重建-题解">
 <meta name="twitter:description" content="西蒙·弗洛伊德曾经说过一句很有哲理的话，叫做：$$f[i][j] = min(f[i][j] , f[i][k] + f[k][j]);$$">
@@ -404,12 +404,24 @@
                 
               
 
-              <time title="创建时间：2019-06-18 10:46:22 / 修改时间：15:16:24" itemprop="dateCreated datePublished" datetime="2019-06-18T10:46:22+08:00">2019-06-18</time>
+              <time title="创建时间：2019-06-18 10:46:22" itemprop="dateCreated datePublished" datetime="2019-06-18T10:46:22+08:00">2019-06-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-20 08:48:05" itemprop="dateModified" datetime="2019-06-20T08:48:05+08:00">2019-06-20</time>
               
             
           </span>
@@ -454,7 +466,7 @@
 <p>对于每个询问你要回答在第$t$天，从村庄$x$到村庄$y$的最短路径长度为多少。</p>
 <p>如果无法找到从$x$村庄到$y$村庄的路径，或者村庄$x$或村庄$y$在第$t$天仍未重建完成 ，则输出$-1$。</p>
 <hr>
-<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>第一行包含两个正整数N,MN,M，表示了村庄的数目与公路的数量。</p>
+<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>第一行包含两个正整数$N$ , $M$，表示了村庄的数目与公路的数量。</p>
 <p>第二行包含$N$个非负整数$t$表示了每个村庄重建完成的时间.</p>
 <p>接下来$M$行，每行$3$个非负整数$i, j, w$,表示了有一条连接村庄$i$与村庄$j$的道路</p>
 <p>接下来一行包含一个正整数$Q$，表示$Q$个询问。</p>
@@ -470,10 +482,10 @@
 <p>-1<br>-1<br>5<br>4</p>
 </blockquote>
 <hr>
-<h3 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h3><p>对于$30%$的数据，有$N≤50$；</p>
-<p>对于另外$30%$的数据，$有t[i] = 0$ </p>
-<p>对于$50%$的数据，有$Q≤100$</p>
-<p>对于$100%$的数据，有$N≤200$，$Q≤50000$，所有输入数据均为$int$型整数且均不超过$100000$。</p>
+<h3 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h3><p>对于$ 30\% $的数据，有$N≤50$；</p>
+<p>对于另外$ 30\% $的数据，$有t[i] = 0$ </p>
+<p>对于$ 50\% $的数据，有$Q≤100$</p>
+<p>对于$ 100$$\% $的数据，有$N≤200$，$Q≤50000$，所有输入数据均为$int$型整数且均不超过$100000$。</p>
 <hr>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>一道$Floyd$好题</p>
 <p>彻底刷新了我对$Floyd$的看法。</p>
@@ -502,6 +514,8 @@
 <p>是不是很简单啊（逃）~</p>
 <hr>
 <h3 id="附件（AC标程，防作弊已开启）"><a href="#附件（AC标程，防作弊已开启）" class="headerlink" title="附件（AC标程，防作弊已开启）"></a>附件（AC标程，防作弊已开启）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 201 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="keyword">int</span> l , r , w;</span><br><span class="line"><span class="keyword">int</span> f[N][N];	<span class="comment">//由于本题数据范围较小，作者采用邻接矩阵存图 </span></span><br><span class="line"><span class="keyword">int</span> q;</span><br><span class="line"><span class="keyword">int</span> x , y , t;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">floyd</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;		<span class="comment">//Floyd主体函数 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n - <span class="number">1</span>; j ++)&#123;</span><br><span class="line">			f[i][j] = min(f[i][j] , f[i][k] + f[k][j]); </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n - <span class="number">1</span>; j ++)&#123;</span><br><span class="line">			f[i][j] = <span class="number">1e9</span>;		<span class="comment">//初始化邻接矩阵 </span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		f[i][i] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; l &gt;&gt; r &gt;&gt; w;</span><br><span class="line">		f[l][r] = w;		<span class="comment">//由于是双向道路，所以需要建两次边 </span></span><br><span class="line">		f[r][l] = w;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; q;</span><br><span class="line">	<span class="keyword">int</span> now = <span class="number">0</span>;	<span class="comment">//now代表今天是第几天，用于枚举天数 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= q - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; t;</span><br><span class="line">		<span class="keyword">if</span>(a[x] &gt; t || a[y] &gt; t)&#123;	<span class="comment">//特判，如果起点或终点就没有重建，直接跳过循环 </span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(a[now] &lt;= t &amp;&amp; now &lt; n)&#123;</span><br><span class="line">			floyd(now);</span><br><span class="line">			now ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(f[x][y] == <span class="number">1e9</span>)&#123;		<span class="comment">//如果没有联通路，输出-1 </span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123; </span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; f[x][y] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
     </div>
 
@@ -550,6 +564,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/19/Simulate-Anneal/" rel="prev" title="玄学篇-模拟退火 & [JSOI2004]平衡点 / 吊打XXX-题解">
+                玄学篇-模拟退火 & [JSOI2004]平衡点 / 吊打XXX-题解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +639,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -672,7 +690,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -748,7 +772,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意描述："><span class="nav-number">1.</span> <span class="nav-text">题意描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-Output-‘s-examples"><span class="nav-number">4.</span> <span class="nav-text">Input &amp; Output ‘s examples</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Input-‘s-eg"><span class="nav-number">4.1.</span> <span class="nav-text">Input ‘s eg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output-‘s-eg"><span class="nav-number">4.2.</span> <span class="nav-text">Output ‘s eg</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据范围和约定"><span class="nav-number">5.</span> <span class="nav-text">数据范围和约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">6.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（AC标程，防作弊已开启）"><span class="nav-number">7.</span> <span class="nav-text">附件（AC标程，防作弊已开启）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意描述："><span class="nav-number">1.</span> <span class="nav-text">题意描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-Output-‘s-examples"><span class="nav-number">4.</span> <span class="nav-text">Input &amp; Output ‘s examples</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Input-‘s-eg"><span class="nav-number">4.1.</span> <span class="nav-text">Input ‘s eg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output-‘s-eg"><span class="nav-number">4.2.</span> <span class="nav-text">Output ‘s eg</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据范围和约定"><span class="nav-number">5.</span> <span class="nav-text">数据范围和约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">6.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（AC标程，防作弊已开启）"><span class="nav-number">7.</span> <span class="nav-text">附件（AC标程，防作弊已开启）</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
