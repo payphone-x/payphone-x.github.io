@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.6.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一套简单而又神奇的题目">
+<meta name="keywords" content="题解,LYOI,个人邀请赛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LYOI】LYOI Summer Round1题解">
+<meta property="og:url" content="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/index.html">
+<meta property="og:site_name" content="PayPhone-X&#39;s Blog">
+<meta property="og:description" content="一套简单而又神奇的题目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-20T03:26:17.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【LYOI】LYOI Summer Round1题解">
+<meta name="twitter:description" content="一套简单而又神奇的题目">
+
+
+
+
+
+
+  <link rel="canonical" href="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【LYOI】LYOI Summer Round1题解 | PayPhone-X's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PayPhone-X's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">酒醉，人醒，梦徘徊。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-link"></i> <br>友链</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="PayPhone-X">
+      <meta itemprop="description" content="酒醉，人醒，梦徘徊。">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PayPhone-X's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【LYOI】LYOI Summer Round1题解
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-20 10:33:45 / 修改时间：11:26:17" itemprop="dateCreated datePublished" datetime="2019-07-20T10:33:45+08:00">2019-07-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一套简单而又神奇的题目</p>
+<a id="more"></a>
+<h2 id="Grades"><a href="#Grades" class="headerlink" title="Grades"></a>Grades</h2><p>Liuzhe dalao出的<del>签到题</del></p>
+<p>而且卡了冒泡排序这种朴素算法……</p>
+<p>尽管如此，方法还是有很多。比如手打快排，手打归并……</p>
+<p>但在这里，我们使用STL内置的$sort$函数。</p>
+<p>另外需要注意的是，由于我们需要使用结构体进行交换，因此，我们需要手打$cmp$函数</p>
+<p>基本没什么难度吧……</p>
+<p><strong>Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20005</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">int</span> grade;</span><br><span class="line">&#125;stu[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Student a , Student b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.grade &gt; b.grade;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; stu[i].num &gt;&gt; stu[i].grade;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(stu + <span class="number">1</span> , stu + <span class="number">1</span> + n , cmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; stu[i].num &lt;&lt;<span class="string">" "</span>&lt;&lt; stu[i].grade &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Witten By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Unturned"><a href="#Unturned" class="headerlink" title="Unturned"></a>Unturned</h2><p>Struct瓶子 julao出的数据结构题……</p>
+<p>考的是一种极其基础的数据结构：<strong>栈</strong></p>
+<p>我们重新读一遍题目，会发现上边有三种操作：</p>
+<blockquote>
+<ul>
+<li><p>$1$，$s$，$a$，$b$ 表示从你现在的所在地前往到另一个名称为$s$，物资值为$a$，危险值为$b$的地方。</p>
+</li>
+<li><p>$2$ 表示从你现在的所在地返回到你上一次前往的地方(原路返回)。若现在在$Liberator$号上，则无视。</p>
+</li>
+<li><p>$3$ 表示查询你现在的所在地的名称、物资值和危险值。若现在在$Liberator$号上，则输出$-1$。</p>
+</li>
+</ul>
+</blockquote>
+<p>其中，三种操作分别对应了栈的操作中的<strong>入栈</strong>，<strong>弹出栈顶</strong>，<strong>获取栈顶元素</strong>。</p>
+<p>所以我们可以写一个栈，直接进行模拟即可。</p>
+<p>还有什么的话，就是</p>
+<p><strong>注 意 细 节</strong></p>
+<p><strong>Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20001</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Place</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> thing;</span><br><span class="line">    <span class="keyword">int</span> danger;</span><br><span class="line">&#125;p[N];</span><br><span class="line"></span><br><span class="line"><span class="built_in">stack</span>&lt;Place&gt; S;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="keyword">int</span>  , <span class="built_in">string</span>&gt; Thing_max;</span><br><span class="line">pair&lt;<span class="keyword">int</span>  , <span class="built_in">string</span>&gt; Danger_max;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> p_num = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> opt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    p[p_num].name = <span class="string">"Liberator"</span>;</span><br><span class="line">    p[p_num].thing = <span class="number">0</span>;</span><br><span class="line">    p[p_num].danger = <span class="number">0</span>;</span><br><span class="line">    S.push(p[p_num]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; opt;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">1</span>)&#123;</span><br><span class="line">            p_num ++;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; p[p_num].name &gt;&gt; p[p_num].thing &gt;&gt; p[p_num].danger;</span><br><span class="line">            <span class="keyword">if</span>(p[p_num].thing &gt; Thing_max.first)&#123;</span><br><span class="line">                Thing_max.first = p[p_num].thing;</span><br><span class="line">                Thing_max.second = p[p_num].name;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(p[p_num].danger &gt; Danger_max.first)&#123;</span><br><span class="line">                Danger_max.first = p[p_num].danger;</span><br><span class="line">                Danger_max.second = p[p_num].name;</span><br><span class="line">            &#125;</span><br><span class="line">            S.push(p[p_num]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(S.top().name == <span class="string">"Liberator"</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            S.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(S.top().name == <span class="string">"Liberator"</span>)&#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"-1"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; S.top().name &lt;&lt;<span class="string">" "</span>&lt;&lt; S.top().thing &lt;&lt;<span class="string">" "</span>&lt;&lt; S.top().danger &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; S.top().name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Thing_max.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Danger_max.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<h2 id="The-Best-String"><a href="#The-Best-String" class="headerlink" title="The Best String"></a>The Best String</h2><p>这题是作者菜鸡出的一道字符串问题……</p>
+<p>如果 这道题的题意如果使用一句话总结出来的话就是：</p>
+<p><strong>将一个01字符串拆分成多个01子串，要求其中每一个子串中0与1的数量不同。</strong></p>
+<p>既然如此，我们就从子串的长度入手进行分析。</p>
+<p>一个字符串的长度必定是<strong>奇数</strong>或<strong>偶数</strong><del>（废话）</del></p>
+<p>若是奇数的话，0与1的数量本来就不可能相等，所以我们也就不需要拆分，直接输出即可。</p>
+<p>若是偶数的话，我们可以考虑偶数可以由两个奇数组成，比如$26 = 11 + 15$</p>
+<p>所以说我们的任务就是要找到这两个奇数。</p>
+<p>题目里又有另一句话</p>
+<ul>
+<li>但Herself32是个左撇子，so……她希望拆分后左边的字符串的长度尽量的短</li>
+</ul>
+<p>不难看出，左边的字符串最短时长度为$1$，即我们只需要把该字符串的第一位单独拆分出来即可。</p>
+<p>最后<strong>别忘了特判长度为偶数且输入的字符串就不需拆分</strong>的状况</p>
+<p><strong>Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 101</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">string</span> a;</span><br><span class="line"><span class="keyword">int</span> num0 , num1; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">	<span class="keyword">if</span>(n % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i] == <span class="string">'0'</span>)&#123;</span><br><span class="line">			num0 ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			num1 ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(num0 != num1)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[<span class="number">0</span>] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; a[i];</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TarjanLusa"><a href="#TarjanLusa" class="headerlink" title="TarjanLusa"></a>TarjanLusa</h2><p><del>毒瘤Herself32，出题粘PDF</del></p>
+<p>咳咳，这是一道大模拟题目。</p>
+<p>首先，我们开一个数组直接模拟球位，然后直接把题目中的左右调换，这样更便于操作。</p>
+<p>然后观察题意，我们发现，如果激发一个球之后，它将从数组第一个位置消失（弹出），而如果生成球，就要从后面加入数组。</p>
+<p>这不就是一个队列嘛！</p>
+<p>但是我们这里并不需要循环队列，直接用$head$指针操作即可。</p>
+<p>顺便提醒大家几个小细节：</p>
+<ol>
+<li>当球位不够时不能直接添加，而是要激发队首的几个球。</li>
+<li>被动和技能不一样，触发被动并不会使球消失。</li>
+<li>在生成球的时候，如果球位不够，则激发队首球1次</li>
+</ol>
+<p>好了，那么$80+$行代码也就写出来了。</p>
+<p>(由于作者比较菜，所以作者并没有重写这道题，直接使用的$std$。<del>这说明我实在是菜爆了啊</del>)</p>
+<p><strong>Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1000000007</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, s;</span><br><span class="line"><span class="keyword">int</span> damage, block;</span><br><span class="line"><span class="keyword">int</span> energe[N];</span><br><span class="line"><span class="keyword">char</span> q[N], str[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> front = <span class="number">1</span>, tail = <span class="number">1</span>, size = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">activate</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">'e'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">8</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'i'</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">5</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'d'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * energe[p] * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        front--;</span><br><span class="line">    front++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">use</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">'e'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">3</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'i'</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">2</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'d'</span>)</span><br><span class="line">        energe[p] = (energe[p] + <span class="number">1l</span>l * max(s + <span class="number">6</span>, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    q[<span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">1</span>; a &lt;= n; a++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> opt;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;opt);</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>, str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">int</span> l = <span class="built_in">strlen</span>(str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">1</span>; b &lt;= l; b++)</span><br><span class="line">            &#123;</span><br><span class="line">                q[++tail] = str[b];</span><br><span class="line">                <span class="keyword">if</span> (str[b] == <span class="string">'d'</span>)</span><br><span class="line">                    energe[tail] = <span class="number">6</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (tail - front + <span class="number">1</span> &gt; size)</span><br><span class="line">                activate(front, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            activate(front, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> i, x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;i, &amp;x);</span><br><span class="line">            use(front + i - <span class="number">1</span>, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">4</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            s += x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">5</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            size += x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, damage, block);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赛后总结"><a href="#赛后总结" class="headerlink" title="赛后总结"></a>赛后总结</h2><p>今天的比赛题目并没有特别难，但每一个题都需要无限的细心，特别是T2与T4</p>
+<p>T3是一道字符串题，但主要考察的是同学们的数学思想与分析能力。需要冷静分析。</p>
+<p>T1是对基础算法进行考察，这种题在考场上绝对不能出错!!!</p>
+<p>综上，这次考试的高分秘诀就在于：<strong>细心</strong> ，<strong>冷静</strong> ， <strong>坚持</strong>。</p>
+<p>最后祝大家在今后的考试中能够取得更好的成绩</p>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/LYOI/" rel="tag"># LYOI</a>
+          
+            <a href="/tags/个人邀请赛/" rel="tag"># 个人邀请赛</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/15/LuoguP5020/" rel="next" title="【NOIP2018】货币系统-题解">
+                <i class="fa fa-chevron-left"></i> 【NOIP2018】货币系统-题解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/head.jpg" alt="PayPhone-X">
+            
+              <p class="site-author-name" itemprop="name">PayPhone-X</p>
+              <p class="site-description motion-element" itemprop="description">酒醉，人醒，梦徘徊。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/" title="GitHub &rarr; https://github.com/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="/mail.qq.com" title="E-Mail &rarr; mail.qq.com"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://www.luogu.org/" title="Luogu &rarr; https://www.luogu.org/" rel="noopener" target="_blank"><i class="fa fa-fw fa-code"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://google.com" title="Google &rarr; https://google.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Grades"><span class="nav-number">1.</span> <span class="nav-text">Grades</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unturned"><span class="nav-number">2.</span> <span class="nav-text">Unturned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Best-String"><span class="nav-number">3.</span> <span class="nav-text">The Best String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TarjanLusa"><span class="nav-number">4.</span> <span class="nav-text">TarjanLusa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赛后总结"><span class="nav-number">5.</span> <span class="nav-text">赛后总结</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PayPhone-X</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {equationNumbers: { autoNumber: "AMS" }}
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/Bronya.model.json"},"display":{"position":"right","width":250,"height":500,"vOffset":-200},"mobile":{"show":false},"react":{"opacityDefault":1},"log":false});</script></body>
+</html>
