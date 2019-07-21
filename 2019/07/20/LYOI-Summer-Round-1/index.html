@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="一套简单而又神奇的题目">
-<meta name="keywords" content="题解,LYOI,个人邀请赛">
+  <meta name="description" content="一套超级简单而又神奇的题目（Upd：文章部分转载，已署名）">
+<meta name="keywords" content="题解,模拟,LYOI,数据结构,团队赛事,字符串,暴力,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LYOI】LYOI Summer Round1题解">
 <meta property="og:url" content="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="一套简单而又神奇的题目">
+<meta property="og:description" content="一套超级简单而又神奇的题目（Upd：文章部分转载，已署名）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-20T03:28:16.007Z">
+<meta property="og:updated_time" content="2019-07-21T07:23:40.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LYOI】LYOI Summer Round1题解">
-<meta name="twitter:description" content="一套简单而又神奇的题目">
+<meta name="twitter:description" content="一套超级简单而又神奇的题目（Upd：文章部分转载，已署名）">
 
 
 
@@ -404,12 +404,24 @@
                 
               
 
-              <time title="创建时间：2019-07-20 10:33:45 / 修改时间：11:28:16" itemprop="dateCreated datePublished" datetime="2019-07-20T10:33:45+08:00">2019-07-20</time>
+              <time title="创建时间：2019-07-20 10:33:45" itemprop="dateCreated datePublished" datetime="2019-07-20T10:33:45+08:00">2019-07-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-21 15:23:40" itemprop="dateModified" datetime="2019-07-21T15:23:40+08:00">2019-07-21</time>
               
             
           </span>
@@ -442,7 +454,7 @@
       
 
       
-        <p>一套简单而又神奇的题目</p>
+        <p>一套超级简单而又神奇的题目<br>（Upd：文章部分转载，已署名）</p>
 <a id="more"></a>
 <h2 id="Grades"><a href="#Grades" class="headerlink" title="Grades"></a>Grades</h2><p>Liuzhe dalao出的<del>签到题</del></p>
 <p>而且卡了冒泡排序这种朴素算法……</p>
@@ -488,7 +500,8 @@
 <p>最后<strong>别忘了特判长度为偶数且输入的字符串就不需拆分</strong>的状况</p>
 <p><strong>Code</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 101</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">string</span> a;</span><br><span class="line"><span class="keyword">int</span> num0 , num1; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">	<span class="keyword">if</span>(n % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i] == <span class="string">'0'</span>)&#123;</span><br><span class="line">			num0 ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			num1 ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(num0 != num1)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[<span class="number">0</span>] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; a[i];</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
-<h2 id="TarjanLusa"><a href="#TarjanLusa" class="headerlink" title="TarjanLusa"></a>TarjanLusa</h2><p><del>毒瘤Herself32，出题粘PDF</del></p>
+<h2 id="TarjanLusa"><a href="#TarjanLusa" class="headerlink" title="TarjanLusa"></a>TarjanLusa</h2><p>（本部分转载于<a href="https://herself32.github.io/2019/01/29/QBXTDay3Sol/" target="_blank" rel="noopener">Herself32’s Blog</a>，之前转载时忘记署名，实在抱歉。望原作者原谅。）</p>
+<p><del>毒瘤Herself32，出题粘PDF</del></p>
 <p>咳咳，这是一道大模拟题目。</p>
 <p>首先，我们开一个数组直接模拟球位，然后直接把题目中的左右调换，这样更便于操作。</p>
 <p>然后观察题意，我们发现，如果激发一个球之后，它将从数组第一个位置消失（弹出），而如果生成球，就要从后面加入数组。</p>
@@ -504,9 +517,9 @@
 <p>(由于作者比较菜，所以作者并没有重写这道题，直接使用的$std$。<del>这说明我实在是菜爆了啊</del>)</p>
 <p><strong>Code</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1000000007</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, s;</span><br><span class="line"><span class="keyword">int</span> damage, block;</span><br><span class="line"><span class="keyword">int</span> energe[N];</span><br><span class="line"><span class="keyword">char</span> q[N], str[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> front = <span class="number">1</span>, tail = <span class="number">1</span>, size = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">activate</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">'e'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">8</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'i'</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">5</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'d'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * energe[p] * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        front--;</span><br><span class="line">    front++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">use</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">'e'</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">3</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'i'</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">2</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">'d'</span>)</span><br><span class="line">        energe[p] = (energe[p] + <span class="number">1l</span>l * max(s + <span class="number">6</span>, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    q[<span class="number">1</span>] = <span class="string">'e'</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">1</span>; a &lt;= n; a++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> opt;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;opt);</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>, str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">int</span> l = <span class="built_in">strlen</span>(str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">1</span>; b &lt;= l; b++)</span><br><span class="line">            &#123;</span><br><span class="line">                q[++tail] = str[b];</span><br><span class="line">                <span class="keyword">if</span> (str[b] == <span class="string">'d'</span>)</span><br><span class="line">                    energe[tail] = <span class="number">6</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (tail - front + <span class="number">1</span> &gt; size)</span><br><span class="line">                activate(front, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            activate(front, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> i, x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;i, &amp;x);</span><br><span class="line">            use(front + i - <span class="number">1</span>, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">4</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            s += x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">5</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">            size += x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, damage, block);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="赛后总结"><a href="#赛后总结" class="headerlink" title="赛后总结"></a>赛后总结</h2><p>今天的比赛题目并没有特别难，但每一个题都需要无限的细心，特别是T2与T4</p>
-<p>T3是一道字符串题，但主要考察的是同学们的数学思想与分析能力。需要冷静分析。</p>
-<p>T1是对基础算法进行考察，这种题在考场上绝对不能出错!!!</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>今天的比赛题目并没有特别难，但每一个题都需要无限的细心，特别是$T2$与$T4$</p>
+<p>$T3$表面上是一道字符串题，但主要考察的是同学们的数学思想与分析能力。需要冷静分析。</p>
+<p>$T1$是对最最基础的算法进行考察，属于签到题。这种题在考场上绝对不能出错!!!</p>
 <p>综上，这次考试的高分秘诀就在于：<strong>细心</strong> ，<strong>冷静</strong> ， <strong>坚持</strong>。</p>
 <p>最后祝大家在今后的考试中能够取得更好的成绩</p>
 <h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
@@ -534,9 +547,19 @@
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
+            <a href="/tags/模拟/" rel="tag"># 模拟</a>
+          
             <a href="/tags/LYOI/" rel="tag"># LYOI</a>
           
-            <a href="/tags/个人邀请赛/" rel="tag"># 个人邀请赛</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/团队赛事/" rel="tag"># 团队赛事</a>
+          
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
+          
+            <a href="/tags/暴力/" rel="tag"># 暴力</a>
+          
+            <a href="/tags/排序/" rel="tag"># 排序</a>
           
         </div>
       
@@ -696,7 +719,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -772,7 +799,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Grades"><span class="nav-number">1.</span> <span class="nav-text">Grades</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unturned"><span class="nav-number">2.</span> <span class="nav-text">Unturned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Best-String"><span class="nav-number">3.</span> <span class="nav-text">The Best String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TarjanLusa"><span class="nav-number">4.</span> <span class="nav-text">TarjanLusa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赛后总结"><span class="nav-number">5.</span> <span class="nav-text">赛后总结</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Grades"><span class="nav-number">1.</span> <span class="nav-text">Grades</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unturned"><span class="nav-number">2.</span> <span class="nav-text">Unturned</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Best-String"><span class="nav-number">3.</span> <span class="nav-text">The Best String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TarjanLusa"><span class="nav-number">4.</span> <span class="nav-text">TarjanLusa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
