@@ -96,27 +96,25 @@
 
 
 
-  <meta name="description" content="学不好英语，怎么看代码？ 好像没啥关系吧……">
-<meta name="keywords" content="文化课专栏">
+  <meta name="description" content="同余即余数相同，同余问题是OI中比较经典的问题。">
+<meta name="keywords" content="学习笔记,数论,Gcd,Exgcd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文化课专栏-英语篇(1)">
-<meta property="og:url" content="http://payphone-x.github.io/2019/02/12/English-1/index.html">
+<meta property="og:title" content="数论-同余问题">
+<meta property="og:url" content="http://payphone-x.github.io/2019/08/09/math1/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="学不好英语，怎么看代码？ 好像没啥关系吧……">
+<meta property="og:description" content="同余即余数相同，同余问题是OI中比较经典的问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/02/13/k07mWj.jpg">
-<meta property="og:updated_time" content="2019-02-13T12:55:15.613Z">
+<meta property="og:updated_time" content="2019-08-09T15:59:53.812Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文化课专栏-英语篇(1)">
-<meta name="twitter:description" content="学不好英语，怎么看代码？ 好像没啥关系吧……">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/13/k07mWj.jpg">
+<meta name="twitter:title" content="数论-同余问题">
+<meta name="twitter:description" content="同余即余数相同，同余问题是OI中比较经典的问题。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/02/12/English-1/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/08/09/math1/">
 
 
 
@@ -126,7 +124,7 @@
   };
 </script>
 
-  <title>文化课专栏-英语篇(1) | PayPhone-X's Blog</title>
+  <title>数论-同余问题 | PayPhone-X's Blog</title>
   
 
 
@@ -363,7 +361,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/02/12/English-1/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/08/09/math1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -380,7 +378,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">文化课专栏-英语篇(1)
+          <h1 class="post-title" itemprop="name headline">数论-同余问题
 
               
             
@@ -406,24 +404,12 @@
                 
               
 
-              <time title="创建时间：2019-02-12 15:54:11" itemprop="dateCreated datePublished" datetime="2019-02-12T15:54:11+08:00">2019-02-12</time>
+              <time title="创建时间：2019-08-09 18:16:50 / 修改时间：23:59:53" itemprop="dateCreated datePublished" datetime="2019-08-09T18:16:50+08:00">2019-08-09</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-02-13 20:55:15" itemprop="dateModified" datetime="2019-02-13T20:55:15+08:00">2019-02-13</time>
               
             
           </span>
@@ -456,72 +442,55 @@
       
 
       
-        <p>学不好英语，怎么看代码？</p>
-<p><del>好像没啥关系吧……</del></p>
+        <p>同余即余数相同，同余问题是OI中比较经典的问题。</p>
 <a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前的时候作者一直想要学习数论，可无奈……每一次都<del>咕掉了</del>没时间</p>
+<p>而今天，作者终于抽出了一个晚上。</p>
+<p>于是，便有了这篇博客。</p>
 <hr>
-<p>前几天Payphone-X做英语时看到了这么一句话：</p>
-<p><strong>English is the most interesting language!</strong></p>
-<p><strong><del>我信你个鬼啊</del></strong></p>
-<p>咳咳……</p>
-<p>以下是Payphone-X做试卷时犯过的一些错误，希望能给中考党们一些提醒吧</p>
-<h3 id="Lie-amp-Lay"><a href="#Lie-amp-Lay" class="headerlink" title="Lie &amp; Lay"></a>Lie &amp; Lay</h3><p>不多说，直接上表</p>
-<table>
-<thead>
-<tr>
-<th>单词原型</th>
-<th style="text-align:right">过去式</th>
-<th style="text-align:center">过去分词</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>lie</td>
-<td style="text-align:right">lay</td>
-<td style="text-align:center">lain</td>
-</tr>
-<tr>
-<td>lay</td>
-<td style="text-align:right">laid</td>
-<td style="text-align:center">laid</td>
-</tr>
-</tbody>
-</table>
-<p>当时作者因为没弄懂这几个单词，活生生的被扣了2pts （T^T）</p>
+<h2 id="基本概念-amp-定义"><a href="#基本概念-amp-定义" class="headerlink" title="基本概念&amp;定义"></a>基本概念&amp;定义</h2><p>在本文中，我们主要讲解同余问题。</p>
+<p>在讲解之前，我们先来了解一点有关余数的基本概念。</p>
+<h3 id="整除"><a href="#整除" class="headerlink" title="整除"></a>整除</h3><p>假设我们有两个整数 $a$ , $b$，若$ka = b$， 则我们称$b$整除$a$，记为$a|b$。</p>
+<h3 id="取模"><a href="#取模" class="headerlink" title="取模"></a>取模</h3><p>模数即余数，在数学中，我们把整数$a$与整数$b$的模数记为$a\mod b$。</p>
+<p>在这里，$mod$相当于C++中的$\%$运算。</p>
+<p>根据定义，我们可以得出$a \mod b = a - ⌊\frac{a}{b}⌋ \times b$。</p>
+<h3 id="同余"><a href="#同余" class="headerlink" title="同余"></a>同余</h3><p>若$a \mod c = b \mod c$, 则称$a$与$b$在模$c$意义下同余，写作$a \equiv b (\mod c)$</p>
+<h3 id="模运算的基本性质"><a href="#模运算的基本性质" class="headerlink" title="模运算的基本性质"></a>模运算的基本性质</h3><p>下面给出几个模运算的基本性质，请各位读者自行证明。</p>
+<p>其中，第一个公式就是上面取模部分的公式</p>
+<p>$$a \mod b = a - ⌊\frac{a}{b}⌋ \times b$$</p>
+<p>$$a \equiv b(\mod m) \iff m | (a − b)$$</p>
+<p>$$b \equiv c \iff a + b \equiv a + c$$</p>
+<p>以上的公式均满足$a , b , c , m ∈ Z$</p>
 <hr>
-<h3 id="It的用法"><a href="#It的用法" class="headerlink" title="It的用法"></a>It的用法</h3><blockquote>
-<p>it可放于宾语的位置，做形式宾语，代替后面真正的宾语。<br>                                              ——百度百科</p>
-</blockquote>
-<p><strong>For eample</strong>：</p>
-<blockquote>
-<p>I find it easy to get on well with him</p>
-</blockquote>
-<p>其中，it为形式宾语，而easy to get on well with him才是真正的宾语。</p>
-<p>又是2pts啊……</p>
+<h2 id="Gcd-欧几里得算法"><a href="#Gcd-欧几里得算法" class="headerlink" title="Gcd(欧几里得算法)"></a>Gcd(欧几里得算法)</h2><p><code>gcd</code>是最大公约数的英文缩写<del>(也是某个红色政治组织的简称)</del>，$a$与$b$的最大公约数记为$gcd(a , b)$</p>
+<p>而欧几里得算法专门用来求两个数的$gcd$，下面，我们就对其进行证明。</p>
+<h3 id="求证"><a href="#求证" class="headerlink" title="求证"></a>求证</h3><p>$$gcd(a , b) = gcd(b , a\mod b)$$</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>当$a &lt; b$时，我们交换$a$与$b$的位置，这样我们只需要考虑$a &gt; b$的情况.</p>
+<p>当$a &gt; b$时，有</p>
+<p>$$a = kb + r (k , r ∈ Z)$$</p>
+<p>其中，$r$为$a \mod b$，$k$为$⌊\frac{a}{b}⌋$。</p>
+<p>现在我们移项，可得</p>
+<p>$$r = a - kb $$</p>
+<p>$$\because gcd(a , b) | a , gcd(a , b) | b$$<br>$$\therefore gcd(a , b) | a - k \times b$$<br>$$\therefore gcd(a , b) | r$$<br>$$\because r = a \mod b$$<br>$$\therefore gcd(a , b) | a \mod b$$<br>$$\therefore gcd(a , b) = gcd(b , a\mod b)$$</p>
+<p>大功告成啦ヾ(^∀^)ﾉ</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>直接递归实现，边界条件为$b = 0$，若$b = 0$，直接返回$a$即可</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !b ? a : gcd(b , a % b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>顺便求一下两个数的最小公倍数</p>
+<p>$$lcm(a , b) = \frac{a\times b}{gcd(a , b)}$$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lcm</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a / gcd(a , b) * b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="Beside-amp-Except"><a href="#Beside-amp-Except" class="headerlink" title="Beside &amp; Except"></a>Beside &amp; Except</h3><p>可能你看到这俩词会觉得作者很菜<del>（虽然确实很菜）</del></p>
-<p>但不得不说，这俩词确实是有区别的。</p>
-<p>beside和except的意思都是除了，</p>
-<p>但<strong>beside指除了这个之外，还有别的东西</strong>，而<strong>except指除了这个就没有了</strong></p>
-<p>2pts X3……</p>
+<h2 id="Exgcd-扩展欧几里得"><a href="#Exgcd-扩展欧几里得" class="headerlink" title="Exgcd(扩展欧几里得)"></a>Exgcd(扩展欧几里得)</h2><p><code>exgcd</code>相当于$Gcd$的升级版，它可以在求出$gcd(a , b)$的同时求出二元一次不定方程 $ax + by = gcd(a , b)$的一组整数解。</p>
+<p>其中，$a$,$b$均为已知的，且$a , b , x , y ∈ Z$。</p>
+<h3 id="举个栗砸"><a href="#举个栗砸" class="headerlink" title="举个栗砸"></a>举个栗砸</h3><p>在求$gcd(71 , 13)$时，我们得到了以下式子</p>
+<p>$$71 = 13 \times 5 + 6$$<br>$$13 = 6 \times 2 + 1$$</p>
+<p>现在我们移一下项，把余数都移到左边,就成了下面这个样子</p>
+<p>$$6 = 71 + 13\times (-5)$$<br>$$1 = 13 + 6\times (-2)$$</p>
+<p>从$gcd(71 , 13)$开始，把我们刚刚推出的式子一一带入，就成了下面的样子</p>
+<p>$gcd(71 , 13)$<br>$= 1$<br>$= 13 + 6\times (-2)$<br>$= 13 + [71 + 13\times(-5)]\times(-2)$<br>$= 13 \times 11 + 71 \times (-2)$<br>$= 71 \times (-2) + 13 \times 11$</p>
+<p>看最后一个式子，是不是就是$a = 71$ ,$b = 13$时的不定方程？</p>
+<p>所以解为$x = -2$, $y = 11$。</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b , <span class="keyword">int</span> g , <span class="keyword">int</span> &amp;x , <span class="keyword">int</span> &amp;y )</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>)&#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        g = a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        exgcd(b , a % b , g , y , x);</span><br><span class="line">        y -= x * (a / b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="定语从句中的复合不定代词"><a href="#定语从句中的复合不定代词" class="headerlink" title="定语从句中的复合不定代词"></a>定语从句中的复合不定代词</h3><p>在定语从句中，如果<strong>先行词为复合不定代词</strong>，则用关系代词<strong>that</strong>引导<del>（全用that准没错 逃）</del></p>
-<p><strong>For example</strong></p>
-<blockquote>
-<p>I really did not know angthing that happened to Jim yesterday.</p>
-</blockquote>
-<p>句子中的先行词为anything，所以要用that引导。</p>
-<p>2pts X4</p>
-<hr>
-<h3 id="路程？时间！"><a href="#路程？时间！" class="headerlink" title="路程？时间！"></a>路程？时间！</h3><p><strong>车程不是时间，不是时间，不是时间</strong></p>
-<p>好像只能怪我太菜了吧<br><img src="https://s2.ax1x.com/2019/02/13/k07mWj.jpg" alt="k07mWj.jpg"><br>还是把原题放出来吧</p>
-<blockquote>
-<p>How far is it from the New City to the Old City?<br>Less than 30 minutes ride by car.</p>
-</blockquote>
-<p>所以我太菜了啊</p>
-<hr>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>英语其实并不太难，只要努力一定可以提升的</p>
-<p>加油吧,中考党们QvQ</p>
 <h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
     </div>
@@ -545,7 +514,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/文化课专栏/" rel="tag"># 文化课专栏</a>
+            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+            <a href="/tags/Gcd/" rel="tag"># Gcd</a>
+          
+            <a href="/tags/Exgcd/" rel="tag"># Exgcd</a>
           
         </div>
       
@@ -558,8 +533,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/12/wen-hua-ke-start/" rel="next" title="文化课 GO">
-                <i class="fa fa-chevron-left"></i> 文化课 GO
+              <a href="/2019/08/04/Tarjan-point&edge/" rel="next" title="图论算法-Tarjan(割点 & 割边)">
+                <i class="fa fa-chevron-left"></i> 图论算法-Tarjan(割点 & 割边)
               </a>
             
           </div>
@@ -567,10 +542,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/17/luoguP4643/" rel="prev" title="【国家集训队】阿狸和桃子的游戏-题解">
-                【国家集训队】阿狸和桃子的游戏-题解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -803,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lie-amp-Lay"><span class="nav-number">1.</span> <span class="nav-text">Lie &amp; Lay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#It的用法"><span class="nav-number">2.</span> <span class="nav-text">It的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beside-amp-Except"><span class="nav-number">3.</span> <span class="nav-text">Beside &amp; Except</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定语从句中的复合不定代词"><span class="nav-number">4.</span> <span class="nav-text">定语从句中的复合不定代词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路程？时间！"><span class="nav-number">5.</span> <span class="nav-text">路程？时间！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-amp-定义"><span class="nav-number">2.</span> <span class="nav-text">基本概念&amp;定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整除"><span class="nav-number">2.1.</span> <span class="nav-text">整除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取模"><span class="nav-number">2.2.</span> <span class="nav-text">取模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同余"><span class="nav-number">2.3.</span> <span class="nav-text">同余</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模运算的基本性质"><span class="nav-number">2.4.</span> <span class="nav-text">模运算的基本性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gcd-欧几里得算法"><span class="nav-number">3.</span> <span class="nav-text">Gcd(欧几里得算法)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#求证"><span class="nav-number">3.1.</span> <span class="nav-text">求证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">3.2.</span> <span class="nav-text">证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">3.3.</span> <span class="nav-text">Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exgcd-扩展欧几里得"><span class="nav-number">4.</span> <span class="nav-text">Exgcd(扩展欧几里得)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个栗砸"><span class="nav-number">4.1.</span> <span class="nav-text">举个栗砸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-number">4.2.</span> <span class="nav-text">Code</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
