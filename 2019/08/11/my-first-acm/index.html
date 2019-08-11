@@ -96,25 +96,31 @@
 
 
 
-  <meta name="description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
-<meta name="keywords" content="题解,二分,各省省选">
+  <meta name="description" content="我的首场ACM，也是首场Rank 1的ACM">
+<meta name="keywords" content="灌水区">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【HNOI】 2006 鬼谷子的钱袋-题解">
-<meta property="og:url" content="http://payphone-x.github.io/2019/01/27/HNOI2006/index.html">
+<meta property="og:title" content="【成长之路】记我的第一场ACM">
+<meta property="og:url" content="http://payphone-x.github.io/2019/08/11/my-first-acm/index.html">
 <meta property="og:site_name" content="PayPhone-X&#39;s Blog">
-<meta property="og:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
+<meta property="og:description" content="我的首场ACM，也是首场Rank 1的ACM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-15T12:50:06.849Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/expZCj.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/ex9DO0.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/12/exAeTP.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/12/exAuY8.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/12/exAKfS.jpg">
+<meta property="og:updated_time" content="2019-08-11T16:16:18.288Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【HNOI】 2006 鬼谷子的钱袋-题解">
-<meta name="twitter:description" content="钱？钱是什么？我对钱不感兴趣。我就没碰过钱。                                         ——马云">
+<meta name="twitter:title" content="【成长之路】记我的第一场ACM">
+<meta name="twitter:description" content="我的首场ACM，也是首场Rank 1的ACM">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/11/expZCj.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://payphone-x.github.io/2019/01/27/HNOI2006/">
+  <link rel="canonical" href="http://payphone-x.github.io/2019/08/11/my-first-acm/">
 
 
 
@@ -124,7 +130,7 @@
   };
 </script>
 
-  <title>【HNOI】 2006 鬼谷子的钱袋-题解 | PayPhone-X's Blog</title>
+  <title>【成长之路】记我的第一场ACM | PayPhone-X's Blog</title>
   
 
 
@@ -361,7 +367,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/01/27/HNOI2006/">
+    <link itemprop="mainEntityOfPage" href="http://payphone-x.github.io/2019/08/11/my-first-acm/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="PayPhone-X">
@@ -378,7 +384,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【HNOI】 2006 鬼谷子的钱袋-题解
+          <h1 class="post-title" itemprop="name headline">【成长之路】记我的第一场ACM
 
               
             
@@ -404,7 +410,7 @@
                 
               
 
-              <time title="创建时间：2019-01-27 16:39:40" itemprop="dateCreated datePublished" datetime="2019-01-27T16:39:40+08:00">2019-01-27</time>
+              <time title="创建时间：2019-08-11 19:22:20" itemprop="dateCreated datePublished" datetime="2019-08-11T19:22:20+08:00">2019-08-11</time>
             
 
             
@@ -421,7 +427,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-15 20:50:06" itemprop="dateModified" datetime="2019-07-15T20:50:06+08:00">2019-07-15</time>
+                <time title="修改时间：2019-08-12 00:16:18" itemprop="dateModified" datetime="2019-08-12T00:16:18+08:00">2019-08-12</time>
               
             
           </span>
@@ -454,46 +460,95 @@
       
 
       
-        <blockquote>
-<p>钱？钱是什么？我对钱不感兴趣。我就没碰过钱。<br>                                         ——马云</p>
-</blockquote>
+        <p>我的首场ACM，也是首场Rank 1的ACM</p>
 <a id="more"></a>
-<h3 id="题意描述："><a href="#题意描述：" class="headerlink" title="题意描述："></a>题意描述：</h3><p>鬼谷子非常聪明，正因为这样，他非常繁忙，经常有各诸侯车的特派员前来向他咨询时政。</p>
-<p>有一天，朋友告诉他在咸阳最大的拍卖行（聚宝商行）将要举行一场拍卖会，其中有一件宝物引起了他极大的兴趣，那就是无字天书。</p>
-<p>但是，他的行程安排得很满，他已经买好了去邯郸的长途马车票，不巧的是出发时间是在拍卖会快要结束的时候。</p>
-<p>于是，他决定事先做好准备，将自己的金币数好并用一个个的小钱袋装好，以便在他现有金币的支付能力下，任何数目的金币他都能用这些封闭好的小钱的组合来付账。</p>
-<p>鬼谷子也是一个非常节俭的人，他想方设法使自己在满足上述要求的前提下，所用的钱袋数最少，并且不有两个钱袋装有相同的大于1的金币数。</p>
-<p>假设他有m个金币，你能猜到他会用多少个钱袋，并且每个钱袋装多少个金币吗？</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转眼间，来浙江集训也有十来天了。好像自从来到这里开始，我就一直在期待这场ACM。</p>
+<p>虽说之前了解过一点ACM的知识，但也仅限于别人的Blog与游记之中。自己的亲身体验，也还是第一次。</p>
+<p>这场ACM，打的也真的算是一波三折。</p>
+<p>不过最后结果还挺不错的，也算一次非凡的经历吧。</p>
 <hr>
-<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>包含一个整数，表示鬼谷子现有的总的金币数目m。</p>
+<h2 id="赛前组队"><a href="#赛前组队" class="headerlink" title="赛前组队"></a>赛前组队</h2><p>赛前一天，大家都处于欢乐的组队状态之中</p>
+<p>之前我和ygj，jzx约好一队，可比赛前一天中午我们却又因为各种各样的原因决定重新组队。</p>
+<p>上课之前，我在教室前排吆喝了一句还有队伍缺人吗？过了一会，zxb与wd dalao就来拉我进队。</p>
+<p>然后我们就在一起想队名，直到快下课我们才想到了一个还中听的名字，叫<code>Lemon</code>。</p>
+<p>之后听说Rank 1可以拿到烤肉券，但我们也根本就没把这个当回事。</p>
+<p>除此之外就是各种fAKe……</p>
+<p><img src="https://s2.ax1x.com/2019/08/11/expZCj.jpg" alt="expZCj.jpg"></p>
+<p><del>我才不会告诉你那个端茶倒水的是我呐o(´^｀)o</del></p>
 <hr>
-<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>两行，第一行一个整数h，表示所用钱袋个数</p>
-<p>第二行表示每个钱袋所装的金币个数，由小到大输出，空格隔开。</p>
+<h2 id="比赛的小插曲"><a href="#比赛的小插曲" class="headerlink" title="比赛的小插曲"></a>比赛的小插曲</h2><p>比赛前一天晚上，我习惯性的登录了一下<code>Codeforces</code>，却发现<code>Codeforces</code>的页面没了</p>
+<p>“或许又被鸽到长城外边去了？”我心里这样想着，但又有种不是很好的感觉，也没多想就睡觉了。</p>
+<p>结果第二天，我的感觉真TM灵验了！<code>Codeforces</code>真TM炸了！</p>
+<p>更可怕的是，我们的题目都是依靠<code>Codeforces</code>进行评测的。</p>
+<p>就这样，我们打了一天的三人OI赛制……</p>
+<p>到了下午，<code>Codeforces</code>还是没好，没办法，SR老师只好先讲题。</p>
+<p>在讲题时，我发现我们打的基本都是正解，也就是说，如果<code>Codeforces</code>没炸的话，我们应该会是前几名。</p>
+<p><del>自闭ing</del></p>
+<p>到了晚上，我给Logey，HandwerSTD，Shq抱怨这事，结果一句安慰都没得到……</p>
+<p><del>自闭$\times$ 2 ing</del></p>
+<p>不过第二天，SR老师说等毛老师来了之后还会给我们补一场ACM。之后我就重新回到了期待之中</p>
 <hr>
-<h3 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h3><h5 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h5><blockquote>
-<p>3</p>
+<h2 id="正式比赛"><a href="#正式比赛" class="headerlink" title="正式比赛"></a>正式比赛</h2><h3 id="比赛前"><a href="#比赛前" class="headerlink" title="比赛前"></a>比赛前</h3><p>三天后，毛老师果然给我们补了一场ACM。</p>
+<p>比赛前一天晚上，我想早睡，可Herself32却要暴切黑题来吊打我……</p>
+<p>于是乎，我又陪她熬到了十二点半……</p>
+<p>结果第二天早上，Herself32又赖床，咋都叫不醒，快八点才从床上爬起来<del>（Herself32：嘤）</del></p>
+<p>等我到教室的时候，教室已经基本坐满了，但幸好zxb与wd dalao为我留了位置。</p>
+<p>过了不到5分钟毛老师就开始下放密码。</p>
+<p>当我看到密码的那一刻，我真心有种智熄的感觉……</p>
+<p><a href="https://imgchr.com/i/ex9DO0" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/11/ex9DO0.jpg" alt="ex9DO0.jpg"></a></p>
+<p><del>毛老师您是魔鬼吗？？？</del></p>
+<hr>
+<h3 id="比赛开始"><a href="#比赛开始" class="headerlink" title="比赛开始"></a>比赛开始</h3><p>拿到密码之后我们就开始看题……一人一道，zxb和wd dalao正序开题，我倒序。</p>
+<p>看到$J$题的第一眼我就发现这是一颗需要区间$gcd$线段树，<del>但我不会写</del>。</p>
+<p>又一看$I$题，艹，这是什么神仙题，怎么那么多圆？<del>(后来才知道那是一道SB数学题)</del></p>
+<p>而zxb dalao那边已经开始做$A$题，在大概15分钟的时候我们交了一发$A$，结果T到飞起。</p>
+<p>而我开始看$D$题，不久便想到了一个时间复杂度为$O(n^2)$的做法，后来优化成了$O(nlogn)$，交了一发，过了。</p>
+<p>与此同时，zxb他们也想到了第一题的优化做法，交了一发，也过了。</p>
+<p>就这样，我们在开场1个小时之后成了全场Rank 1。</p>
+<hr>
+<h3 id="稳住，别浪"><a href="#稳住，别浪" class="headerlink" title="稳住，别浪"></a>稳住，别浪</h3><p>可Rank 1的排名并没有持续太久，一回便被反超了。</p>
+<p>于是乎，我开始肝$B$题，zxb开始肝$I$题，而wd开始肝$E$题。</p>
+<p>当我看到$B$题时，我只知道它要考$xor$的某些性质，但我并不知道它到底想考那条性质。</p>
+<p>so……我便一条条的回想$xor$的性质。</p>
+<p>大概5分钟后，我的脑海里浮现出了一句话</p>
+<blockquote>
+<p>$xor$的逆运算是其本身，也就是说(a ^ b) ^ b = a</p>
 </blockquote>
-<h5 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h5><blockquote>
-<p>2<br>1 2</p>
-</blockquote>
+<p>然后，我便把思路告诉了zxb，不久后，我们队伍就A了这道题。</p>
+<p>又过了一会，zxb切掉了$I$题，我们队伍又回到了Rank 1。</p>
+<p>此时，距离比赛结束还有3个小时。</p>
 <hr>
-<h3 id="数据范围和约定："><a href="#数据范围和约定：" class="headerlink" title="数据范围和约定："></a>数据范围和约定：</h3><p>对于$100%$的数据，$1 \leq m \leq 1000000000$(ps.10的9次方)。</p>
+<h3 id="惊险又刺激的30min"><a href="#惊险又刺激的30min" class="headerlink" title="惊险又刺激的30min"></a>惊险又刺激的30min</h3><p>之后，我们队伍就一直在Rank 1保持着。</p>
+<p>但大约1个小时之后，事情又出现了转机。</p>
+<p>1个小时之后，我们的队伍又被再次反超，这次的对手，是ZROI-D班的一哥。</p>
+<p>说实话，我们都没有信心能够打败这样的对手。但我们一直在努力争取着，不让他们与我们拉开太大的分数。</p>
+<p>很快，我们就A掉了除了$E$，$F$的所有题，而对手，也是一样。</p>
+<p>这时，就看谁能更快$A$掉剩下的两题了。</p>
+<p>我和zxb一起肝$F$，但对手好像更快，没过多久，他们就$A$掉了$F$题</p>
+<p>我们的压力更大了……</p>
+<p>我手造了几组样例，一直试图找到其中的规律，可无奈怎也找不到。</p>
+<p>没办法，只好写了个爆搜交了上去。</p>
+<p>结果</p>
+<p><strong>A了</strong></p>
+<p><del>我艹这TM什么辣鸡数据啊</del></p>
+<p>之后我们两个便与wd一起搞$E$题，但可惜到最后也没搞出来。</p>
+<p>而对手根本没有考虑到我们之前已经写了一部分$E$，再加上他们罚时过多，知道自己没有翻盘的可能，便开始摸起了鱼。</p>
+<p>最后，我们真的成功拿到了Rank 1。</p>
+<p><strong>我们，成功了</strong></p>
 <hr>
-<h3 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h3><p><del>一道二分水题（逃）</del></p>
-<p>可以脑补一下，如果m为40，我们需要表示哪些数呐？</p>
-<p>是不是只用表示0 ~ 20就可以啦！</p>
-<p>你看</p>
-<p>40可以表示为20 + 10 + 9 + 1（当然还可以表示成别的……）</p>
-<p>39可以表示为20 + 10 + 8 + 1</p>
-<p>……</p>
-<p>21可以表示为20 + 1</p>
-<p>那……</p>
-<p>如果要表示0 ~ 20，我们是不是只用表示0 ~ 10就可以啦！</p>
-<p>同理 0 ~ 10可以用0 ~ 5表示 ; 0 ~ 5可以用0 ~ 3表示。</p>
-<p>所以，<strong>n以内的数字可以用 1 到n / 2的数字表示 ，n / 2以内的数字又可以用到n / 4以内的数字表示……</strong></p>
-<p>是不是很简单啊（逃）</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这次的ACM中我们打出了不错的成绩，我认为有以下几点原因</p>
+<ol>
+<li>队伍分工比较明确。</li>
+<li>每个人都各有所长，都可以得以发挥</li>
+<li>提前写了一道别人没有写的题目，在最后关头抢到了先机</li>
+<li>意志坚定，没人摸鱼。</li>
+</ol>
+<p>当然了，这是我的第一场ACM，但肯定不是最后一场。未来，还有很长的路要走呐</p>
+<p>加油吧OvO</p>
 <hr>
-<h3 id="附件（AC标程，防作弊已开启）"><a href="#附件（AC标程，防作弊已开启）" class="headerlink" title="附件（AC标程，防作弊已开启）"></a>附件（AC标程，防作弊已开启）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algirothm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000001</span>];</span><br><span class="line"><span class="keyword">int</span> m, h = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">	<span class="keyword">while</span>(m &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(m % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">			m = m / <span class="number">2</span>;</span><br><span class="line">			a[h] = m;</span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			a[h] = m / <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">			m = m / <span class="number">2</span>; </span><br><span class="line">			h ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	h --</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; h &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">	sort(a + <span class="number">1</span>, a + <span class="number">1</span> + h);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= h; i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt;<span class="string">" "</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="一点花絮"><a href="#一点花絮" class="headerlink" title="一点花絮"></a>一点花絮</h2><p>顺便晒一下今天晚上Rank1的奖品<del>(故意挑事.jpg)</del></p>
+<p><a href="https://imgchr.com/i/exAeTP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/12/exAeTP.jpg" alt="exAeTP.jpg"></a></p>
+<p><a href="https://imgchr.com/i/exAuY8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/12/exAuY8.jpg" alt="exAuY8.jpg"></a><br><a href="https://imgchr.com/i/exAKfS" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/08/12/exAKfS.jpg" alt="exAKfS.jpg"></a></p>
 <hr>
 <h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>
       
@@ -518,11 +573,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/题解/" rel="tag"># 题解</a>
-          
-            <a href="/tags/二分/" rel="tag"># 二分</a>
-          
-            <a href="/tags/各省省选/" rel="tag"># 各省省选</a>
+            <a href="/tags/灌水区/" rel="tag"># 灌水区</a>
           
         </div>
       
@@ -535,8 +586,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/24/Tree/" rel="next" title="数据结构-线段树">
-                <i class="fa fa-chevron-left"></i> 数据结构-线段树
+              <a href="/2019/08/09/math1/" rel="next" title="数论-同余问题">
+                <i class="fa fa-chevron-left"></i> 数论-同余问题
               </a>
             
           </div>
@@ -544,10 +595,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/12/wen-hua-ke-start/" rel="prev" title="文化课 GO">
-                文化课 GO <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -782,7 +829,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意描述："><span class="nav-number">1.</span> <span class="nav-text">题意描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入格式："><span class="nav-number">2.</span> <span class="nav-text">输入格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出格式："><span class="nav-number">3.</span> <span class="nav-text">输出格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-amp-Output-‘s-examples"><span class="nav-number">4.</span> <span class="nav-text">Input &amp; Output ‘s examples</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Input-‘s-eg"><span class="nav-number">4.0.1.</span> <span class="nav-text">Input ‘s eg</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Output-‘s-eg"><span class="nav-number">4.0.2.</span> <span class="nav-text">Output ‘s eg</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#数据范围和约定："><span class="nav-number">5.</span> <span class="nav-text">数据范围和约定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析："><span class="nav-number">6.</span> <span class="nav-text">分析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附件（AC标程，防作弊已开启）"><span class="nav-number">7.</span> <span class="nav-text">附件（AC标程，防作弊已开启）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赛前组队"><span class="nav-number">2.</span> <span class="nav-text">赛前组队</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比赛的小插曲"><span class="nav-number">3.</span> <span class="nav-text">比赛的小插曲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正式比赛"><span class="nav-number">4.</span> <span class="nav-text">正式比赛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#比赛前"><span class="nav-number">4.1.</span> <span class="nav-text">比赛前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比赛开始"><span class="nav-number">4.2.</span> <span class="nav-text">比赛开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稳住，别浪"><span class="nav-number">4.3.</span> <span class="nav-text">稳住，别浪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#惊险又刺激的30min"><span class="nav-number">4.4.</span> <span class="nav-text">惊险又刺激的30min</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一点花絮"><span class="nav-number">6.</span> <span class="nav-text">一点花絮</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#THE-END"><span class="nav-number"></span> <span class="nav-text">THE END</span></a></li></div>
             
 
           </div>
