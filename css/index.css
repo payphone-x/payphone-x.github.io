@@ -433,7 +433,7 @@ blockquote {
 }
 .article-container pre,
 .article-container code {
-  font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace, Helvetica Neue For Number !important;
+  font-family: 'Fira Code', 'Fira Mono', 'Ubuntu Mono', 'Monaco', 'consolas', 'monospace' !important;
 }
 .article-container code {
   padding: 0.1rem 0.2rem;
