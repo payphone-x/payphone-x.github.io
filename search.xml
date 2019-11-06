@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>【JZOI】统计损失-题解</title>
+      <link href="/2019/11/06/GmojP3844/"/>
+      <url>/2019/11/06/GmojP3844/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p><code>SJY</code>有一天被<code>LLT</code>紧急召去计算一些可能的损失。</p><p><code>LLT</code>元首管理的<code>SHB</code>国的交通形成了一棵树，现在将会出现一颗陨石砸在<code>SHB</code>国中，并且陨石砸毁的必定是<code>SHB</code>国构成的交通树上的一条路径。</p><p><code>SHB</code>国的损失可表示为被砸毁的路径上的所有城市价值之积。</p><p>现在还暂时无法确定陨石的掉落路线，所以<code>LLT</code>元首希望<code>SJY</code>能够告诉他<code>SHB</code>国在受到每一种砸毁方式后会受到的损失之和模$10086$之后的值。</p><p>注意：单独的一个节点也被认为是合法的路径。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第$1$行包含一个数$n$，表示城市数。</p><p>第$2$行包含$n$个数，第$i$个数表示第$i$个城市的价值。</p><p>第$3$行到$n+1$行，每行两个数$u,v$，表示城市$u,v$之间有一条道路。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅有一行，包含一个数，表示<code>SHB</code>国将受到的损失之和。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">7 6 6 1 1 </span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br><span class="line">1 5</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">778</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围与约定"><a href="#数据范围与约定" class="headerlink" title="数据范围与约定"></a>数据范围与约定</h2><p>对于$20\%$的数据，保证$0 \leq n \leq 100$;</p><p>对于$50\%$的数据，保证$0 \leq n \leq 3000$;</p><p>对于$100\%$的数据，保证$0 \leq n \leq 10^4$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>题目中的题意并不明确，需要先理清题意。</p><p>题意即求出一颗树上所有路径的价值之和。路径的价值定义为路径经过的点的乘积。</p><p>考虑树形dp，设$f[i]$表示以$i$为根的子树的答案，转移时从下向上转移。</p><p>不难发现，每一条路径的状态有两种，分别是直链与折链。</p><p>若路径为一条直链，则$f[u] = \sum f[to] * val[u]$，最后的答案为$\sum_{i = 1}^n f[i]$。</p><p>若路径为一条折链，则相当于是两条直链，需要分开处理。</p><p>假设处理到了$u$的子树$v$，则让$to$这颗子树负责其中一条直链，另一条让其他子树负责，即$\sum f[to] * f[son[u]]$，$(son[u] \neq to)$。</p><p>但要注意，由于我们将折链拆成了两条直链，计算时需要使用到$f$数组的元素，因此对于折链的计算是不能加入$f$数组的。直接加入答案即可。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100010</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">10086</span>;</span><br><span class="line"><span class="keyword">int</span> n , a[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> from , to;</span><br><span class="line">    <span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[N &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_num;</span><br><span class="line"><span class="keyword">int</span> head[N &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">I <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">    edge[++ edge_num] = (Edge)&#123;from , to , head[from]&#125;;</span><br><span class="line">    head[from] = edge_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll ans , f[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> u , <span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    ll sum = <span class="number">0</span>;</span><br><span class="line">    f[u] = a[u];    <span class="comment">//由于单独的一个点也是合法路径，所以我们需要加上单独一个点的答案</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = head[u]; i ; i = edge[i].last)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(to == fa) <span class="keyword">continue</span>;</span><br><span class="line">        search(to , u);</span><br><span class="line">        f[u] += f[to] * a[u] , f[u] %= HA; <span class="comment">//计算直链的答案</span></span><br><span class="line">        ans += sum * f[to] , ans %= HA; <span class="comment">//单独加入折链的答案。</span></span><br><span class="line">        sum += f[to] * a[u] , sum %= HA; </span><br><span class="line">        <span class="comment">//重新计算折链的贡献，这一句必须放于上句之后，因为必定会有一条直链。</span></span><br><span class="line">    &#125;</span><br><span class="line">    ans += f[u] , ans %= HA;    <span class="comment">//最后加入直链的答案</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u , v;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; u &gt;&gt; v;</span><br><span class="line">        add_edge(u , v);</span><br><span class="line">        add_edge(v , u); </span><br><span class="line">    &#125;</span><br><span class="line">    search(<span class="number">1</span> , <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans % HA &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> 纪中集训 </tag>
+            
+            <tag> 搜索 </tag>
+            
+            <tag> 树形dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【JZOI】寻找羔羊-题解</title>
+      <link href="/2019/11/06/GmojP3843/"/>
+      <url>/2019/11/06/GmojP3843/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>给定一个仅有小写字母组成的字符串，寻找包含<code>agnus</code>（羔羊）的子串的个数。</p><p>注意：当且仅当两个子串的起始位置和终点不同时，这两个子串属于不同的子串。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入只有一行，包含一个字符串，表示题中所述的字符串。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出只有一行，仅一个数字，表示满足题意的子串个数。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">agnusbgnus</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure><hr><h2 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h2><p>6个子串分别是：<code>agnus</code>、<code>agnusb</code>、<code>agnusbg</code>、<code>agnusbgn</code>、<code>agnusbgnu</code>、<code>agnusbgnus</code>。</p><hr><h2 id="数据范围与约定"><a href="#数据范围与约定" class="headerlink" title="数据范围与约定"></a>数据范围与约定</h2><p>对于 $40\%$的数据，保证$|s| \leq 10^3$<br>对于 $100\%$的数据，保证$|s| \leq 3 \times 10^4$</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>一道递推好题。</p><p>从样例解释里可以看出，每出现<code>agnus</code>之后，其后边的每个字符均能够形成一个子串。</p><p>同理，每个<code>agnus</code>之前的每个字符也能够形成一个子串。</p><p>这样的话，答案为每个<code>agnus</code>前后字符的数量之积。</p><p>然而，若有两个<code>agnus</code>相连，则会出现重复计算。因此需要注意去重。</p><p>设$l_i$表示第$i$个<code>agnus</code>左边的字符，则去重的方式为$l_i = l_i - l_{i - 1}$。因为$l_i$与$l_{i - 1}$的公共部分已经在计算$l_{i - 1}$时计算过。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 30010</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> s;</span><br><span class="line">ll l[N] , r[N] , cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">if</span>(s.length() &lt; <span class="number">5</span>)&#123; <span class="comment">//特判，当字符串长度小于5时根本不会出现agnus。</span></span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"0"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    s = <span class="string">'0'</span> + s;    <span class="comment">//将字符串与0拼接，即若原字符串为agnus,则拼接后为0agnus，以便于之后的操作</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i] == <span class="string">'a'</span> &amp;&amp; s[i + <span class="number">1</span>] == <span class="string">'g'</span> &amp;&amp; s[i + <span class="number">2</span>] == <span class="string">'n'</span> &amp;&amp; s[i + <span class="number">3</span>] == <span class="string">'u'</span> &amp;&amp; s[i + <span class="number">4</span>] == <span class="string">'s'</span>)&#123;</span><br><span class="line">            ++ cnt; <span class="comment">//若找到agnus，则记录</span></span><br><span class="line">            l[cnt] = i; <span class="comment">//记录其左边的字符数</span></span><br><span class="line">            r[cnt] = s.length() - (i + <span class="number">4</span>);  <span class="comment">//记录右边的字符数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= cnt; i ++)&#123;</span><br><span class="line">        ans += (l[i] - l[i - <span class="number">1</span>]) * r[i];    <span class="comment">//去重并统计答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 纪中集训 </tag>
+            
+            <tag> 递推 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【JZOI】Alice与Bob的游戏-题解</title>
       <link href="/2019/11/04/GmojP1350/"/>
       <url>/2019/11/04/GmojP1350/</url>
@@ -107,9 +169,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -365,9 +427,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
         </tags>
       
@@ -425,9 +487,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -555,9 +617,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -588,9 +650,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
         </tags>
       
@@ -776,9 +838,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
         </tags>
       
@@ -803,9 +865,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 优先队列 </tag>
             
@@ -838,9 +900,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 分类讨论 </tag>
             
@@ -958,9 +1020,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 各省省选 </tag>
             
@@ -997,9 +1059,9 @@
             
             <tag> Trie树 </tag>
             
-            <tag> 字符串 </tag>
-            
             <tag> bitset </tag>
+            
+            <tag> 字符串 </tag>
             
         </tags>
       
@@ -1026,9 +1088,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 优先队列 </tag>
             
@@ -1074,7 +1136,7 @@
       <link href="/2019/10/08/zz-mistake/"/>
       <url>/2019/10/08/zz-mistake/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="忘记初始化"><a href="#忘记初始化" class="headerlink" title="忘记初始化"></a>忘记初始化</h2><p>写并查集时自作多情写了个<code>Start()</code>，然后……没调用。</p><hr><h2 id="合并并查集时不加find"><a href="#合并并查集时不加find" class="headerlink" title="合并并查集时不加find"></a>合并并查集时不加find</h2><p>事实上，我的并查集合并一直是这么写的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    pre[a] = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但正确的写法应该是这样</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(a) != find(b))&#123;</span><br><span class="line">        pre[find(a)] = find(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="排序时把n和m弄反"><a href="#排序时把n和m弄反" class="headerlink" title="排序时把n和m弄反"></a>排序时把n和m弄反</h2><p>不多说，说多都是泪。</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kruskal</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        pre[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(EDGE + <span class="number">1</span> , EDGE + <span class="number">1</span> + n , cmp);    <span class="comment">//Wrong!!!</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(find(EDGE[i].from) != find(EDGE[i].to))&#123;</span><br><span class="line">            merge(EDGE[i].from , EDGE[i].to);</span><br><span class="line">            add_edge(EDGE[i].from , EDGE[i].to , EDGE[i].dis);</span><br><span class="line">            add_edge(EDGE[i].to , EDGE[i].from , EDGE[i].dis);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="写LCA不比较最后一步"><a href="#写LCA不比较最后一步" class="headerlink" title="写LCA不比较最后一步"></a>写LCA不比较最后一步</h2><p>在<a href="https://www.luogu.org/problem/P1967" target="_blank" rel="noopener">Luogu P1967 货车运输</a>一题中，作者写了以下的<code>LCA</code></p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(x) != find(y))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">2147483647</span>;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y])&#123;</span><br><span class="line">        swap(x , y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[fa[y][i]] &gt;= dep[x])&#123;</span><br><span class="line">            ans = min(ans , val[y][i]);   </span><br><span class="line">            y = fa[y][i]; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == y)&#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i] != fa[y][i])&#123;</span><br><span class="line">        ans = min(ans , min(val[x][i] , val[y][i]));</span><br><span class="line">            x = fa[x][i];</span><br><span class="line">            y = fa[y][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;     \\Wrong!!!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但事实上，正确的写法是这样的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(x) != find(y))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">2147483647</span>;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y])&#123;</span><br><span class="line">        swap(x , y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[fa[y][i]] &gt;= dep[x])&#123;</span><br><span class="line">            ans = min(ans , val[y][i]);   </span><br><span class="line">            y = fa[y][i]; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == y)&#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i] != fa[y][i])&#123;</span><br><span class="line">        ans = min(ans , min(val[x][i] , val[y][i]));</span><br><span class="line">            x = fa[x][i];</span><br><span class="line">            y = fa[y][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> min(ans, min(val[x][<span class="number">0</span>], val[y][<span class="number">0</span>]));     <span class="comment">//需要比较最后一步</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="不写retuen"><a href="#不写retuen" class="headerlink" title="不写retuen"></a>不写retuen</h2><p>考场上写<code>Exgcd</code>忘了<code>return</code>，导致死递归。</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> x , y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>)&#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">                        <span class="comment">//Wrong!!</span></span><br><span class="line">    &#125;</span><br><span class="line">    exgcd(b , a % b);</span><br><span class="line">    <span class="keyword">int</span> tx = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = tx - a / b * y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="邻接表不开两倍空间"><a href="#邻接表不开两倍空间" class="headerlink" title="邻接表不开两倍空间"></a>邻接表不开两倍空间</h2><p>经典错误，不解释。</p><hr><h2 id="离散化后不调用"><a href="#离散化后不调用" class="headerlink" title="离散化后不调用"></a>离散化后不调用</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ans_x[ans] = x.id;  <span class="comment">//Wrong!!!</span></span><br><span class="line">ans_y[ans] = y.id;  <span class="comment">//Wrong!!!</span></span><br><span class="line">ans_z[ans] = z.id;  <span class="comment">//Wrong!!!</span></span><br></pre></td></tr></table></figure><p>上面的写法等于没离散化，正确的写法是这样的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ans_x[ans] = b[x.id];</span><br><span class="line">ans_y[ans] = b[y.id];</span><br><span class="line">ans_z[ans] = b[z.id];</span><br></pre></td></tr></table></figure><hr><h2 id="读错题目"><a href="#读错题目" class="headerlink" title="读错题目"></a>读错题目</h2><p>在<a href="https://www.luogu.org/problem/CF140C" target="_blank" rel="noopener">CF140C</a>中，题目要求顺序输出，但我没看到……</p><p>于是……</p><p><img alt="New Year Snowman.png" data-src="https://i.loli.net/2019/10/09/MfG2rYBCR7ekyUV.png" class="lozad"></p><hr><h2 id="比较时不加绝对值"><a href="#比较时不加绝对值" class="headerlink" title="比较时不加绝对值"></a>比较时不加绝对值</h2><p>在之前的一场考试中，作者在比较路程长度时没有加绝对值，导致走的路程出现了负数……</p><p>然后……就没有然后了……</p><hr><h2 id="读错题目-X-2"><a href="#读错题目-X-2" class="headerlink" title="读错题目 X 2"></a>读错题目 X 2</h2><p>在打<a href="http://codeforces.com/contest/1244" target="_blank" rel="noopener">Codeforces Round #592 Div2</a>时，作者再次读错题目，以为B题是一个类似于双端搜索的难题。</p><p>然后……就没有然后了……</p><hr><h2 id="开小数组"><a href="#开小数组" class="headerlink" title="开小数组"></a>开小数组</h2><p>在记录从矩阵左上角到右下角的路径时，作者忘记开两倍数组……</p><p>于是乎……</p><blockquote><p>100 -&gt; 70<br>Rank 4 -&gt; Rank 15</p></blockquote><hr><h2 id="使用不关流的cin读入大数据"><a href="#使用不关流的cin读入大数据" class="headerlink" title="使用不关流的cin读入大数据"></a>使用不关流的cin读入大数据</h2><p>RT.</p><blockquote><p>100 -&gt; 50<br>Rank 3 -&gt; Rank 9</p></blockquote><p><del>自闭……</del></p><hr><h1 id="To-Be-Continue"><a href="#To-Be-Continue" class="headerlink" title="To Be Continue"></a>To Be Continue</h1><p><del>希望哪天真的能THE END</del></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="忘记初始化"><a href="#忘记初始化" class="headerlink" title="忘记初始化"></a>忘记初始化</h2><p>写并查集时自作多情写了个<code>Start()</code>，然后……没调用。</p><hr><h2 id="合并并查集时不加find"><a href="#合并并查集时不加find" class="headerlink" title="合并并查集时不加find"></a>合并并查集时不加find</h2><p>事实上，我的并查集合并一直是这么写的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    pre[a] = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但正确的写法应该是这样</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(a) != find(b))&#123;</span><br><span class="line">        pre[find(a)] = find(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="排序时把n和m弄反"><a href="#排序时把n和m弄反" class="headerlink" title="排序时把n和m弄反"></a>排序时把n和m弄反</h2><p>不多说，说多都是泪。</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kruskal</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        pre[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(EDGE + <span class="number">1</span> , EDGE + <span class="number">1</span> + n , cmp);    <span class="comment">//Wrong!!!</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(find(EDGE[i].from) != find(EDGE[i].to))&#123;</span><br><span class="line">            merge(EDGE[i].from , EDGE[i].to);</span><br><span class="line">            add_edge(EDGE[i].from , EDGE[i].to , EDGE[i].dis);</span><br><span class="line">            add_edge(EDGE[i].to , EDGE[i].from , EDGE[i].dis);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="写LCA不比较最后一步"><a href="#写LCA不比较最后一步" class="headerlink" title="写LCA不比较最后一步"></a>写LCA不比较最后一步</h2><p>在<a href="https://www.luogu.org/problem/P1967" target="_blank" rel="noopener">Luogu P1967 货车运输</a>一题中，作者写了以下的<code>LCA</code></p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(x) != find(y))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">2147483647</span>;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y])&#123;</span><br><span class="line">        swap(x , y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[fa[y][i]] &gt;= dep[x])&#123;</span><br><span class="line">            ans = min(ans , val[y][i]);   </span><br><span class="line">            y = fa[y][i]; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == y)&#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i] != fa[y][i])&#123;</span><br><span class="line">        ans = min(ans , min(val[x][i] , val[y][i]));</span><br><span class="line">            x = fa[x][i];</span><br><span class="line">            y = fa[y][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;     \\Wrong!!!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>但事实上，正确的写法是这样的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(find(x) != find(y))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans = <span class="number">2147483647</span>;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y])&#123;</span><br><span class="line">        swap(x , y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[fa[y][i]] &gt;= dep[x])&#123;</span><br><span class="line">            ans = min(ans , val[y][i]);   </span><br><span class="line">            y = fa[y][i]; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == y)&#123;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">20</span>; i &gt;= <span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span>(fa[x][i] != fa[y][i])&#123;</span><br><span class="line">        ans = min(ans , min(val[x][i] , val[y][i]));</span><br><span class="line">            x = fa[x][i];</span><br><span class="line">            y = fa[y][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> min(ans, min(val[x][<span class="number">0</span>], val[y][<span class="number">0</span>]));     <span class="comment">//需要比较最后一步</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="不写retuen"><a href="#不写retuen" class="headerlink" title="不写retuen"></a>不写retuen</h2><p>考场上写<code>Exgcd</code>忘了<code>return</code>，导致死递归。</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> x , y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a , <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>)&#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">                        <span class="comment">//Wrong!!</span></span><br><span class="line">    &#125;</span><br><span class="line">    exgcd(b , a % b);</span><br><span class="line">    <span class="keyword">int</span> tx = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = tx - a / b * y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="邻接表不开两倍空间"><a href="#邻接表不开两倍空间" class="headerlink" title="邻接表不开两倍空间"></a>邻接表不开两倍空间</h2><p>经典错误，不解释。</p><hr><h2 id="离散化后不调用"><a href="#离散化后不调用" class="headerlink" title="离散化后不调用"></a>离散化后不调用</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ans_x[ans] = x.id;  <span class="comment">//Wrong!!!</span></span><br><span class="line">ans_y[ans] = y.id;  <span class="comment">//Wrong!!!</span></span><br><span class="line">ans_z[ans] = z.id;  <span class="comment">//Wrong!!!</span></span><br></pre></td></tr></table></figure><p>上面的写法等于没离散化，正确的写法是这样的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ans_x[ans] = b[x.id];</span><br><span class="line">ans_y[ans] = b[y.id];</span><br><span class="line">ans_z[ans] = b[z.id];</span><br></pre></td></tr></table></figure><hr><h2 id="读错题目"><a href="#读错题目" class="headerlink" title="读错题目"></a>读错题目</h2><p>在<a href="https://www.luogu.org/problem/CF140C" target="_blank" rel="noopener">CF140C</a>中，题目要求顺序输出，但我没看到……</p><p>于是……</p><p><img alt="New Year Snowman.png" data-src="https://i.loli.net/2019/10/09/MfG2rYBCR7ekyUV.png" class="lozad"></p><hr><h2 id="比较时不加绝对值"><a href="#比较时不加绝对值" class="headerlink" title="比较时不加绝对值"></a>比较时不加绝对值</h2><p>在之前的一场考试中，作者在比较路程长度时没有加绝对值，导致走的路程出现了负数……</p><p>然后……就没有然后了……</p><hr><h2 id="读错题目-X-2"><a href="#读错题目-X-2" class="headerlink" title="读错题目 X 2"></a>读错题目 X 2</h2><p>在打<a href="http://codeforces.com/contest/1244" target="_blank" rel="noopener">Codeforces Round #592 Div2</a>时，作者再次读错题目，以为B题是一个类似于双端搜索的难题。</p><p>然后……就没有然后了……</p><hr><h2 id="开小数组"><a href="#开小数组" class="headerlink" title="开小数组"></a>开小数组</h2><p>在记录从矩阵左上角到右下角的路径时，作者忘记开两倍数组……</p><p>于是乎……</p><blockquote><p>100 -&gt; 70<br>Rank 4 -&gt; Rank 15</p></blockquote><hr><h2 id="使用不关流的cin读入大数据"><a href="#使用不关流的cin读入大数据" class="headerlink" title="使用不关流的cin读入大数据"></a>使用不关流的cin读入大数据</h2><p>RT.</p><blockquote><p>100 -&gt; 50<br>Rank 3 -&gt; Rank 9</p></blockquote><p><del>自闭……</del></p><hr><h2 id="inf设小"><a href="#inf设小" class="headerlink" title="inf设小"></a>inf设小</h2><p>RT.</p><blockquote><p>100 -&gt; 30<br>Rank 2 -&gt; Rank 16</p></blockquote><h1 id="To-Be-Continue"><a href="#To-Be-Continue" class="headerlink" title="To Be Continue"></a>To Be Continue</h1><p><del>希望哪天真的能THE END</del></p>]]></content>
       
       
       <categories>
@@ -1152,9 +1214,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 树形dp </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
@@ -1299,9 +1361,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 分类讨论 </tag>
             
@@ -1475,9 +1537,9 @@
       
         <tags>
             
-            <tag> 题解 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 学习笔记 </tag>
             
@@ -1510,6 +1572,8 @@
             
             <tag> 题解 </tag>
             
+            <tag> 递推 </tag>
+            
             <tag> 栈 </tag>
             
             <tag> 模拟 </tag>
@@ -1519,8 +1583,6 @@
             <tag> 字符串 </tag>
             
             <tag> 排序 </tag>
-            
-            <tag> 递推 </tag>
             
         </tags>
       
