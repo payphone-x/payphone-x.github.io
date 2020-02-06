@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>【洛谷题库】摇钱树-题解</title>
+      <link href="/2020/02/05/luoguP1987/"/>
+      <url>/2020/02/05/luoguP1987/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>$\text{Cpg}$ 正在游览一个梦中之城，在这个城市中有$n$棵摇钱树。这下，可让$\text{Cpg}$看傻了。</p><p>$\text{Cpg}$只能在这个城市中呆$m$天，现在摇钱树已经成熟了，每天每棵都会掉下不同的金币。</p><p>$\text{Cpg}$每天可以砍掉其中一颗，并获得其树上所有的金币。</p><p>请你帮助$\text{Cpg}$算出他在这$m$天中最多能获得多少金币。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>每个文件中有不超过$10$组测试数据，对于每组测试数据，有：</p><p>第一行两个整数$n , m$</p><p>第二行$n$个整数$M_i$，表示$\text{Cpg}$刚看到这$n$棵树时树上的金币数。</p><p>第三行$n$个整数 $P_i$，表示每颗摇钱树每天将会掉落的金币。</p><p>以$n=m=0$结束。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>对每组测试数据，输出仅一行，表示$\text{Cpg}$在$m$天中能获得的最大金币数。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3 3</span><br><span class="line">10 20 30</span><br><span class="line">4 5 6</span><br><span class="line">4 3</span><br><span class="line">20 30 40 50</span><br><span class="line">2 7 6 5</span><br><span class="line">0 0</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">47</span><br><span class="line">104</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于$100\%$的数据，有$1 &lt; n &lt; 1000$ ， $1 &lt; m &lt; 10^5$。</p><p>保证输入数据均在$\text{int}$范围内。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>先说方法：将每一棵树按照$p[i]$排序之后$01$背包。</p><p>贪心证明如下：</p><p>对于第$i$颗与第$i + 1$颗树，若分别在第$j$个与第$j + 1$个时刻被砍掉，则收益为 $$m[i] - j \times p[i] + m[i + 1] - (j + 1) \times p[i + 1]$$</p><p>如果交换一下砍树的顺序，则收益为 $$m[i] - (j + 1) \times p[i] + m[i + 1] - j \times p[i + 1]$$</p><p>显然，只有当后者的收益大于前者时才会交换。即$$m[i] - j \times p[i] + m[i + 1] - (j + 1) \times p[i + 1] &lt; m[i] - (j + 1) \times p[i] + m[i + 1] - j \times p[i + 1]$$</p><p>移一下项，就变成了$p[i] - p[i + 1] &gt; 0$， 即$p[i] &gt; p[i + 1]$。</p><p>之后$01$背包即可，根据$01$背包的定义，可得状态转移方程$$f[i][j] = max(f[i - 1][j] , f[i - 1][j - 1] + max(0 , m[i] - p[i] \times (j - 1)))$$</p><p>剩下的细节详见代码。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clear(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std::cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std::endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x , y;</span><br><span class="line">&#125;node[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a , Node b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.y &gt; b.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m;</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span> , &amp;n , &amp;m);</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span> &amp;&amp; m == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(m &gt; n) m = n;</span><br><span class="line">        rep(i , <span class="number">1</span> , n) <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;node[i].x);</span><br><span class="line">        rep(i , <span class="number">1</span> , n) <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;node[i].y);</span><br><span class="line">        sort(node + <span class="number">1</span> , node + <span class="number">1</span> + n , cmp);</span><br><span class="line">        rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = m; j ; j --)&#123;</span><br><span class="line">                f[i][j] = max(f[i - <span class="number">1</span>][j] , f[i - <span class="number">1</span>][j - <span class="number">1</span>] + max(<span class="number">0</span> , node[i].x - (node[i].y * (j - <span class="number">1</span>))));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        rep(i , <span class="number">1</span> , m) ans = max(ans , f[n][i]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> 背包问题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【洛谷题库】OSU！-题解</title>
       <link href="/2019/11/12/luoguP1654/"/>
       <url>/2019/11/12/luoguP1654/</url>
@@ -119,9 +152,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 组合数学 </tag>
-            
             <tag> 各省省选 </tag>
+            
+            <tag> 组合数学 </tag>
             
             <tag> Luogu </tag>
             
@@ -433,9 +466,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 倍增 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
             
@@ -466,9 +499,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> 区间dp </tag>
             
@@ -683,9 +716,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Vijos </tag>
             
@@ -714,11 +747,11 @@
             
             <tag> 题解 </tag>
             
+            <tag> 分类讨论 </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 纪中集训 </tag>
-            
-            <tag> 分类讨论 </tag>
             
             <tag> Luogu </tag>
             
@@ -1094,9 +1127,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 并查集 </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
