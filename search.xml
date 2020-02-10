@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>【NOI2010】能量采集-题解</title>
+      <link href="/2020/02/09/luoguP1447/"/>
+      <url>/2020/02/09/luoguP1447/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>栋栋有一块长方形的地，他在地上种了一种能量植物，这种植物可以采集太阳光的能量。在这些植物采集能量后，栋栋再使用一个能量汇集机器把这些植物采集到的能量汇集到一起。</p><p>栋栋的植物种得非常整齐，一共有$n$列，每列有$m$棵，植物的横竖间距都一样，因此对于每一棵植物，栋栋可以用一个坐标$(x , y)$来表示，其中$x$的范围是$1$至$n$，表示是在第$x$列，$y$的范围是$1$至$m$，表示是在第$x$列的第$y$棵。</p><p>由于能量汇集机器较大，不便移动，栋栋将它放在了一个角上，坐标正好是$(0, 0)$。</p><p>能量汇集机器在汇集的过程中有一定的能量损失。如果一棵植物与能量汇集机器连接而成的线段上有$k$棵植物，则能量的损失为$2k + 1$。例如，当能量汇集机器收集坐标为$(2, 4)$的植物时，由于连接线段上存在一棵植物$(1, 2)$，会产生$3$的能量损失。注意，如果一棵植物与能量汇集机器连接的线段上没有植物，则能量损失为$1$。现在要计算总的能量损失。</p><p>下面给出了一个能量采集的例子，其中$n = 5$，$m = 4$，一共有$20$棵植物，在每棵植物上标明了能量汇集机器收集它的能量时产生的能量损失。</p><p><img alt="2608.png" data-src="https://i.loli.net/2020/02/10/SjR4q7JaKieNQLA.png" class="lozad"></p><p>在这个例子中，总共产生了$36$的能量损失。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入仅包含一行，为两个整数$n$和$m$。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅包含一个整数，表示总共产生的能量损失。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg-1"><a href="#Input-‘s-eg-1" class="headerlink" title="Input ‘s eg 1"></a>Input ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5 4</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-1"><a href="#Output-‘s-eg-1" class="headerlink" title="Output ‘s eg 1"></a>Output ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">36</span><br></pre></td></tr></table></figure><h3 id="Input-‘s-eg-2"><a href="#Input-‘s-eg-2" class="headerlink" title="Input ‘s eg 2"></a>Input ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3 4</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-2"><a href="#Output-‘s-eg-2" class="headerlink" title="Output ‘s eg 2"></a>Output ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">20</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于$10\%$的数据：$1 ≤ n, m ≤ 10$；<br>对于$50\%$的数据：$1 ≤ n, m ≤ 100$；<br>对于$80\%$的数据：$1 ≤ n, m ≤ 1000$；<br>对于$90\%$的数据：$1 ≤ n, m ≤ 10^4$；<br>对于$100\%$的数据：$1 ≤ n, m ≤ 10^5$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>一道比较麻烦的数论题，但应该还没有$\text{NOI}$的难度。</p><p>在做这题之前，我们首先要了解一个前置知识：对于平面直角坐标系中的任意一点$(x , y)$，其与原点连线后经过的点的数量为$$gcd(x , y) - 1$$</p><p>因此，题目可以转化为求出$$\sum_{i = 1} ^ {n} \sum_{j = 1} ^ {m} 2 \times gcd(i , j) - 1$$</p><p>化简一下，也就是求出$$2 \times [\sum_{i = 1} ^ {n} \sum_{j = 1} ^ {m} gcd(i , j)] - n \times m$$</p><p><del>之后采用$O(n^2)$复杂度的暴力求解，可以得到$80$分的好成绩……</del></p><p>考虑如何快速求出$\sum_{i = 1} ^ {n} \sum_{j = 1} ^ {m} gcd(i , j)$，显然，这并不好求。</p><p>正难则补，考虑容斥，设$cnt[i]$表示以$i$为公因数(注意不是最大公因数)的点对个数，则$cnt[i] = \lfloor \frac{n}{i} \rfloor \times \lfloor \frac{m}{i} \rfloor$</p><p>之后减去以$2i , 3i , 4i…j * i (j \leq \lfloor \frac{n}{i}\rfloor)$作为公约数的部分，最后留下的就是以$gcd(i , j)$为公因数的点对数目。</p><p>时间复杂度为$O(n \log n)$，比莫反稍慢一点，但也足以通过本题。</p><p>剩下的见代码即可。</p><hr><h2 id="Code-80pts"><a href="#Code-80pts" class="headerlink" title="Code[80pts]"></a>Code[80pts]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std::cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std::endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line">ll ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a , ll b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !b ? a : gcd(b , a % b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    ll n , m; <span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span> , &amp;n , &amp;m);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        rep(j , <span class="number">1</span> , m)&#123;</span><br><span class="line">            ans += <span class="number">2</span> * gcd(i , j) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std::cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std::endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line">ll cnt[M] , ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    ll n , m; <span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span> , &amp;n , &amp;m);</span><br><span class="line">    ll maxn = max(n , m);</span><br><span class="line">    rep(i , <span class="number">1</span> , maxn)&#123;</span><br><span class="line">        cnt[i] = (ll)(n / i) * (ll)(m / i);</span><br><span class="line">    &#125;</span><br><span class="line">    per(i , maxn , <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(ll j = <span class="number">2</span> * i; j &lt;= maxn; j += i) cnt[i] -= cnt[j];</span><br><span class="line">    &#125;</span><br><span class="line">    rep(i , <span class="number">1</span> , maxn)&#123;</span><br><span class="line">        ans += (ll)i * cnt[i];</span><br><span class="line">    &#125;</span><br><span class="line">    ans *= <span class="number">2</span>; ans -= n * m;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> NOI </tag>
+            
+            <tag> Gcd </tag>
+            
+            <tag> 数论 </tag>
+            
+            <tag> 容斥原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【洛谷题库】摇钱树-题解</title>
       <link href="/2020/02/05/luoguP1987/"/>
       <url>/2020/02/05/luoguP1987/</url>
@@ -619,11 +654,11 @@
             
             <tag> 题解 </tag>
             
+            <tag> 图论 </tag>
+            
             <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
-            
-            <tag> 图论 </tag>
             
             <tag> Luogu </tag>
             
@@ -747,11 +782,11 @@
             
             <tag> 题解 </tag>
             
+            <tag> 分类讨论 </tag>
+            
             <tag> 动态规划 </tag>
             
             <tag> 纪中集训 </tag>
-            
-            <tag> 分类讨论 </tag>
             
             <tag> Luogu </tag>
             
@@ -873,13 +908,13 @@
             
             <tag> 题解 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 组合数学 </tag>
             
             <tag> Luogu </tag>
             
             <tag> NOIP </tag>
+            
+            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -1464,9 +1499,9 @@
             
             <tag> 组合数学 </tag>
             
-            <tag> 数学 </tag>
-            
             <tag> 数论 </tag>
+            
+            <tag> 数学 </tag>
             
             <tag> 总结篇 </tag>
             
@@ -1640,11 +1675,11 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 数学 </tag>
+            <tag> Gcd </tag>
             
             <tag> 数论 </tag>
             
-            <tag> Gcd </tag>
+            <tag> 数学 </tag>
             
             <tag> Exgcd </tag>
             
@@ -1708,9 +1743,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 位运算 </tag>
-            
             <tag> NOI </tag>
+            
+            <tag> 位运算 </tag>
             
         </tags>
       
@@ -1991,9 +2026,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
         </tags>
       
@@ -2047,11 +2082,11 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
             
             <tag> Dijkstra </tag>
+            
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
@@ -2202,9 +2237,9 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
