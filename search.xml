@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>【Violet】樱花-题解</title>
+      <link href="/2020/02/12/luoguP1445/"/>
+      <url>/2020/02/12/luoguP1445/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>求方程:</p><p>$$\frac{1}{x} + \frac{1}{y} = \frac{1}{n!}$$</p><p>的正整数解的组数。</p><p>为防止输出过大，请输出答案对$10^9 + 7$取模的结果。</p><p>（ps.原题还是很有意思的，感兴趣的读者可以点击<a href="https://www.luogu.com.cn/problem/P1445" target="_blank" rel="noopener">这里</a>）</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>仅有一行，包含一个正整数$n$。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出一个正整数，表示最终答案对$10^9 + 7$取模的值。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1439</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">102426508</span><br></pre></td></tr></table></figure><hr><h2 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h2><p>共有三个数对$(x , y)$满足条件，分别是 $(3,6)$，$(4,4)$和$(6,3)$。</p><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于$30\%$的数据，保证$0 \leq n \leq 100$。</p><p>对于$100\%$的数据，保证$0 \leq n \leq 10^7$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>又是一道比较麻烦的数论……</p><p>将原式通分，得$$\frac{x + y}{xy} = \frac{1}{n!}$$</p><p>交叉相乘，就成了：$$xy - n!(x + y) = 0$$</p><p>在两边加上$(n!)^2$，就成了$$(n!)^2 + xy - n!(x + y) = (n!)^2$$</p><p>之后对左边因式分解，可得$$(x - n!)(y - n!) = (n!)^2$$</p><p>我们设$a = (x - n!)$，$b = (y - n!)$，则$ab = (n!)^2$</p><p>根据唯一分解定理，可知$$n! = \sum_{i = 1}^k p_i^{c_i}$$</p><p>则$$ab = (n!)^2 = \sum_{i = 1}^k p_i^{2c^i}$$</p><p>$n!$是一个确定的数，因此我们只需要确定$a , b$ ， 就确定了$x , y$。</p><p>又因为$b = \frac{(n!)^2}{a}$，则我们确定了$a$，同时也就确定了$b$。</p><p>因此我们只需要统计$a$的数目即可。</p><p>又因为$a$是$(n!)^2$的因式，因此$a$的数目为$$\prod_{i = 1}^k 2c_i + 1$$</p><p>先用欧拉筛筛一遍，之后利用唯一分解定理算出所有$c_i$，最后乘起来即可。</p><p>时间复杂度$O(n \log n)$，足以通过本题。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1000001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime[M] , flag[M] , num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> cnt[M];</span><br><span class="line">ll ans = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">IS_Prime</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;   <span class="comment">//这是一个魔改之后的欧拉筛，其中flag[i]表示i的最小质因子。</span></span><br><span class="line">    rep(i , <span class="number">2</span> , n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!flag[i])flag[i] = i , prime[++ num] = i;</span><br><span class="line">        rep(j , <span class="number">1</span> , num)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prime[j] &gt; flag[i] || prime[j] &gt; n / i) <span class="keyword">break</span>;</span><br><span class="line">            flag[i * prime[j]] = prime[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;n);</span><br><span class="line">    IS_Prime(n);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;     <span class="comment">//利用最小质因子进行唯一分解</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j != <span class="number">1</span>; j /= flag[j])&#123;</span><br><span class="line">            cnt[flag[j]] ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    rep(i , <span class="number">1</span> , n) ans *= (cnt[i] * <span class="number">2</span> + <span class="number">1</span>) , ans %= HA;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> 数论 </tag>
+            
+            <tag> 欧拉筛 </tag>
+            
+            <tag> 唯一分解定理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【NOI2010】能量采集-题解</title>
       <link href="/2020/02/09/luoguP1447/"/>
       <url>/2020/02/09/luoguP1447/</url>
@@ -24,11 +57,11 @@
             
             <tag> Luogu </tag>
             
+            <tag> 数论 </tag>
+            
             <tag> NOI </tag>
             
             <tag> Gcd </tag>
-            
-            <tag> 数论 </tag>
             
             <tag> 容斥原理 </tag>
             
@@ -501,9 +534,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 倍增 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
             
@@ -534,9 +567,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> 区间dp </tag>
             
@@ -654,11 +687,11 @@
             
             <tag> 题解 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> Luogu </tag>
             
@@ -751,9 +784,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Vijos </tag>
             
@@ -782,11 +815,11 @@
             
             <tag> 题解 </tag>
             
-            <tag> 分类讨论 </tag>
-            
             <tag> 动态规划 </tag>
             
             <tag> 纪中集训 </tag>
+            
+            <tag> 分类讨论 </tag>
             
             <tag> Luogu </tag>
             
@@ -908,13 +941,13 @@
             
             <tag> 题解 </tag>
             
+            <tag> 前缀和 </tag>
+            
             <tag> 组合数学 </tag>
             
             <tag> Luogu </tag>
             
             <tag> NOIP </tag>
-            
-            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -1675,9 +1708,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> Gcd </tag>
-            
             <tag> 数论 </tag>
+            
+            <tag> Gcd </tag>
             
             <tag> 数学 </tag>
             
@@ -2026,9 +2059,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
         </tags>
       
@@ -2082,11 +2115,11 @@
       
         <tags>
             
+            <tag> Floyd </tag>
+            
             <tag> 图论 </tag>
             
             <tag> Dijkstra </tag>
-            
-            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
@@ -2237,9 +2270,9 @@
       
         <tags>
             
-            <tag> 图论 </tag>
-            
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 学习笔记 </tag>
             
