@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>【TJOI2013】拯救小矮人</title>
+      <link href="/2020/04/06/luoguP4823/"/>
+      <url>/2020/04/06/luoguP4823/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>一群小矮人掉进了一个很深的陷阱里，由于太矮爬不上来，于是他们决定搭一个人梯。</p><p>即：一个小矮人站在另一小矮人的肩膀上，直到最顶端的小矮人伸直胳膊可以碰到陷阱口。</p><p>对于每一个小矮人，我们知道他从脚到肩膀的高度$a_i$，并且他的胳膊长度为$b_i$。陷阱深度为$h$。</p><p>如果我们利用矮人$1$，矮人$2$，矮人$3$…矮人$k$搭一个梯子，满足$a_1+a_2+a_3+….+a_k+b_k \geq h$,那么矮人$k$就可以离开陷阱逃跑了。</p><p>一旦一个矮人逃跑了，他就不能再搭人梯了。</p><p>我们希望尽可能多的小矮人逃跑，那么问题来了，最多可以使多少个小矮人逃跑呐。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行一个整数$n$，表示矮人的个数，接下来$n$行每一行两个整数$a_i$和$b_i$，最后一行是$h$。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅一行，包含一个整数表示答案。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg-1"><a href="#Input-‘s-eg-1" class="headerlink" title="Input ‘s eg 1"></a>Input ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">20 10</span><br><span class="line">5 5</span><br><span class="line">30</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-1"><a href="#Output-‘s-eg-1" class="headerlink" title="Output ‘s eg 1"></a>Output ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure><h3 id="Input-‘s-eg-2"><a href="#Input-‘s-eg-2" class="headerlink" title="Input ‘s eg 2"></a>Input ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">20 10</span><br><span class="line">5 5</span><br><span class="line">35</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-2"><a href="#Output-‘s-eg-2" class="headerlink" title="Output ‘s eg 2"></a>Output ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于$30\%$的数据，有$0 \leq n \leq 200$。</p><p>对于$100\%$的数据，有$0 \leq n \leq 2000$，$0 \leq a_i , b_i , h \leq 10^5$</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><blockquote><p>简单贪心 + 简单dp = 一道紫题<br>                  ——我瞎编的</p></blockquote><p>首先考虑每个小矮人对于答案的贡献，显然，让长的矮的先逃出去一定更优，让手短的先出去一定更优。</p><p>因此我们按照$a_i + b_i$进行排序，选出来长的矮手还短的，让他们先出去。</p><p>但现在问题来了，如果前面的人长得高但是手短，则对答案来说把他放在下面是更优的。</p><p>考虑$\text{dp}$。</p><p>设$f[i]$表示逃出去$i$个人后所能组成的人塔的最大高度。</p><p>显然，如果第$i$个人能逃出去，则$f[i] = max(f[i] , f[i - 1] - a[i])$。</p><p>套个背包模板就过去了，时间复杂度为$O(n^2)$，通过本题还是绰绰有余的。</p><p>剩下的见代码。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9223372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Pre</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a , b;</span><br><span class="line">&#125;p[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Pre a , Pre b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.a + a.b &lt; b.a + b.b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> n , h; <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;n);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span> , &amp;p[i].a , &amp;p[i].b);</span><br><span class="line">        f[<span class="number">0</span>] += p[i].a;</span><br><span class="line">        f[i] = <span class="number">-0x3f3f3f3f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;h);</span><br><span class="line">    sort(p + <span class="number">1</span> , p + <span class="number">1</span> + n , cmp);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt;= <span class="number">1</span>; j --)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[j - <span class="number">1</span>] + p[i].b &gt;= h)&#123;</span><br><span class="line">                f[j] = max(f[j] , f[j - <span class="number">1</span>] - p[i].a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    per(i , n , <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(f[i] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , i);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 贪心 </tag>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> 各省省选 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> 背包问题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【CSP-S2019】括号树-题解</title>
       <link href="/2020/04/05/luoguP5658/"/>
       <url>/2020/04/05/luoguP5658/</url>
@@ -123,11 +158,11 @@
             
             <tag> Luogu </tag>
             
+            <tag> 数论 </tag>
+            
             <tag> NOI </tag>
             
             <tag> Gcd </tag>
-            
-            <tag> 数论 </tag>
             
             <tag> 容斥原理 </tag>
             
@@ -408,9 +443,9 @@
       
         <tags>
             
-            <tag> 文章转载 </tag>
-            
             <tag> 灌水区 </tag>
+            
+            <tag> 文章转载 </tag>
             
         </tags>
       
@@ -600,9 +635,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 倍增 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Floyd </tag>
             
@@ -633,9 +668,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 前缀和 </tag>
             
             <tag> 区间dp </tag>
             
@@ -850,9 +885,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 前缀和 </tag>
             
             <tag> Vijos </tag>
             
@@ -1038,9 +1073,9 @@
       
         <tags>
             
-            <tag> 灌水区 </tag>
-            
             <tag> 成长之路 </tag>
+            
+            <tag> 灌水区 </tag>
             
         </tags>
       
@@ -1261,9 +1296,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> 并查集 </tag>
-            
             <tag> Luogu </tag>
+            
+            <tag> 并查集 </tag>
             
         </tags>
       
@@ -1718,9 +1753,9 @@
       
         <tags>
             
-            <tag> 文章转载 </tag>
-            
             <tag> 灌水区 </tag>
+            
+            <tag> 文章转载 </tag>
             
         </tags>
       
@@ -1745,9 +1780,9 @@
       
         <tags>
             
-            <tag> 灌水区 </tag>
-            
             <tag> 成长之路 </tag>
+            
+            <tag> 灌水区 </tag>
             
         </tags>
       
@@ -1774,9 +1809,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> Gcd </tag>
-            
             <tag> 数论 </tag>
+            
+            <tag> Gcd </tag>
             
             <tag> 数学 </tag>
             
