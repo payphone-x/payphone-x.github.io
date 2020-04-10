@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>【洛谷题库】最长括号匹配-题解</title>
+      <link href="/2020/04/10/luoguP1944/"/>
+      <url>/2020/04/10/luoguP1944/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>对一个由<code>(</code>,<code>)</code>,<code>[</code>,<code>]</code>括号组成的字符串，求出其中最长的括号匹配子串。具体来说，满足如下条件的字符串成为括号匹配的字符串：</p><p>1.<code>()</code>,<code>[]</code>是括号匹配的字符串。</p><p>2.若<code>A</code>是括号匹配的串，则<code>(A)</code> , <code>[A]</code>是括号匹配的字符串。</p><p>3.若<code>A</code>,<code>B</code>是括号匹配的字符串，则<code>AB</code>也是括号匹配的字符串。</p><p>例如：<code>()</code>,<code>[]</code>,<code>([])</code>,<code>()()</code>都是括号匹配的字符串，而<code>][</code>,<code>[(])</code>则不是。</p><p>字符串<code>A</code>的子串是指由<code>A</code>中若干个连续字符组成的字符串。</p><p>例如，<code>A</code>,<code>B</code>,<code>C</code>,<code>ABC</code>,<code>CAB</code>,<code>ABCABC</code>都是<code>ABCABC</code>的子串。</p><p>规定空串是任何字符串的子串。</p><p>现在问题来了，给你一个字符串，请求出它的最长匹配子串。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入包含一行，为一个仅由<code>(</code> , <code>)</code> , <code>[</code> , <code>]</code>组成的非空字符串$s$。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出也仅有一行，为$s$的最长的括号匹配子串。</p><p>若有相同长度的子串，则请输出位置靠前的子串。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">([<span class="string">(</span>][<span class="symbol">()</span>]](<span class="link"></span>)</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[()]</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>设$|s|$为字符串$s$的长度</p><p>对于$20\%$的数据，$1 \leq |s| \leq 100$。</p><p>对于$50\%$的数据，$1 \leq |s| \leq 10^4$。</p><p>对于$100\%$的数据，$1 \leq |s| \leq 10^6$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>一道比较套路化的$\text{dp}$模型。</p><p>设$f[i]$表示以$s[i]$为结尾的最长匹配子串的长度，则每一个状态可以由其上一位转移而来。</p><p>之后考虑如何进行转移。</p><p>如果第$i$位为左括号，则不可能构成一个以$s[i]$为结尾的匹配串。此时$f[i] = 0$</p><p>如果第$i$位为右括号，则考虑寻找其左边第一个没有匹配的左括号。显然，这之间是不可能有单独的右括号存在的。</p><p>也就是说，我们只需要确认当前位置减去前一个位置的最长匹配长度，即$s[i - 1 - f[i - 1]]$是不是左括号即可。是的话，则</p><p>$$f[i] = f[i - 1] + 2 + f[i - 1 - f[i - 1] - 1]$$</p><p>最后循环一遍，找到最大长度，之后输出子串。</p><p>时间复杂度为$O(n)$，足以通过$10^6$的数据。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9223372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[<span class="number">10</span> * M];</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">10</span> * M] , ans;    <span class="comment">//f[i] 以i为结尾的最长匹配子串长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span> , s + <span class="number">1</span>);    <span class="comment">//将字符串统一右移一位以避免负下标</span></span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s + <span class="number">1</span>);</span><br><span class="line">    rep(i , <span class="number">1</span> , len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i] == <span class="string">'('</span> || s[i] == <span class="string">'['</span>) <span class="keyword">continue</span>;    <span class="comment">//左括号则跳过</span></span><br><span class="line">        <span class="keyword">if</span>(s[i] == <span class="string">')'</span> || s[i] == <span class="string">']'</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((s[i] == <span class="string">')'</span> &amp;&amp; s[i - <span class="number">1</span> - f[i - <span class="number">1</span>]] == <span class="string">'('</span>) || (s[i] == <span class="string">']'</span> &amp;&amp; s[i - <span class="number">1</span> - f[i - <span class="number">1</span>]] == <span class="string">'['</span>))&#123;</span><br><span class="line">                f[i] = f[i - <span class="number">1</span>] + <span class="number">2</span> + f[i - <span class="number">2</span> - f[i - <span class="number">1</span>]];  </span><br><span class="line">                <span class="comment">//右括号的话则等于其上一位长度 + 2 + 之前可以连接的子串长度</span></span><br><span class="line">                ans = max(ans , f[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    rep(i , <span class="number">1</span> , len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(f[i] == ans)&#123;</span><br><span class="line">            rep(j , i - ans + <span class="number">1</span> , i)&#123;   </span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%c"</span> , s[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> 线性dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【TJOI2013】拯救小矮人</title>
       <link href="/2020/04/06/luoguP4823/"/>
       <url>/2020/04/06/luoguP4823/</url>
@@ -20,9 +51,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -43,7 +74,7 @@
       <link href="/2020/04/05/luoguP5658/"/>
       <url>/2020/04/05/luoguP5658/</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目背景"><a href="#题目背景" class="headerlink" title="题目背景"></a>题目背景</h2><p>本题中合法括号串的定义如下：</p><ol><li>$\text{()}$ 是合法括号串。</li><li>如果 $\text{A}$ 是合法括号串，则 $\text{(A)}$ 是合法括号串。</li><li>如果 $\text{A , B}$ 是合法括号串，则 $\text{AB}$ 是合法括号串。</li></ol><p>本题中子串与不同的子串的定义如下：</p><p>字符串 $\text{S}$ 的子串是 $\text{S}$ 中连续的任意个字符组成的字符串。</p><p>$\text{S}$ 的子串可用起始位置 $l$ 与终止位置 $r$ 来表示，记为 $S (l , r)$，($1 \leq l \leq r \leq |S|$，$|S|$ 表示 $S$ 的长度)。</p><p>$S$ 的两个子串视作不同当且仅当它们在 $S$ 中的位置不同，即 $l$ 不同或 $r$ 不同。</p><hr><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>一个大小为 $n$ 的树包含 $n$ 个结点和 $n − 1$ 条边，每条边连接两个结点，且任意两个结点间有且仅有一条简单路径互相可达。</p><p>小 $Q$ 是一个充满好奇心的小朋友，有一天他在上学的路上碰见了一个大小为 $n$ 的树，树上结点从 $1 ∼ n$ 编号，$1$ 号结点为树的根。</p><p>除 $1$ 号结点外，每个结点有一个父亲结点，$u$号结点的父亲为 $f_u$。</p><p>小 $Q$ 发现这个树的每个结点上恰有一个括号，可能是$\text{(}$ 或 $\text{)}$。小 $Q$ 定义 $s_i$为：将根结点到 $i$ 号结点的简单路径上的括号，按结点经过顺序依次排列组成的字符串。</p><p>显然 $s_i$是个括号串，但不一定是合法括号串。因此现在小$Q$ 想对所有的 $i$求出，$s_i$中有多少个互不相同的子串是合法括号串。</p><p>这个问题难倒了小 $Q$，他只好向你求助。</p><p>设 $s_i$共有 $k_i$个不同子串是合法括号串， 你只需要告诉小 $Q$ 所有 $i \times k_i$的异或和，即：<br>$$(1 \times k_1)\ \text{xor}\ (2 \times k_2)\ \text{xor}\ (3 \times k_3)\ \text{xor}\ \cdots\ \text{xor}\ (n \times k_n)$$</p><p>其中 $\text{xor}$ 是位异或运算。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行一个整数 $n$，表示树的大小。</p><p>第二行一个长为 $n$ 的由$\text{(}$ 与$\text{)}$ 组成的括号串，第 $i$ 个括号表示 $i$ 号结点上的括号。</p><p>第三行包含 $n − 1$ 个整数，第 $i$ 个整数表示 $i + 1$ 号结点的父亲编号 $f_{i+1}$</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅一行，包含一个整数表示答案。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">(()()</span><br><span class="line">1 1 2 2</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure><hr><h2 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h2><p>树的形态如下图：</p><p><img alt="tree" data-src="https://cdn.luogu.com.cn/upload/image_hosting/10z2scex.png" class="lozad"></p><p>将根到 $1$ 号结点的简单路径上的括号，按经过顺序排列所组成的字符串为 $\text{(}$，子串是合法括号串的个数为 $0$。</p><p>将根到 $2$ 号结点的字符串为 $\text{((}$子串是合法括号串的个数为 $0$。</p><p>将根到 $3$ 号结点的字符串为 $\text{()}$子串是合法括号串的个数为 $1$。</p><p>将根到 $4$ 号结点的字符串为 $\text{(((}$，子串是合法括号串的个数为 $0$。</p><p>将根到 $5$ 号结点的字符串为 $\text{(()}$，子串是合法括号串的个数为 $1$。</p><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p><img alt="data" data-src="https://i.loli.net/2020/04/06/ci4AP5o1Hnw9La2.png" class="lozad"></p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><del>md考场上没调出来这题真的血亏</del></p><p>可以先考虑一下$50$分的部分分，即对于一条链的情况是怎么做的。</p><p>显然，对于一条链，可以设$fin[i]$表示以$i$结尾的子串中合法括号串的数目，$last[i]$表示以$i$结尾的子串中上一个没有匹配的左括号的位置。</p><p>则对于一个新的位置$i$，如果它是<code>(</code>，则$last[i] = i$。</p><p>若是<code>)</code>的话，则$fin[i] = 1 + fin[last[i]]$，$last[i] = last[last[i]]$</p><p>现在思考如何搬到树上。</p><p>树上和链上最大的区别在于<strong>树上转移时并不是从上一个节点转移，而是从父节点转移</strong>。</p><p>因此，我们只需要将转移时的上一个节点全部改为父节点，即$fin[i] = 1 + fin[fa[last[i]]]$，$last[i] = last[fa[last[i]]]$，然后套上一个$\text{dfs}$。</p><p>最后别忘了做一个前缀和，按照题目要求全部$\text{xor}$一遍。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">500001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9223372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to , last;</span><br><span class="line">&#125;edge[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_num;</span><br><span class="line"><span class="keyword">int</span> head[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">I <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">    edge[++ edge_num] = (Edge)&#123;to , head[from]&#125;; </span><br><span class="line">    head[from] = edge_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fa[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">char</span> s[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">ll fin[M &lt;&lt; <span class="number">1</span>] , last[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    last[x] = last[fa[x]];</span><br><span class="line">    <span class="keyword">if</span>(s[x] == <span class="string">'('</span>) last[x] = x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(last[x] != <span class="number">0</span>)&#123;</span><br><span class="line">        fin[x] = fin[fa[last[x]]] + <span class="number">1</span>;</span><br><span class="line">        last[x] = last[fa[last[x]]];</span><br><span class="line">    &#125;</span><br><span class="line">    PE(i , x)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        dfs(to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;n);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span> , s + <span class="number">1</span>);</span><br><span class="line">    rep(i , <span class="number">2</span> , n)&#123;</span><br><span class="line">        <span class="keyword">int</span> x; <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;x);</span><br><span class="line">        fa[i] = x;</span><br><span class="line">        add_edge(x , i);   </span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>);</span><br><span class="line">    ll ans = fin[<span class="number">1</span>];</span><br><span class="line">    rep(i , <span class="number">2</span> , n)&#123;</span><br><span class="line">        fin[i] += fin[fa[i]];</span><br><span class="line">        ans ^= (i * fin[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目背景"><a href="#题目背景" class="headerlink" title="题目背景"></a>题目背景</h2><p>本题中合法括号串的定义如下：</p><ol><li>$\text{()}$ 是合法括号串。</li><li>如果 $\text{A}$ 是合法括号串，则 $\text{(A)}$ 是合法括号串。</li><li>如果 $\text{A , B}$ 是合法括号串，则 $\text{AB}$ 是合法括号串。</li></ol><p>本题中子串与不同的子串的定义如下：</p><p>字符串 $\text{S}$ 的子串是 $\text{S}$ 中连续的任意个字符组成的字符串。</p><p>$\text{S}$ 的子串可用起始位置 $l$ 与终止位置 $r$ 来表示，记为 $S (l , r)$，($1 \leq l \leq r \leq |S|$，$|S|$ 表示 $S$ 的长度)。</p><p>$S$ 的两个子串视作不同当且仅当它们在 $S$ 中的位置不同，即 $l$ 不同或 $r$ 不同。</p><hr><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>一个大小为 $n$ 的树包含 $n$ 个结点和 $n − 1$ 条边，每条边连接两个结点，且任意两个结点间有且仅有一条简单路径互相可达。</p><p>小 $Q$ 是一个充满好奇心的小朋友，有一天他在上学的路上碰见了一个大小为 $n$ 的树，树上结点从 $1 ∼ n$ 编号，$1$ 号结点为树的根。</p><p>除 $1$ 号结点外，每个结点有一个父亲结点，$u$号结点的父亲为 $f_u$。</p><p>小 $Q$ 发现这个树的每个结点上恰有一个括号，可能是$\text{(}$ 或 $\text{)}$。小 $Q$ 定义 $s_i$为：将根结点到 $i$ 号结点的简单路径上的括号，按结点经过顺序依次排列组成的字符串。</p><p>显然 $s_i$是个括号串，但不一定是合法括号串。因此现在小$Q$ 想对所有的 $i$求出，$s_i$中有多少个互不相同的子串是合法括号串。</p><p>这个问题难倒了小 $Q$，他只好向你求助。</p><p>设 $s_i$共有 $k_i$个不同子串是合法括号串， 你只需要告诉小 $Q$ 所有 $i \times k_i$的异或和，即：<br>$$(1 \times k_1)\ \text{xor}\ (2 \times k_2)\ \text{xor}\ (3 \times k_3)\ \text{xor}\ \cdots\ \text{xor}\ (n \times k_n)$$</p><p>其中 $\text{xor}$ 是位异或运算。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行一个整数 $n$，表示树的大小。</p><p>第二行一个长为 $n$ 的由$\text{(}$ 与$\text{)}$ 组成的括号串，第 $i$ 个括号表示 $i$ 号结点上的括号。</p><p>第三行包含 $n − 1$ 个整数，第 $i$ 个整数表示 $i + 1$ 号结点的父亲编号 $f_{i+1}$</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅一行，包含一个整数表示答案。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">(()()</span><br><span class="line">1 1 2 2</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">6</span><br></pre></td></tr></table></figure><hr><h2 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h2><p>树的形态如下图：</p><p><img alt="tree" data-src="https://cdn.luogu.com.cn/upload/image_hosting/10z2scex.png" class="lozad"></p><p>将根到 $1$ 号结点的简单路径上的括号，按经过顺序排列所组成的字符串为 $\text{(}$，子串是合法括号串的个数为 $0$。</p><p>将根到 $2$ 号结点的字符串为 $\text{((}$子串是合法括号串的个数为 $0$。</p><p>将根到 $3$ 号结点的字符串为 $\text{()}$子串是合法括号串的个数为 $1$。</p><p>将根到 $4$ 号结点的字符串为 $\text{(((}$，子串是合法括号串的个数为 $0$。</p><p>将根到 $5$ 号结点的字符串为 $\text{(()}$，子串是合法括号串的个数为 $1$。</p><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p><img alt="data" data-src="https://i.loli.net/2020/04/06/ci4AP5o1Hnw9La2.png" class="lozad"></p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><del>md考场上没调出来这题真的血亏</del></p><p>可以先考虑一下$50$分的部分分，即对于一条链的情况是怎么做的。</p><p>显然，对于一条链，可以设$fin[i]$表示以$i$结尾的子串中合法括号串的数目，$last[i]$表示以$i$结尾的子串中上一个没有匹配的左括号的位置。</p><p>则对于一个新的位置$i$，如果它是<code>(</code>，则$last[i] = i$。</p><p>若是<code>)</code>的话，则$fin[i] = 1 + fin[last[i]]$，$last[i] = last[last[i]]$</p><p>现在思考如何搬到树上。</p><p>树上和链上最大的区别在于<strong>树上转移时并不是从上一个节点转移，而是从父节点转移</strong>。</p><p>因此，我们只需要将转移时的上一个节点全部改为父节点，即$fin[i] = 1 + fin[fa[last[i]]]$，$last[i] = last[fa[last[i]]]$，然后套上一个$\text{dfs}$。</p><p>最后别忘了按照题目要求全部$\text{xor}$一遍。</p><p>剩下的细节详见代码。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">500001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9223372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to , last;</span><br><span class="line">&#125;edge[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_num;</span><br><span class="line"><span class="keyword">int</span> head[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">I <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">    edge[++ edge_num] = (Edge)&#123;to , head[from]&#125;; </span><br><span class="line">    head[from] = edge_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> fa[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="keyword">char</span> s[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">ll fin[M &lt;&lt; <span class="number">1</span>] , last[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    last[x] = last[fa[x]];</span><br><span class="line">    <span class="keyword">if</span>(s[x] == <span class="string">'('</span>) last[x] = x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(last[x] != <span class="number">0</span>)&#123;</span><br><span class="line">        fin[x] = fin[fa[last[x]]] + <span class="number">1</span>;</span><br><span class="line">        last[x] = last[fa[last[x]]];</span><br><span class="line">    &#125;</span><br><span class="line">    PE(i , x)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        dfs(to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;n);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span> , s + <span class="number">1</span>);</span><br><span class="line">    rep(i , <span class="number">2</span> , n)&#123;</span><br><span class="line">        <span class="keyword">int</span> x; <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;x);</span><br><span class="line">        fa[i] = x;</span><br><span class="line">        add_edge(x , i);   </span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span>);</span><br><span class="line">    ll ans = fin[<span class="number">1</span>];</span><br><span class="line">    rep(i , <span class="number">2</span> , n)&#123;</span><br><span class="line">        fin[i] += fin[fa[i]];</span><br><span class="line">        ans ^= (i * fin[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
       
       
       <categories>
@@ -189,9 +220,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 动态规划 </tag>
             
@@ -257,9 +288,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 栈 </tag>
             
@@ -286,9 +317,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -501,9 +532,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -759,9 +790,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
         </tags>
       
@@ -819,9 +850,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -949,9 +980,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 纪中集训 </tag>
             
@@ -982,9 +1013,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
         </tags>
       
@@ -1168,9 +1199,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
         </tags>
       
@@ -1195,9 +1226,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 优先队列 </tag>
             
@@ -1230,9 +1261,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 分类讨论 </tag>
             
@@ -1296,9 +1327,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 并查集 </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
@@ -1350,9 +1381,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 各省省选 </tag>
             
@@ -1418,9 +1449,9 @@
             
             <tag> Codeforces </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 优先队列 </tag>
             
@@ -1693,9 +1724,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 分类讨论 </tag>
             
@@ -1871,9 +1902,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 学习笔记 </tag>
             
