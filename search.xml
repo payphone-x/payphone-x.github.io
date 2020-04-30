@@ -536,11 +536,11 @@
             
             <tag> 图论 </tag>
             
+            <tag> 学习笔记 </tag>
+            
             <tag> 差分约束 </tag>
             
             <tag> SPFA </tag>
-            
-            <tag> 学习笔记 </tag>
             
         </tags>
       
@@ -852,11 +852,11 @@
             
             <tag> 题解 </tag>
             
+            <tag> 图论 </tag>
+            
             <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
-            
-            <tag> 图论 </tag>
             
             <tag> Luogu </tag>
             
@@ -2224,9 +2224,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
         </tags>
       
@@ -2280,17 +2280,17 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
             
             <tag> Dijkstra </tag>
             
-            <tag> SPFA </tag>
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
             <tag> Algorithm </tag>
+            
+            <tag> SPFA </tag>
             
             <tag> 总结篇 </tag>
             
@@ -2435,9 +2435,9 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
