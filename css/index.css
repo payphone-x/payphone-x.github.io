@@ -4299,6 +4299,9 @@ img {
 #vcomment button:hover {
   background-color: #ff7242;
 }
+#vcomment textarea {
+  background: url("http://jige.00ling.cn/2020/05/03/a23c985d7f4c0.png") 100% 100% no-repeat;
+}
 #vcomment .vimg {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
