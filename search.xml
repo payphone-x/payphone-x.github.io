@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>【Codeforces】Decreasing Heights-题解</title>
+      <link href="/2020/05/26/CF1353F/"/>
+      <url>/2020/05/26/CF1353F/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意翻译"><a href="#题意翻译" class="headerlink" title="题意翻译"></a>题意翻译</h2><p>给出一个 $n \times m$ 的矩阵，每个矩阵的权值代表该点的初始高度。</p><p>现在需要从点 $( 1 , 1 )$ 走到点 $( n , m )$ ，每一步需要满足以下条件：</p><ul><li>只能向右或向下</li><li>设当前格子的高度为 $x$ ，只能移动到高度为 $x + 1$ 的格子上去</li></ul><p>初始时可以进行操作，使得某个格子的高度减少一个单位。</p><p>问最少需要进行多少次操作，可以存在至少一条从点 $( 1 , 1 )$ 到点 $( n , m )$ 的路线</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行包含一个整数$t$，表示数据组数</p><p>其中，每一组数据的第一行包含两个整数$n , m$，表示矩阵的行数与列数</p><p>之后是一个$n \times m$的矩阵，表示初始状态下矩阵中每个点的高度</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>对于每组数据，输出一行一个整数，表示最少的操作次数</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">3 4</span><br><span class="line">1 2 3 4</span><br><span class="line">5 6 7 8</span><br><span class="line">9 10 11 12</span><br><span class="line">5 5</span><br><span class="line">2 5 4 8 3</span><br><span class="line">9 10 11 5 1</span><br><span class="line">12 8 4 2 5</span><br><span class="line">2 2 5 4 1</span><br><span class="line">6 8 2 4 2</span><br><span class="line">2 2</span><br><span class="line">100 10</span><br><span class="line">10 1</span><br><span class="line">1 2</span><br><span class="line">123456789876543 987654321234567</span><br><span class="line">1 1</span><br><span class="line">42</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">9</span><br><span class="line">49</span><br><span class="line">111</span><br><span class="line">864197531358023</span><br><span class="line">0</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于 $100\%$ 的数据，保证$1 \leq t \leq 100$ , $1 \leq n , m \leq 100$ , $1 \leq a_{i , j} \leq 10^15$</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>很套路的$\text{dp}$题，但也有一定难度，放在$\text{Div 3}$的$\text{F}$题完全可以接受</p><p>读完题后，很容易想到此题的一个<strong>弱化版本：给定一个矩阵，每次只可以向下或向右移动，如何行走才能使得经过点的点权之和最大</strong>？</p><p>思考如何把这个题转化过去。不难发现，如果知道了这个点的起点高度$h$，则走到坐标为$(i , j)$的点上高度应该为$h + i + j$。</p><p>所以就有了以下两点推论：</p><ol><li><p>设一个点坐标为$(i , j)$，若$a[i][j] &gt; h + i + j$，则该点不可能被经过。</p></li><li><p>若$a[i][j] \leq h + i + j$，则经过该点所需要的操作次数为$(h + i + j) - a[i][j]$。</p></li></ol><p>也就是说，我们只需要把$a[i][j] \leq h$的点的点权设为$(h + i + j) - a[i][j]$即可。</p><p>然后考虑如何解决上面的弱化版问题。</p><p>设$f[i][j]$表示从$(1 , 1)$走到$(i , j)$所需要的最少次数，则$f[1][1] = 0$。</p><p>之后考虑如何转移。首先，对于点$(i , j)$，有</p><script type="math/tex; mode=display">f[i][j] = f[i][j] + (h + i + j - a[i][j])</script><p>之后考虑向外拓展。若$i + 1 \leq n$，则</p><script type="math/tex; mode=display">f[i + 1][j] = min(f[i + 1][j] , f[i][j])</script><p>$j$也同理，若$j + 1 \leq m$，则</p><script type="math/tex; mode=display">f[i][j + 1] = min(f[i][j + 1] , f[i][j])</script><p>最后在外面套一层$O(n^2)$的枚举，枚举矩阵元素并倒推初始点的权值，即$h = a[i][j] - i - j$。</p><p>每一次$\text{dp}$的时间复杂度为$O(n^2)$，加上外层的枚举，时间复杂度为$O(n^4)$。足以跑过$100\%$的数据。</p><p>剩下的见代码即可。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9023372036854775801</span>;</span><br><span class="line"></span><br><span class="line">ll a[<span class="number">101</span>][<span class="number">101</span>] , f[<span class="number">101</span>][<span class="number">101</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">solve</span><span class="params">(ll n , ll m , ll sta)</span></span>&#123;</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        rep(j , <span class="number">1</span> , m)&#123;</span><br><span class="line">            f[i][j] = INFL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    f[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        rep(j , <span class="number">1</span> , m)&#123;</span><br><span class="line">            ll val = i + j + sta;</span><br><span class="line">            <span class="keyword">if</span>(val &gt; a[i][j])&#123;</span><br><span class="line">                f[i][j] = INFL;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i][j] += a[i][j] - val;</span><br><span class="line">            <span class="keyword">if</span>(i + <span class="number">1</span> &lt;= n)&#123;</span><br><span class="line">                f[i + <span class="number">1</span>][j] = min(f[i + <span class="number">1</span>][j] , f[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(j + <span class="number">1</span> &lt;= m)&#123;</span><br><span class="line">                f[i][j + <span class="number">1</span>] = min(f[i][j + <span class="number">1</span>] , f[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f[n][m];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    ll t , n , m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld"</span> , &amp;t);</span><br><span class="line">    <span class="keyword">while</span>(t --)&#123;</span><br><span class="line">        clean(a , <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span> , &amp;n , &amp;m);</span><br><span class="line">        rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">            rep(j , <span class="number">1</span> , m)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%lld"</span> , &amp;a[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll ans = INFL;</span><br><span class="line">        rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">            rep(j , <span class="number">1</span> , m)&#123;</span><br><span class="line">                ans = min(ans , solve(n , m , a[i][j] - i - j));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Codeforces </tag>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【HNOI2014】米特运输-题解</title>
       <link href="/2020/05/22/luoguP3237/"/>
       <url>/2020/05/22/luoguP3237/</url>
@@ -24,9 +53,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 树形dp </tag>
-            
             <tag> 各省省选 </tag>
+            
+            <tag> 树形dp </tag>
             
             <tag> Luogu </tag>
             
@@ -187,9 +216,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 各省省选 </tag>
             
@@ -323,11 +352,11 @@
             
             <tag> Luogu </tag>
             
+            <tag> 数论 </tag>
+            
             <tag> NOI </tag>
             
             <tag> Gcd </tag>
-            
-            <tag> 数论 </tag>
             
             <tag> 容斥原理 </tag>
             
@@ -356,9 +385,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 动态规划 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> Luogu </tag>
             
@@ -670,9 +699,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 栈 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 栈 </tag>
             
             <tag> Luogu </tag>
             
@@ -988,9 +1017,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 栈 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 栈 </tag>
             
         </tags>
       
@@ -1081,11 +1110,11 @@
             
             <tag> 题解 </tag>
             
-            <tag> 分类讨论 </tag>
-            
             <tag> 动态规划 </tag>
             
             <tag> 纪中集训 </tag>
+            
+            <tag> 分类讨论 </tag>
             
             <tag> Luogu </tag>
             
@@ -1974,9 +2003,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> Gcd </tag>
-            
             <tag> 数论 </tag>
+            
+            <tag> Gcd </tag>
             
             <tag> 数学 </tag>
             
@@ -2447,11 +2476,11 @@
             
             <tag> 图论 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 染色法 </tag>
             
             <tag> 夏令营 </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
