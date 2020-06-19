@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>【NOI Online 3】魔法值-题解</title>
+      <link href="/2020/06/19/luoguP6569/"/>
+      <url>/2020/06/19/luoguP6569/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>H 国的交通由 $n$ 座城市与 $m$ 条道路构成，城市与道路都从 $1$ 开始编号，其中 $1$ 号城市是 H 国的首都。</p><p>H 国中一条道路将把两个不同城市直接相连，且任意两个城市间至多有一条道路。</p><p>H 国是一个信奉魔法的国家，在第 $j$ 天，$i$ 号城市的魔法值为 $f_{i,j}$。</p><p>H 国的魔法师已观测到第 $0$ 天时所有城市的魔法值 $f_{i,0}$ ，且他们还发现，之后的每一天每个城市的魔法值，都将会变为所有与该城市直接相连的城市的前一天魔法值的异或值，即</p><script type="math/tex; mode=display">f_{x,j}=f_{v_1,j-1}\oplus f_{v_2,j-1}\oplus \cdots\oplus f_{v_k,j-1}</script><p>其中 $j\ge 1$，$v_1,v_2,\cdots,v_k$是所有与 $x$ 号城市直接相连的城市，$\oplus$ 为异或运算。</p><p>现在 H 国的国王问了你 $q$ 个问题，对于第 $i$ 个问题你需要回答：第 $a_i$ 天时首都的魔法值是多少。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行三个用空格分隔的整数 $n,m,q$，表示城市数、道路数与问题数。</p><p>第二行 $n$ 个用空格分隔的整数，第 $i$ 个整数表示 $f_{i, 0}$。</p><p>接下来 $m$ 行，每行两个用空格分隔的正整数 $u,v$，表示一条连接 $u$ 号城市与 $v$ 号城市的道路。</p><p>接下来 $q$ 行每行一个整数，第 $i$ 行的整数表示 $a_i$ 。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>按顺序输出 $q$ 行，每行一个整数，表示对应问题的答案。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3 3 1</span><br><span class="line">0 0 1</span><br><span class="line">1 2</span><br><span class="line">1 3</span><br><span class="line">2 3</span><br><span class="line">1</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于 $20\%$ 的数据，满足 $a_i \leq 100$。<br>对于 $40\%$ 的数据，满足 $n \leq 20$。<br>另有 $30\%$ 的数据，满足 $m=\frac{n(n-1)}{2}$。<br>对于 $100\%$ 的数据，满足 $1 \leq n,q \leq 1001≤n,q≤100，1 \leq m \leq \frac{n(n-1)}{2}$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>倍增预处理 + 矩阵加速。</p><p>认真读一遍题，发现 $n$ 很小，可以使用邻接矩阵存图。</p><p>再看一下题目中给出的式子</p><script type="math/tex; mode=display">f_{x,j}=f_{v_1,j-1}\oplus f_{v_2,j-1}\oplus \cdots\oplus f_{v_k,j-1}</script><p>设$i , j$两点之间连边为 $e_{i , j}$，两点间有边为$1$，否则为$0$，则原式子可以化为</p><script type="math/tex; mode=display">f_{x , j} = f_{1 , j - 1} \times e_{1 , x} \oplus f_{2 , j - 1} \times e_{2 , x} \oplus \cdots \oplus f_{n , j - 1} \times e_{n , x}</script><p>不难看出，这与矩阵乘法的定义式长的很像，只是把$+$改成了$\oplus$而已。</p><p>这样的话，根据矩阵乘法的定义，图中每个城市第$i$天的魔法值就可以通过其$i - 1$天的魔法值与其邻接矩阵进行异或得到。</p><p>然后我们就有了一个很无脑的做法：对于每次询问均进行矩阵快速幂，时间复杂度为$O(q \times n^3 \log a)$，可以拿到$40$分的好成绩。</p><p>考虑如何优化这个过程，不难看出，我们在进行矩阵快速幂的时候每一次都会乘一次初始邻接矩阵，这个过程是很浪费时间的。</p><p>对此，我们进行<strong>二进制拆分</strong>，倍增预处理出$2^i$天时的初始邻接矩阵，需要时候直接乘上即可。</p><p>优化后，预处理时间复杂度为$O(n^3 \log a)$，单次询问为$O(n^2 \log a)$，足以通过本题。</p><p>剩下的见代码注释。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db double</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ldb long double</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2047483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9023372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m , q;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">    ll data[<span class="number">105</span>][<span class="number">105</span>] , h , l;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Matrix A , B;</span><br><span class="line"></span><br><span class="line">Matrix <span class="keyword">operator</span> * (<span class="keyword">const</span> Matrix &amp;A , <span class="keyword">const</span> Matrix &amp;B)&#123;</span><br><span class="line">    Matrix C; clean(C.data , <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    C.h = A.h , C.l = B.l;</span><br><span class="line">    rep(i , <span class="number">1</span> , A.h)&#123;</span><br><span class="line">        rep(j , <span class="number">1</span> , B.l)&#123;</span><br><span class="line">            rep(k , <span class="number">1</span> , A.l)&#123;</span><br><span class="line">                C.data[i][j] ^= A.data[i][k] * B.data[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Matrix twop[<span class="number">50</span>];  <span class="comment">//twop[i] 初始邻接矩阵第2^i天时的值</span></span><br><span class="line">ll f[<span class="number">1001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span> , &amp;n , &amp;m , &amp;q);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span> , &amp;f[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    twop[<span class="number">0</span>].h = twop[<span class="number">0</span>].l = n;</span><br><span class="line">    <span class="keyword">int</span> u , v;</span><br><span class="line">    rep(i , <span class="number">1</span> , m)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span> , &amp;u , &amp;v);</span><br><span class="line">        twop[<span class="number">0</span>].data[u][v] = twop[<span class="number">0</span>].data[v][u] = <span class="number">1</span>;    <span class="comment">//初始化邻接矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">    rep(i , <span class="number">1</span> , <span class="number">31</span>)&#123;</span><br><span class="line">        twop[i] = twop[i - <span class="number">1</span>] * twop[i - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">//预处理第2^i天的邻接矩阵</span></span><br><span class="line">    &#125;</span><br><span class="line">    ll day;</span><br><span class="line">    <span class="keyword">while</span>(q --)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span> , &amp;day);</span><br><span class="line">        Matrix ans;</span><br><span class="line">        rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">            ans.data[<span class="number">1</span>][i] = f[i];</span><br><span class="line">        &#125;</span><br><span class="line">        ans.h = <span class="number">1</span> , ans.l = n;</span><br><span class="line">        rep(i , <span class="number">0</span> , <span class="number">31</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((day &gt;&gt; i) &amp; <span class="number">1</span>)&#123; <span class="comment">//若这一天需要用上，则直接相乘</span></span><br><span class="line">                ans = ans * twop[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans.data[<span class="number">1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 倍增 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> NOI Online </tag>
+            
+            <tag> 矩阵运算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【NOI2016】区间-题解</title>
       <link href="/2020/06/04/luoguP1712/"/>
       <url>/2020/06/04/luoguP1712/</url>
@@ -154,11 +187,11 @@
             
             <tag> Luogu </tag>
             
-            <tag> WC/CTSC/集训队 </tag>
-            
             <tag> 线段树 </tag>
             
             <tag> 数据结构 </tag>
+            
+            <tag> WC/CTSC/集训队 </tag>
             
             <tag> 树链剖分 </tag>
             
@@ -282,9 +315,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> 各省省选 </tag>
             
@@ -352,11 +385,13 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 树形dp </tag>
-            
             <tag> USACO </tag>
             
+            <tag> 树形dp </tag>
+            
             <tag> Luogu </tag>
+            
+            <tag> 换根法 </tag>
             
         </tags>
       
@@ -418,11 +453,11 @@
             
             <tag> Luogu </tag>
             
+            <tag> 数论 </tag>
+            
             <tag> NOI </tag>
             
             <tag> Gcd </tag>
-            
-            <tag> 数论 </tag>
             
             <tag> 容斥原理 </tag>
             
@@ -451,9 +486,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 动态规划 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 动态规划 </tag>
             
             <tag> Luogu </tag>
             
@@ -548,9 +583,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> USACO </tag>
             
@@ -763,9 +798,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> 栈 </tag>
             
@@ -895,9 +930,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 倍增 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
             
@@ -928,9 +963,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> 区间dp </tag>
             
@@ -1048,11 +1083,11 @@
             
             <tag> 题解 </tag>
             
+            <tag> 图论 </tag>
+            
             <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
-            
-            <tag> 图论 </tag>
             
             <tag> Luogu </tag>
             
@@ -1081,9 +1116,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> 栈 </tag>
             
@@ -1145,9 +1180,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 前缀和 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Vijos </tag>
             
@@ -1211,9 +1246,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Vijos </tag>
             
@@ -1556,9 +1591,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> 并查集 </tag>
-            
             <tag> Luogu </tag>
+            
+            <tag> 并查集 </tag>
             
         </tags>
       
@@ -2069,9 +2104,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> Gcd </tag>
-            
             <tag> 数论 </tag>
+            
+            <tag> Gcd </tag>
             
             <tag> 数学 </tag>
             
@@ -2420,9 +2455,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
         </tags>
       
@@ -2476,11 +2511,11 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
             
             <tag> Dijkstra </tag>
+            
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
@@ -2542,11 +2577,11 @@
             
             <tag> 图论 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 染色法 </tag>
             
             <tag> 夏令营 </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
@@ -2631,9 +2666,9 @@
       
         <tags>
             
-            <tag> Floyd </tag>
-            
             <tag> 图论 </tag>
+            
+            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
