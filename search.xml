@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>【算法笔记】Dsu On Tree</title>
+      <link href="/2020/08/07/dsu-on-tree/"/>
+      <url>/2020/08/07/dsu-on-tree/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h2><p>$\text{Dsu On Tree}$，即树上启发式合并。可用来解决<strong>不带修的子树查询问题</strong></p><p>其核心思想在于<strong>运用重链剖分中重儿子的性质进行优化</strong>，以达到简便计算的效果。</p><hr><h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>为方便讲述，我们先引入一道例题：<a href="https://www.luogu.com.cn/problem/CF600E" target="_blank" rel="noopener">Codeforces 600E Lomsat gelral</a>。</p><hr><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一棵 $n(0 \leq n \leq 10^5)$ 个节点的树，每个节点有一个编号 $d$ 和颜色 $v$。</p><p>请求出以每个节点为根的子树中最多的颜色的节点编号和。</p><p>形象化的说，设子树 $S$ 中最多的颜色的节点集合为 $V$，即求出：</p><script type="math/tex; mode=display">\sum_{i \in S , i \in V} d[i]</script><hr><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>先考虑如何写 $O(n^2)$ 的暴力。</p><p>显然，我们可以遍历每个节点并统计其子树中的答案，然后消除其贡献以保证不对下一次统计产生影响。时间复杂度为 $O(n^2)$，无法通过本题。</p><p>这时，$\text{Dsu On Tree}$ 就可以派上用场了。</p><p>我们先进行一次 $\text{dfs}$ ，求出每个点的子树大小，并选出其重儿子。</p><p>之后对于每个节点，进行如下操作：</p><ul><li>统计出所有轻儿子的 $ans$，并消除贡献。</li><li>统计其重儿子的 $ans$，不消除贡献。</li><li>暴力将所有轻儿子的 $ans$ 加入到该节点的 $ans$ 中</li><li>消除所有轻儿子对于该节点的影响。</li></ul><p>用代码写出来是这个样子的</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa , <span class="keyword">int</span> opt)</span></span>&#123;    <span class="comment">//opt 指是否需要删除的标记，为0表示需要，1表示不需要</span></span><br><span class="line">    PE(i , x)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(to == fa || to == son[x]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            calc(to , x , <span class="number">0</span>);   <span class="comment">//计算轻儿子的答案，并消除影响</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(son[x]) calc(son[x] , x , <span class="number">1</span>);    <span class="comment">//计算重儿子的答案，并不消除影响</span></span><br><span class="line">    </span><br><span class="line">    add(x , fa , <span class="number">1</span>);    <span class="comment">//加入所有轻儿子的答案</span></span><br><span class="line">    ans[x] = Now_ans;   <span class="comment">//更新答案</span></span><br><span class="line">    <span class="keyword">if</span>(opt == <span class="number">0</span>) add(x , fa , <span class="number">-1</span>);  <span class="comment">//如果需要删除贡献就删除</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这看起来是 $O(n^2)$ 的，但实际上它是 $O(n \log n)$ 的。</p><hr><h2 id="复杂度证明"><a href="#复杂度证明" class="headerlink" title="复杂度证明"></a>复杂度证明</h2><p>也许你要问了：这都是暴力统计，为什么是 $O(n \log n)$ 的呐？</p><p>下面我们就来证明这个问题。</p><p>首先，我们需要知道一个性质：<strong>在一棵树上，一个节点到根节点的路径上的边数不会超过</strong> $\log n$ <strong>条</strong></p><p>然而这个性质并不能直接解决问题。我们<strong>考虑一个点会在什么时候被访问到</strong>。</p><p>显然，这有两种情况，分别是：</p><ol><li>在暴力统计轻儿子时候被访问到，次数为 $\log n$。</li><li>在统计重儿子时候被访问到，次数为 $1$。</li></ol><p>综上所述，时间复杂度为 $O(n \log n)$。</p><hr><h2 id="Code-Dsu-On-Tree"><a href="#Code-Dsu-On-Tree" class="headerlink" title="Code[Dsu On Tree]"></a>Code[Dsu On Tree]</h2><p>即前面题目的代码，可用于参考。</p><p>题目链接：<a href="https://www.luogu.com.cn/problem/CF600E" target="_blank" rel="noopener">Codeforces 600E Lomsat gelral</a></p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> db double</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ldb long double</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ull unsigned long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PIL pair<span class="meta-string">&lt;int , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2047483647</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> INFL = <span class="number">9023372036854775807</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to , last;</span><br><span class="line">&#125;edge[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_num;</span><br><span class="line"><span class="keyword">int</span> head[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">I <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">    edge[++ edge_num] = (Edge)&#123;to , head[from]&#125;; head[from] = edge_num;</span><br><span class="line">    edge[++ edge_num] = (Edge)&#123;from , head[to]&#125;; head[to] = edge_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> size[M] , son[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa)</span></span>&#123;   <span class="comment">//统计重儿子与子树大小</span></span><br><span class="line">    size[x] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> maxn = <span class="number">-1</span>;</span><br><span class="line">    PE(i , x)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(to == fa) <span class="keyword">continue</span>;</span><br><span class="line">        size[x] += dfs1(to , x);</span><br><span class="line">        <span class="keyword">if</span>(size[to] &gt; maxn)&#123;</span><br><span class="line">            maxn = size[x];</span><br><span class="line">            son[x] = to;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> size[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll maxn , sum , SON , col[M] , cnt[M];  <span class="comment">//SON 指代当前点的重儿子</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa , <span class="keyword">int</span> val)</span></span>&#123;     <span class="comment">//将轻儿子的答案加入贡献中</span></span><br><span class="line">    cnt[col[x]] += val;</span><br><span class="line">    <span class="keyword">if</span>(cnt[col[x]] &gt; maxn) maxn = cnt[col[x]] , sum = col[x];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(cnt[col[x]] == maxn) sum += col[x];</span><br><span class="line">    PE(i , x)&#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(to == fa || to == SON) <span class="keyword">continue</span>;</span><br><span class="line">        add(to , x , val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll ans[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa , <span class="keyword">int</span> opt)</span></span>&#123;    </span><br><span class="line">    PE(i , x)&#123;  <span class="comment">//统计所有轻儿子的答案，并消除影响</span></span><br><span class="line">        <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">        <span class="keyword">if</span>(to == fa) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(to != son[x])&#123;</span><br><span class="line">            calc(to , x , <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(son[x]) calc(son[x] , x , <span class="number">1</span>) , SON = son[x]; <span class="comment">//统计重儿子的答案，不消除影响</span></span><br><span class="line"></span><br><span class="line">    add(x , fa , <span class="number">1</span>); SON = <span class="number">0</span>;   <span class="comment">//将所有轻儿子的答案加入到子树中</span></span><br><span class="line">    ans[x] = sum;</span><br><span class="line">    <span class="keyword">if</span>(opt == <span class="number">0</span>) add(x , fa , <span class="number">-1</span>) , maxn = <span class="number">0</span>;   <span class="comment">//如果需要则消除所有轻儿子影响</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;n);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span> , &amp;col[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> u , v;</span><br><span class="line">    rep(i , <span class="number">1</span> , n - <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span> , &amp;u , &amp;v);</span><br><span class="line">        add_edge(u , v);</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span> , <span class="number">0</span>);</span><br><span class="line">    calc(<span class="number">1</span> , <span class="number">0</span> , <span class="number">1</span>);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld "</span> , ans[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> 树上启发式合并 </tag>
+            
+            <tag> 启发式合并 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【LYOI】LYOI2020 Summer Competition1题解&amp;命题总结</title>
       <link href="/2020/07/30/LYOI2020SummerCompetition1/"/>
       <url>/2020/07/30/LYOI2020SummerCompetition1/</url>
@@ -92,9 +121,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> NOI </tag>
-            
             <tag> Luogu </tag>
+            
+            <tag> NOI </tag>
             
             <tag> 线段树 </tag>
             
@@ -189,9 +218,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 各省省选 </tag>
-            
             <tag> 树形dp </tag>
+            
+            <tag> 各省省选 </tag>
             
             <tag> Luogu </tag>
             
@@ -222,13 +251,13 @@
             
             <tag> 题解 </tag>
             
-            <tag> 数据结构 </tag>
-            
             <tag> Luogu </tag>
             
             <tag> WC/CTSC/集训队 </tag>
             
             <tag> 线段树 </tag>
+            
+            <tag> 数据结构 </tag>
             
             <tag> 树链剖分 </tag>
             
@@ -488,13 +517,13 @@
             
             <tag> 题解 </tag>
             
-            <tag> NOI </tag>
-            
             <tag> Luogu </tag>
             
-            <tag> 数论 </tag>
+            <tag> NOI </tag>
             
             <tag> Gcd </tag>
+            
+            <tag> 数论 </tag>
             
             <tag> 容斥原理 </tag>
             
@@ -1434,13 +1463,13 @@
             
             <tag> 题解 </tag>
             
-            <tag> 数据结构 </tag>
-            
             <tag> STL </tag>
             
             <tag> Luogu </tag>
             
             <tag> 线段树 </tag>
+            
+            <tag> 数据结构 </tag>
             
             <tag> BZOJ </tag>
             
@@ -2141,9 +2170,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 数论 </tag>
-            
             <tag> Gcd </tag>
+            
+            <tag> 数论 </tag>
             
             <tag> 数学 </tag>
             
@@ -2209,9 +2238,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 位运算 </tag>
-            
             <tag> NOI </tag>
+            
+            <tag> 位运算 </tag>
             
         </tags>
       
@@ -2461,9 +2490,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> 暴力 </tag>
-            
             <tag> 玄学 </tag>
+            
+            <tag> 暴力 </tag>
             
             <tag> 模拟退火 </tag>
             
@@ -2521,9 +2550,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 并查集 </tag>
+            
+            <tag> 数据结构 </tag>
             
         </tags>
       
@@ -2614,11 +2643,11 @@
             
             <tag> 图论 </tag>
             
+            <tag> Luogu </tag>
+            
             <tag> 染色法 </tag>
             
             <tag> 夏令营 </tag>
-            
-            <tag> Luogu </tag>
             
         </tags>
       
@@ -2848,9 +2877,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 数据结构 </tag>
-            
             <tag> 线段树 </tag>
+            
+            <tag> 数据结构 </tag>
             
         </tags>
       
