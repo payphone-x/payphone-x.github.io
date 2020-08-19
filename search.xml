@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>【SCOI2009】迷路-题解</title>
+      <link href="/2020/08/19/luoguP4159/"/>
+      <url>/2020/08/19/luoguP4159/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>给出一个有 $n$ 个节点的带权有向图，节点从 $1$ 至 $n$ 编号。</p><p>$\text{windy}$ 从节点 $1$ 出发，他必须恰好在 $t$ 时刻到达节点 $n$。</p><p>请告诉 $\text{windy}$ 总共有多少种不同的路径。</p><p>答案对 $2009$ 取模。</p><p>注意：$\text{windy}$ 不能在某个节点逗留，且通过某有向边的时间严格为给定的时间。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行包含两个整数，分别代表 $n$ 和 $t$。</p><p>第 $2$ 到第 $(n + 1)$ 行，每行一个长度为 $n$ 的字符串。</p><p>其中，第 $(i + 1)$ 行的第 $j$ 个字符 $c_{i, j}$ 是一个数字字符，若为 $0$，则代表节点 $i$ 到节点 $j$ 无边。</p><p>否则代表节点 $i$ 到节点 $j$ 的边的长度为 $c_{i, j}$。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出一行一个整数代表答案对 $2009$ 取模的结果。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg-1"><a href="#Input-‘s-eg-1" class="headerlink" title="Input ‘s eg 1"></a>Input ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">2 2</span><br><span class="line">11</span><br><span class="line">00</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-1"><a href="#Output-‘s-eg-1" class="headerlink" title="Output ‘s eg 1"></a>Output ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure><h3 id="Input-‘s-eg-2"><a href="#Input-‘s-eg-2" class="headerlink" title="Input ‘s eg 2"></a>Input ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">5 30</span><br><span class="line">12045</span><br><span class="line">07105</span><br><span class="line">47805</span><br><span class="line">12024</span><br><span class="line">12345</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-2"><a href="#Output-‘s-eg-2" class="headerlink" title="Output ‘s eg 2"></a>Output ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">852</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于 $30\%$ 的数据，保证 $2 \leq n \leq 5$，$1 \leq t \leq 30$。</p><p>对于 $100\%$ 的数据，保证 $2 \leq n \leq 10$，$1 \leq t \leq 10^9$。</p><p><strong>保证边权</strong>$∈ \lbrack 0,9 \rbrack$</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><del>这题 + <a href="https://payphone-x.top/2020/06/19/luoguP6569/" target="_blank" rel="noopener">【NOI Online3】魔法值</a> = <a href="https://www.luogu.com.cn/problem/P6772" target="_blank" rel="noopener">【NOI2020】美食家</a></del></p><p>拆点的套路题。</p><p>题目数据里的 $n$ <strong>很小</strong>，<strong>强烈暗示邻接矩阵</strong>。</p><p>考虑边权全部为 $1$ 时怎么做。若边权全部为 $1$ 则直接求出邻接矩阵的$k$ 次方即可。</p><p>之后考虑如何拓展到本题上。</p><p>仔细读一下题，可以发现本题的边权范围均在 $\lbrack 0 , 9 \rbrack$ 之内。则我们考虑将一个点拆为 $9$ 个点。对于点 $i$，我们将其拆为</p><script type="math/tex; mode=display">\{ (i - 1) \times 9 + x , x∈\lbrack 1 , 9 \rbrack \}</script><p>其中点 $(i - 1) \times 9 + 1$ 为点 $i$ 的主点，然后对 $(i - 1) \times 9 + x$ 与 $(i - 1)\times 9 + x + 1$ 之间连接一条边长为 $1$ 的边。</p><p>这样连边权不为 $1$ 的边就很简单了。对于一条从 $u$ 到 $v$，边权为 $d$ 的边，我们只需要连接 $(u - 1) \times 9 + d$ 与 $(v - 1) \times 9 + 1$ 即可。</p><p>最后的答案就是 $1$ 的主点与 $n$ 的主点间的距离，即 $1$ 与 $(n - 1) \times 9 + 1$ 之间的距离。矩阵快速幂即可求解。</p><p>时间复杂度 $O(l^3 \log t)$，其中 $l = 9 \times n$，足以通过本题。</p><p>剩下的细节见代码即可。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">x</span>) &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c = getchar(), f = <span class="number">0</span>; x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) f = (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) x = x * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    x = f ? -x : x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">2009</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">    ll data[<span class="number">105</span>][<span class="number">105</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Matrix <span class="keyword">operator</span> * (<span class="keyword">const</span> Matrix &amp;A , <span class="keyword">const</span> Matrix &amp;B)&#123;</span><br><span class="line">    Matrix C; clean(C.data , <span class="number">0</span>);</span><br><span class="line">    rep(i , <span class="number">0</span> , <span class="number">100</span>)&#123;</span><br><span class="line">        rep(j , <span class="number">0</span> , <span class="number">100</span>)&#123;</span><br><span class="line">            rep(k , <span class="number">0</span> , <span class="number">100</span>)&#123;</span><br><span class="line">                C.data[i][j] += A.data[i][k] * B.data[k][j];</span><br><span class="line">                C.data[i][j] %= HA;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Matrix <span class="title">Pow</span><span class="params">(Matrix A , ll k)</span></span>&#123;</span><br><span class="line">    Matrix B; clean(B.data , <span class="number">0</span>);</span><br><span class="line">    rep(i , <span class="number">1</span> , <span class="number">100</span>) B.data[i][i] = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(k)&#123;</span><br><span class="line">        <span class="keyword">if</span>(k &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            B = B * A;</span><br><span class="line">        &#125;</span><br><span class="line">        A = A * A;</span><br><span class="line">        k &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> B;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[M];</span><br><span class="line"></span><br><span class="line">Matrix A , ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    ll n , t; </span><br><span class="line">    read(n) , read(t);</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="keyword">int</span> now = (i - <span class="number">1</span>) * <span class="number">9</span>;</span><br><span class="line">        rep(j , <span class="number">1</span> , <span class="number">8</span>)&#123;</span><br><span class="line">            A.data[now + j][now + j + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    rep(i , <span class="number">1</span> , n)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span> , s + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> now = (i - <span class="number">1</span>) * <span class="number">9</span>;</span><br><span class="line">        rep(j , <span class="number">1</span> , n)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[j] == <span class="string">'0'</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">int</span> dis = (<span class="keyword">int</span>)(s[j] - <span class="string">'0'</span>);</span><br><span class="line">                A.data[now + dis][(j - <span class="number">1</span>) * <span class="number">9</span> + <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    clean(ans.data , <span class="number">0</span>);</span><br><span class="line">    rep(i , <span class="number">1</span> , <span class="number">10</span> * n) ans.data[i][i] = <span class="number">1</span>;</span><br><span class="line">    ans = Pow(A , t);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , ans.data[<span class="number">1</span>][(n - <span class="number">1</span>) * <span class="number">9</span> + <span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> Luogu </tag>
+            
+            <tag> 数学 </tag>
+            
+            <tag> 矩阵运算 </tag>
+            
+            <tag> 拆点&amp;拆边 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【IOI1998】Polygon-题解</title>
       <link href="/2020/08/16/luoguP4342/"/>
       <url>/2020/08/16/luoguP4342/</url>
@@ -222,9 +257,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 各省省选 </tag>
-            
             <tag> 组合数学 </tag>
+            
+            <tag> 各省省选 </tag>
             
             <tag> Luogu </tag>
             
@@ -750,9 +785,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 各省省选 </tag>
-            
             <tag> 组合数学 </tag>
+            
+            <tag> 各省省选 </tag>
             
             <tag> Luogu </tag>
             
@@ -872,9 +907,9 @@
       
         <tags>
             
-            <tag> 文章转载 </tag>
-            
             <tag> 灌水区 </tag>
+            
+            <tag> 文章转载 </tag>
             
         </tags>
       
@@ -934,9 +969,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 栈 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Luogu </tag>
             
@@ -1252,9 +1287,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 栈 </tag>
+            
+            <tag> 纪中集训 </tag>
             
         </tags>
       
@@ -1502,9 +1537,9 @@
       
         <tags>
             
-            <tag> 灌水区 </tag>
-            
             <tag> 成长之路 </tag>
+            
+            <tag> 灌水区 </tag>
             
         </tags>
       
@@ -2182,9 +2217,9 @@
       
         <tags>
             
-            <tag> 文章转载 </tag>
-            
             <tag> 灌水区 </tag>
+            
+            <tag> 文章转载 </tag>
             
         </tags>
       
@@ -2209,9 +2244,9 @@
       
         <tags>
             
-            <tag> 灌水区 </tag>
-            
             <tag> 成长之路 </tag>
+            
+            <tag> 灌水区 </tag>
             
         </tags>
       
