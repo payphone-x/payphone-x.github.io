@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>【Codeforces】Coloring Brackets-题解</title>
+      <link href="/2020/09/01/CF149D/"/>
+      <url>/2020/09/01/CF149D/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意翻译"><a href="#题意翻译" class="headerlink" title="题意翻译"></a>题意翻译</h2><p>给出一个配对的括号序列，之后对该序列按以下方法进行染色： </p><ul><li>一个括号可以染红色、蓝色或不染色 </li><li>一对匹配的括号必须且只能将其中一个染色 </li><li>相邻两个括号颜色不能相同（但可以都不染色）</li></ul><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.luogu.com.cn/upload/vjudge_pic/CF149D/18f69b22b88c3423241947f144f2105947738984.png" alt=""></p><p>请求出符合条件的染色方案数，对 $10^9 + 7$ 取模</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入仅有一行，包含一个字符串 $|s|$ ，表示给定的括号序列</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅有一行，包含一个整数，表示符合条件的方案数对 $10^9 + 7$ 取模的结果</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg-1"><a href="#Input-‘s-eg-1" class="headerlink" title="Input ‘s eg 1"></a>Input ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">(())</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-1"><a href="#Output-‘s-eg-1" class="headerlink" title="Output ‘s eg 1"></a>Output ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure><h3 id="Input-‘s-eg-2"><a href="#Input-‘s-eg-2" class="headerlink" title="Input ‘s eg 2"></a>Input ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">(()())</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-2"><a href="#Output-‘s-eg-2" class="headerlink" title="Output ‘s eg 2"></a>Output ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">40</span><br></pre></td></tr></table></figure><h3 id="Input-‘s-eg-3"><a href="#Input-‘s-eg-3" class="headerlink" title="Input ‘s eg 3"></a>Input ‘s eg 3</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">()</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg-3"><a href="#Output-‘s-eg-3" class="headerlink" title="Output ‘s eg 3"></a>Output ‘s eg 3</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围与约定"><a href="#数据范围与约定" class="headerlink" title="数据范围与约定"></a>数据范围与约定</h2><p>设 $|s|$ 为输入括号序列的长度</p><p>对于 $100\%$ 的数据，保证 $1 \leq |s| \leq 700$，且保证 $s$ 括号匹配。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>题目中长度 $\leq 700$ 的数据范围基本在暗示两维以上的数组，且输入的是一个括号序列，不难想到区间 $\text{dp}$。</p><p>采用区间 $\text{dp}$ 的老套路，设 $f[l][r]$ 表示从 $l$ 到 $r$ 的范围内符合条件的方案数。</p><p>但这样不好处理相同颜色不可相邻的问题，考虑增加维度。设 $f[l][r][0/1/2][0/1/2]$ 表示从 $l$ 到 $r$ 中最左边染为无色/红色/蓝色，右边同理的方案数。</p><p>之后预处理每个左括号对应的右括号位置，这可以用一个栈辅助实现。</p><p>考虑转移。观察一下，可以发现每个合法的括号序列可以被拆解为更小的合法序列，比如 <code>()()</code> 就可以拆解为两个 <code>()</code>。</p><p>因此，我们采用记忆化搜索的方式，将整个括号序列拆解为若干小序列进行计算。</p><p>之后进行讨论，当 $l + 1 = r$ 时，则整个括号序列为 <code>()</code> ，此时有</p><script type="math/tex; mode=display">f[l][r][0][1] = f[l][r][0][2] = f[l][r][1][0] = f[l][r][2][0] = 1</script><p>若 $r$ 正好是 $l$ 的对应位置，则 $\lbrack l + 1 , r - 1 \rbrack$ 也是一对合法的括号序列，递归处理 $\lbrack l + 1 , r - 1 \rbrack$。</p><p>之后考虑 $l$ 与 $r$ 的颜色，可得</p><script type="math/tex; mode=display">f[l][r][1][0] += f[l + 1][r - 1][i][j] \;\;\;\;(l \neq 1)</script><script type="math/tex; mode=display">f[l][r][0][1] += f[l + 1][r - 1][i][j] \;\;\;\;(r \neq 1)</script><script type="math/tex; mode=display">f[l][r][2][0] += f[l + 1][r - 1][i][j] \;\;\;\;(l \neq 2)</script><script type="math/tex; mode=display">f[l][r][0][2] += f[l + 1][r - 1][i][j] \;\;\;\;(r \neq 2)</script><p>否则的话，我们将括号序列划分成两段，依次处理之后根据乘法原理相乘累加即可。</p><p>剩下的细节见代码即可。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">x</span>) &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c = getchar(), f = <span class="number">0</span>; x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) f = (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) x = x * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    x = f ? -x : x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100001</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">1000000007</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a[M];</span><br><span class="line">ll f[<span class="number">750</span>][<span class="number">750</span>][<span class="number">3</span>][<span class="number">3</span>] , dy[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l + <span class="number">1</span> == r) &#123;</span><br><span class="line">        f[l][r][<span class="number">0</span>][<span class="number">1</span>] = f[l][r][<span class="number">0</span>][<span class="number">2</span>] = f[l][r][<span class="number">1</span>][<span class="number">0</span>] = f[l][r][<span class="number">2</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> ; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dy[l] == r)&#123;</span><br><span class="line">        dfs(l + <span class="number">1</span> , r - <span class="number">1</span>);</span><br><span class="line">        rep(i , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">            rep(j , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i != <span class="number">1</span>) f[l][r][<span class="number">1</span>][<span class="number">0</span>] += f[l + <span class="number">1</span>][r - <span class="number">1</span>][i][j] , f[l][r][<span class="number">1</span>][<span class="number">0</span>] %= HA;</span><br><span class="line">                <span class="keyword">if</span>(j != <span class="number">1</span>) f[l][r][<span class="number">0</span>][<span class="number">1</span>] += f[l + <span class="number">1</span>][r - <span class="number">1</span>][i][j] , f[l][r][<span class="number">0</span>][<span class="number">1</span>] %= HA;</span><br><span class="line">                <span class="keyword">if</span>(i != <span class="number">2</span>) f[l][r][<span class="number">2</span>][<span class="number">0</span>] += f[l + <span class="number">1</span>][r - <span class="number">1</span>][i][j] , f[l][r][<span class="number">2</span>][<span class="number">0</span>] %= HA;</span><br><span class="line">                <span class="keyword">if</span>(j != <span class="number">2</span>) f[l][r][<span class="number">0</span>][<span class="number">2</span>] += f[l + <span class="number">1</span>][r - <span class="number">1</span>][i][j] , f[l][r][<span class="number">0</span>][<span class="number">2</span>] %= HA;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        dfs(l , dy[l]);</span><br><span class="line">        dfs(dy[l] + <span class="number">1</span> , r);</span><br><span class="line">        rep(i , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">            rep(j , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">                rep(k , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">                    rep(d , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">                        <span class="keyword">if</span>((j == <span class="number">0</span> &amp;&amp; k == <span class="number">0</span>) || (j != k))&#123;</span><br><span class="line">                            f[l][r][i][d] += f[l][dy[l]][i][j] * f[dy[l] + <span class="number">1</span>][r][k][d] % HA;</span><br><span class="line">                            f[l][r][i][d] %= HA;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span> , a + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(a + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">    rep(i , <span class="number">1</span> , len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == <span class="string">'('</span>) s.push(i);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            dy[s.top()] = i;</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="number">1</span> , len);</span><br><span class="line">    ll res = <span class="number">0</span>;</span><br><span class="line">    rep(i , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">        rep(j , <span class="number">0</span> , <span class="number">2</span>)&#123;</span><br><span class="line">            res += f[<span class="number">1</span>][len][i][j] , res %= HA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span> , res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Codeforces </tag>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 动态规划 </tag>
+            
+            <tag> 区间dp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【SCOI2009】迷路-题解</title>
       <link href="/2020/08/19/luoguP4159/"/>
       <url>/2020/08/19/luoguP4159/</url>
@@ -257,9 +288,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 组合数学 </tag>
-            
             <tag> 各省省选 </tag>
+            
+            <tag> 组合数学 </tag>
             
             <tag> Luogu </tag>
             
@@ -321,9 +352,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 树形dp </tag>
-            
             <tag> 各省省选 </tag>
+            
+            <tag> 树形dp </tag>
             
             <tag> Luogu </tag>
             
@@ -785,9 +816,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 组合数学 </tag>
-            
             <tag> 各省省选 </tag>
+            
+            <tag> 组合数学 </tag>
             
             <tag> Luogu </tag>
             
@@ -969,9 +1000,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 栈 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 栈 </tag>
             
             <tag> Luogu </tag>
             
@@ -1099,9 +1130,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 倍增 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Floyd </tag>
             
@@ -1132,11 +1163,11 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
             
             <tag> 区间dp </tag>
+            
+            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -1287,9 +1318,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> 栈 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 栈 </tag>
             
         </tags>
       
@@ -1349,9 +1380,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 前缀和 </tag>
             
             <tag> Vijos </tag>
             
