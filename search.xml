@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>【JLOI2011】不等式组-题解</title>
+      <link href="/2020/10/09/luoguP5482/"/>
+      <url>/2020/10/09/luoguP5482/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>给出 $n$ 次操作，每次操作是下列的一种：</p><ul><li>添加一条形如 $ax + b &gt; c$ 的不等式</li><li>删除其中一条不等式</li><li>询问当 $x = k$ 时成立的不等式的个数</li></ul><p>请快速处理以上操作并输出相应的结果。</p><hr><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行为一个正整数 $n$，代表接下来有 $n$ 行。</p><p>接下来每一行可能有 $3$ 种形式：</p><ul><li><p><code>Add a b c</code>：表明要往不等式组添加一条不等式 $ax+b&gt;c$。</p></li><li><p><code>Del i</code>：代表删除掉第 $i$ 条添加的不等式（最先添加的是第 $1$ 条）。</p></li><li><p><code>Query k</code>：代表一个询问，即当 $x=k$ 时，在当前不等式组内成立的不等式的数量。</p></li></ul><p>注意：一开始不等式组为空，$a,b,c,i,k$ 均为整数，且保证所有操作均合法，不会出现要求删除尚未添加的不等式的情况。</p><hr><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>对于每一个询问 <code>Query k</code>，输出一行一个整数，代表询问的答案。</p><hr><h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">9</span><br><span class="line">Add 1 1 1</span><br><span class="line">Add -2 4 3</span><br><span class="line">Query 0</span><br><span class="line">Del 1</span><br><span class="line">Query 0</span><br><span class="line">Del 2</span><br><span class="line">Query 0</span><br><span class="line">Add 8 9 100</span><br><span class="line">Query 10</span><br></pre></td></tr></table></figure><h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure><hr><h2 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h2><p>对于 $20\%$ 的数据，保证 $n\leq 10^3$。</p><p>对于 $40\%$ 的数据，保证 $n\leq 10^4$。</p><p>对于 $100\%$ 的数据，保证 $1\leq n\leq 10^5$ ，$a,b,c \in \lbrack -10^8,10^8 \rbrack$，$k\in \lbrack-10^6,10^6 \rbrack$。</p><hr><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>直接带入维护并不好维护，考虑移项。</p><p>对于不等式 $ax + b &gt; c$ ，移项之后有以下三种情况：</p><ul><li>$a = 0$，移项后成了 $b &gt; c$。这种情况要么恒成立要么永远不成立，特判即可</li><li>$a &gt; 0$，移项后成了 $x &gt; \lceil \frac{c - b}{a} \rceil$。</li><li>$a &lt; 0$，移项后成了 $x &lt; \lfloor \frac{c - b}{a} \rfloor$。</li></ul><p>对于情况 $2$ 和情况 $3$，我们各开一个树状数组<strong>维护区间内大于或小于某个数的个数</strong>即可。</p><p>设 $t1$ 维护 $a &gt; 0$ 的情况 ， $t2$ 维护 $a &lt; 0$ 的情况 ，则查询 $x = k$ 的答案即为</p><script type="math/tex; mode=display">cnt + \sum_{i = k + 1}^{10^6} t1[i] + \sum_{i = 1}^{k - 1} t2[i]</script><p>其中，$cnt$ 为恒成立的不等式的数目。</p><p>单次操作的时间复杂度均为 $O(\log k)$，总时间复杂度为 $O(n \log k)$。足以通过本题。</p><p>细节部分将在代码注释中呈现，建议仔细参考。</p><hr><h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">'='</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">x</span>) &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c = getchar(), f = <span class="number">0</span>; x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) f = (c == <span class="string">'-'</span>), c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) x = x * <span class="number">10</span> + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">    x = f ? -x : x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1000000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tree1[M &lt;&lt; <span class="number">1</span>] , tree2[M &lt;&lt; <span class="number">1</span>] , lim = (M &lt;&lt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> x &amp; (-x); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> val , <span class="keyword">int</span> tree[])</span></span>&#123;     </span><br><span class="line">    <span class="comment">//由于树状数组不可以有0 ，为防止越界，我在每一个x上加了一个M'</span></span><br><span class="line">    x += M;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i &lt;= lim; i += lowbit(i))&#123;</span><br><span class="line">        tree[i] += val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> tree[])</span></span>&#123;</span><br><span class="line">    x += M;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = x; i ; i -= lowbit(i))&#123;</span><br><span class="line">        ans += tree[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> type[M &lt;&lt; <span class="number">1</span>] , tk[M &lt;&lt; <span class="number">1</span>] , tot , cnt; </span><br><span class="line"></span><br><span class="line"><span class="comment">// type[i] 第i个操作的类型    tk[i] 第i个操作的x值 或 k值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// type[i] = 2 第i个操作需要变号    type[i] = 1 不需要变号</span></span><br><span class="line"><span class="comment">// type[i] = (1 &lt;&lt; 30) 恒成立且可忽视  type[i] = -(1 &lt;&lt; 30) 不成立且可忽视</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a , b , c;</span><br><span class="line">    read(a) , read(b) , read(c);</span><br><span class="line">    <span class="keyword">if</span>(a == <span class="number">0</span>)&#123; <span class="comment">//处理恒成立情况</span></span><br><span class="line">        <span class="keyword">if</span>(b &gt; c)&#123;</span><br><span class="line">            cnt ++ , type[++ tot] = (<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            type[++ tot] = -(<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        tk[++ tot] = (<span class="built_in">ceil</span>)((<span class="number">1.0</span> * c - b) / a);</span><br><span class="line">        type[tot] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(tk[tot] &gt; (<span class="keyword">int</span>)<span class="number">1e6</span>)&#123;</span><br><span class="line">            <span class="comment">//由于k的范围为[-1e6 , 1e6]，则解出结果大于1e6 或 小于-1e6 的不等式均可视为恒成立不等式</span></span><br><span class="line">            cnt ++ , type[tot] = (<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(tk[tot] &lt; (<span class="keyword">int</span>)<span class="number">-1e6</span>)&#123;</span><br><span class="line">            type[tot] = -(<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//树状数组维护小于某个数的个数</span></span><br><span class="line">            add(tk[tot] , <span class="number">1</span> , tree2);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(a &gt; <span class="number">0</span>)&#123; <span class="comment">//大体同上</span></span><br><span class="line">        tk[++ tot] = (<span class="built_in">floor</span>)((<span class="number">1.0</span> * c - b) / a);</span><br><span class="line">        type[tot] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(tk[tot] &gt; (<span class="keyword">int</span>)<span class="number">1e6</span>)&#123;</span><br><span class="line">            type[tot] = -(<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(tk[tot] &lt; (<span class="keyword">int</span>)<span class="number">-1e6</span>)&#123;</span><br><span class="line">            cnt ++ , type[tot] = (<span class="number">1</span> &lt;&lt; <span class="number">30</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            add(tk[tot] , <span class="number">1</span> , tree1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> del[M &lt;&lt; <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k; read(k);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(del[k]) <span class="keyword">return</span> ; <span class="comment">//记录该不等式是否已经删除</span></span><br><span class="line">    del[k] = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据删除的不等式的不同选择删除的树状数组</span></span><br><span class="line">    <span class="keyword">if</span>(type[k] == (<span class="number">1</span> &lt;&lt; <span class="number">30</span>)) cnt --;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(type[k] == <span class="number">1</span>)&#123;  </span><br><span class="line">        add(tk[k] , <span class="number">-1</span> , tree1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(type[k] == <span class="number">2</span>)&#123;</span><br><span class="line">        add(tk[k] , <span class="number">-1</span> , tree2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x; read(x);</span><br><span class="line">    <span class="comment">//利用前缀和思想进行查询</span></span><br><span class="line">    <span class="keyword">return</span> cnt + query(x - <span class="number">1</span> , tree1) + query((<span class="keyword">int</span>)<span class="number">1e6</span> , tree2) - query(x , tree2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">"try.in"</span> , <span class="string">"r"</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"try1.out"</span> , <span class="string">"w"</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> n; read(n);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> op[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">while</span>(n --)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span> , op + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(op[<span class="number">1</span>] == <span class="string">'A'</span>)&#123;</span><br><span class="line">            insert();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">1</span>] == <span class="string">'D'</span>)&#123;</span><br><span class="line">            Delete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">1</span>] == <span class="string">'Q'</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , Query());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解题报告 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 树状数组 </tag>
+            
+            <tag> Luogu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Codeforces】Link Cut Centroids-题解</title>
       <link href="/2020/09/16/CF1406C/"/>
       <url>/2020/09/16/CF1406C/</url>
@@ -449,9 +478,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 各省省选 </tag>
-            
             <tag> 树形dp </tag>
+            
+            <tag> 各省省选 </tag>
             
             <tag> Luogu </tag>
             
@@ -682,9 +711,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> USACO </tag>
-            
             <tag> 树形dp </tag>
+            
+            <tag> USACO </tag>
             
             <tag> Luogu </tag>
             
@@ -1227,9 +1256,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 纪中集训 </tag>
-            
             <tag> 倍增 </tag>
+            
+            <tag> 纪中集训 </tag>
             
             <tag> Floyd </tag>
             
@@ -1260,11 +1289,11 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
             
             <tag> 区间dp </tag>
+            
+            <tag> 前缀和 </tag>
             
         </tags>
       
@@ -1380,11 +1409,11 @@
             
             <tag> 题解 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> 倍增 </tag>
             
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> Luogu </tag>
             
@@ -1477,9 +1506,9 @@
             
             <tag> 动态规划 </tag>
             
-            <tag> 前缀和 </tag>
-            
             <tag> 纪中集训 </tag>
+            
+            <tag> 前缀和 </tag>
             
             <tag> Vijos </tag>
             
@@ -1888,9 +1917,9 @@
             
             <tag> 各省省选 </tag>
             
-            <tag> Luogu </tag>
-            
             <tag> 并查集 </tag>
+            
+            <tag> Luogu </tag>
             
         </tags>
       
@@ -2752,9 +2781,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 图论 </tag>
-            
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
         </tags>
       
@@ -2808,11 +2837,11 @@
       
         <tags>
             
+            <tag> Floyd </tag>
+            
             <tag> 图论 </tag>
             
             <tag> Dijkstra </tag>
-            
-            <tag> Floyd </tag>
             
             <tag> 学习笔记 </tag>
             
@@ -2963,9 +2992,9 @@
       
         <tags>
             
-            <tag> 图论 </tag>
-            
             <tag> Floyd </tag>
+            
+            <tag> 图论 </tag>
             
             <tag> 学习笔记 </tag>
             
