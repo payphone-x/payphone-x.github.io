@@ -4471,7 +4471,7 @@ _:future,
   background: var(--btn-hover-color);
 }
 #vcomment textarea {
-  background: url("http://jige.00ling.cn/2020/05/03/a23c985d7f4c0.png# valine background") 100% 100% no-repeat;
+  background: url("http://jige.00ling.cn/2020/05/03/a23c985d7f4c0.png") 100% 100% no-repeat;
 }
 #vcomment textarea:focus {
   background-image: none;
