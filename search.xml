@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>【总结篇】考场策略 &amp; 常犯错误总结</title>
+      <link href="2020/11/26/noip-error/"/>
+      <url>2020/11/26/noip-error/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="常犯错误"><a href="#常犯错误" class="headerlink" title="常犯错误"></a>常犯错误</h2><p>以下为笔者或笔者的学弟学妹曾在比赛中犯过的错误，在此列出，以供参考。</p><hr><h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><ol><li><strong>忘记初始化</strong>。</li><li>合并时不先寻找祖先，直接进行合并。</li><li><code>find()</code> 函数忘记路径压缩。</li></ol><hr><h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><ol><li><strong>无向边不开双倍空间</strong>。</li><li>使用 <code>next</code> 作为数组名导致 $\text{CE}$。</li></ol><hr><h3 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h3><ol><li><strong>不开四倍空间</strong>。</li><li><code>#define lson(x) x &lt;&lt; 1</code> 时，<code>x &lt;&lt; 1</code> 不加括号。</li><li>不建议在数据结构中使用 <code>num</code> 作为变量名，因为意义过于广泛。</li></ol><hr><h3 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h3><ol><li>排序时把 $n$ 与 $m$ 弄反。</li><li>试图使用 <code>memset</code> 将非 <code>bool</code> 数组赋值为 $1$。</li><li><strong>在</strong> <code>STL</code> <strong>容器为空时访问其顶部或队首元素</strong>。</li><li><code>xxx.size()</code> 返回的是 <code>unsigned</code> 类型整数，尽量不要对其作减法运算</li><li>在 <code>multiset</code> 中，删除一个元素为 <code>s.erase(s.find(x))</code> , 不是 <code>s.erase(x)</code></li></ol><hr><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol><li><strong>数据类型不对 （不开或只有部分变量开了</strong> <code>long long</code> , <code>double</code> , <code>long double</code>）</li><li>大整数相乘时不乘 <code>1ll</code> 导致运算时溢出</li><li>将 <code>long long</code> 类型的数据传入 <code>int</code> 的形参。</li></ol><hr><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol><li><strong>不加 <code>#include &lt;cstdio&gt;</code></strong> （$\text{Windows}$ 下不会报错，但 $\text{Linux}$ 一定 $\text{CE}$）</li><li>将 <code>#include &lt;bits/stdc++.h&gt;</code> 中的 <code>/</code> 打反 (同上)</li><li>有返回值的函数不 <code>return</code></li><li><strong>开小数组</strong>。</li><li>负数下标导致 $\text{RE}$</li><li><strong>不开文件或文件输入输出写错</strong></li><li>使用不关流的 <code>cin</code> 读入 $10^6$ 级别的大数据。</li><li><code>inf</code> 设小 （一般 <code>int</code> 设为 <code>0x3f3f3f3f</code> 比较保险，<code>long long</code> 可以设为 <code>1e18</code>）。</li><li><code>inf</code> 设大导致溢出 （<strong>不要使用数据类型的上界作为</strong> <code>inf</code>）</li><li>二分边界达到 <code>2e9</code> 时 <code>mid</code> 不开 <code>long long</code></li><li><strong>忘记取模或取模不及时</strong></li><li><strong>多测不清空或清空不完全</strong></li><li>提交前不删除调试信息。</li><li>使用各种不能用的变量 （<code>y1</code> , <code>j1</code> 等单字母变量 + 数字很容易与 <code>cmath</code> 库冲突，<code>end</code> , <code>_end</code>, <code>rank</code> 都是 <code>Linux</code> 保留字）。</li></ol><hr><h2 id="考场策略与技巧"><a href="#考场策略与技巧" class="headerlink" title="考场策略与技巧"></a>考场策略与技巧</h2><ol><li><strong>对拍模板在试机时就写完（因为一定会用到）</strong></li><li>$\text{T1}$ 不一定是最简单的，请先通读一遍题目之后再考虑从哪里开始</li><li>读过题目之后请简化题意，即使用形象化的语言复述一遍题意</li><li><strong>前两小时打满暴力，后两个半小时思考正解</strong>，这样就算什么都没思考出来也不至于空手而归，而且暴力可以用于对拍</li><li>边界处理拿不准时就在纸上举个例子再写。</li><li><strong>数据分治</strong>（注意别判错子任务）</li><li>最后 $5 min$ 不要修改程序，只去检查题目名，文件夹，文件输入输出等是否正确即可。</li><li>对拍的使用方法：点<a href="https://payphone-x.top/2019/09/17/same/">这里</a></li><li>程序使用内存的查看方法（以 A + B 为例子）：</li></ol><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;    </span></span></span><br><span class="line"><span class="comment">//windows.h 与 system 语句在提交之前务必删除或注释，否则会爆零</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a , b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span> , &amp;a , &amp;b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span> , a + b);</span><br><span class="line"></span><br><span class="line">    system(<span class="string">&quot;size a.exe&quot;</span>);    </span><br><span class="line">    <span class="comment">//假设文件名为 a.cpp</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其运行后会产生这样一个界面</p><p><img src= "/img/loading.gif" data-lazy-src="https://shop.io.mi-img.com/app/shop/img?id=shop_04bf23368f04a9738ca00b343765a6f0.png" alt="image.png"></p><p>其中 <code>bss</code> 是所有全局变量所占用的空间之和， <code>dec</code> 是所有变量所占用的空间之和（单位均为字节），故 $\frac{dec}{1024 \times 1024}$ 为程序消耗的总空间（单位为 $\text{MB}$）。</p><hr><p>祝大家 $\text{NOIP}$ 都能取得好成绩。</p><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 成长之路 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 成长之路 </tag>
+            
+            <tag> 总结篇 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【多校联考2020】巡游-题解</title>
       <link href="2020/11/25/ZLOJ10187/"/>
       <url>2020/11/25/ZLOJ10187/</url>
@@ -84,9 +111,9 @@
             
             <tag> 题解 </tag>
             
-            <tag> 贪心 </tag>
-            
             <tag> 多校联考 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 模拟 </tag>
             
@@ -179,9 +206,9 @@
       
         <tags>
             
-            <tag> 位运算 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 位运算 </tag>
             
             <tag> Luogu </tag>
             
@@ -2884,9 +2911,9 @@
             
             <tag> 学习笔记 </tag>
             
-            <tag> 位运算 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 位运算 </tag>
             
             <tag> NOI </tag>
             
