@@ -1,0 +1,480 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>动态题库 | Album's Blog</title><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在各大$\text{OJ}$的题库中，找到一些好题无疑像在星辰大海中捞针一样艰难。 因此，作者制作了这份动态题库。方便各位$\text{OIer}$们日常刷题，同时也是自己成长的一份记录 对于每一个不同的知识点，作者会上传一些题目供大家练习，题目基本按照难度排序。 这些题目中，大部分是作者做过的题目，也有一部分来自于$\text{LYOI}$和外地$\text{OIer}$的原创题，均已特殊标明。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="动态题库">
+<meta property="og:url" content="http://payphone-x.github.io/Problems/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="在各大$\text{OJ}$的题库中，找到一些好题无疑像在星辰大海中捞针一样艰难。 因此，作者制作了这份动态题库。方便各位$\text{OIer}$们日常刷题，同时也是自己成长的一份记录 对于每一个不同的知识点，作者会上传一些题目供大家练习，题目基本按照难度排序。 这些题目中，大部分是作者做过的题目，也有一部分来自于$\text{LYOI}$和外地$\text{OIer}$的原创题，均已特殊标明。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/40.png">
+<meta property="article:published_time" content="2019-08-13T12:06:29.000Z">
+<meta property="article:modified_time" content="2020-04-30T14:10:28.000Z">
+<meta property="article:author" content="Album.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/40.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/Problems/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2020-04-30 22:10:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="not-index-bg" id="page-header" style="background-image: url(/images/1.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="page-site-info"><h1 id="site-title">动态题库</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><p>在各大$\text{OJ}$的题库中，找到一些好题无疑像在星辰大海中捞针一样艰难。</p>
+<p>因此，作者制作了这份动态题库。方便各位$\text{OIer}$们日常刷题，同时也是自己成长的一份记录</p>
+<p>对于每一个不同的知识点，作者会上传一些题目供大家练习，<strong>题目基本按照难度排序</strong>。</p>
+<p>这些题目中，大部分是作者做过的题目，也有一部分来自于$\text{LYOI}$和外地$\text{OIer}$的原创题，均已特殊标明。在这里，作者对他们致以崇高的敬意与衷心的感谢。</p>
+<p>为避免使用者需要注册过多账号，题目评测依赖于$\text{Luogu}$。</p>
+<p>当然，由于作者水平有限，所给出的题目难免会出现不太合适或有误的情况，若出现这种情况，请您在评论区进行评论或者在关于界面联系作者。</p>
+<p>如果您想贡献自己的题目的话，也请在关于界面联系作者，感谢您对本站做出的贡献。</p>
+<hr>
+<h1 id="Part-0-试机题"><a href="#Part-0-试机题" class="headerlink" title="Part 0 试机题"></a>Part 0 试机题</h1><blockquote>
+<p>三道试机题目，没什么好说的。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1000">Luogu P1000 超级玛丽游戏</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1001">Luogu P1001 A + B Problem</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1008">Luogu P1008 三连击</a></li>
+</ul>
+<h1 id="Part-1-语言阶段"><a href="#Part-1-语言阶段" class="headerlink" title="Part 1 语言阶段"></a>Part 1 语言阶段</h1><blockquote>
+<p>本部分是给语言入门的$\text{OIer}$们准备的基础内容，比较简单。</p>
+</blockquote>
+<h2 id="Part-1-1-从零开始的OI生涯"><a href="#Part-1-1-从零开始的OI生涯" class="headerlink" title="Part 1.1 从零开始的OI生涯"></a>Part 1.1 从零开始的OI生涯</h2><blockquote>
+<p>最基础的题目，大概是唐$\text{Sir}$课件的前三章的难度，加油冲过去吧！</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3954">Luogu P3954 成绩</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5082">Luogu P5082 成绩</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1980">Luogu P1980 计数问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1421">Luogu P1421 小玉买文具</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1909">Luogu P1909 买铅笔</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1423">Luogu P1423 小玉在游泳</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1425">Luogu P1425 小鱼的游泳时间</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1089">Luogu P1089 津津的储蓄计划</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1085">Luogu P1085 不高兴的津津</a></li>
+</ul>
+<hr>
+<h2 id="Part-1-2-数组基础"><a href="#Part-1-2-数组基础" class="headerlink" title="Part 1.2 数组基础"></a>Part 1.2 数组基础</h2><blockquote>
+<p>数组可以存储大量信息，但别开太大哦。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1046">Luogu P1046 陶陶摘苹果</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1047">Luogu P1047 校门外的树</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1567">Luogu P1567 统计天数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1428">Luogu P1428 小鱼比可爱</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P2141">Luogu P2141 珠心算测验</a></li>
+</ul>
+<hr>
+<h2 id="Part-1-3-字符串基础"><a href="#Part-1-3-字符串基础" class="headerlink" title="Part 1.3 字符串基础"></a>Part 1.3 字符串基础</h2><blockquote>
+<p>字符串其实就是一种特殊的数组，但它也有很多自身特点</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5015">Luogu P5015 标题统计</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1914">Luogu P1914 小书童-密码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1055">Luogu P1055 ISBN号码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1308">Luogu P1308 统计单词数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1200">Luogu P1200 你的飞碟在这</a></li>
+</ul>
+<hr>
+<h2 id="Part-1-4-函数-amp-递推-amp-递归"><a href="#Part-1-4-函数-amp-递推-amp-递归" class="headerlink" title="Part 1.4 函数&amp;递推&amp;递归"></a>Part 1.4 函数&amp;递推&amp;递归</h2><blockquote>
+<p>这里算是初学者最难理解的部分，加油闯过去吧！</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1028">Luogu P1028 数的计算</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1036">Luogu P1036 选数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1014">Luogu P1014 Cantor表</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1192">Luogu P1192 台阶问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P4994">Luogu P4994 终于结束的起点</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1022">Luogu P1022 计算器的改良</a></li>
+</ul>
+<hr>
+<h1 id="Part-2-算法部分"><a href="#Part-2-算法部分" class="headerlink" title="Part 2 算法部分"></a>Part 2 算法部分</h1><blockquote>
+<p>这里集结了大量基础算法题目，不需要太多的前置知识，适合巩固基础 &amp; 挑战思维。</p>
+<p>当然，里面也有一些难度较高的题目，作者会<code>*</code>·标出，可以在到达一定水平之后回头做。</p>
+</blockquote>
+<h2 id="Part-2-1-模拟"><a href="#Part-2-1-模拟" class="headerlink" title="Part 2.1 模拟"></a>Part 2.1 模拟</h2><blockquote>
+<p>模拟，顾名思义，就是说什么就做什么。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1042">Luogu P1042 乒乓球</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1003">Luogu P1003 铺地毯</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1068">Luogu P1068 分数线划定</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1093">Luogu P1093 奖学金</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1328">Luogu P1328 生活大爆炸版剪刀石头布</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P2615">Luogu P2615 神奇的幻方</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1540">Luogu P1540 机器翻译</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1563">Luogu P1563 玩具谜题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1058">Luogu P1058 立体图</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/T85990">LYOI T85990 TarjanLusa</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1039">Luogu P1039 侦探推理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3952">Luogu P3952 时间复杂度</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P2482">Luogu P2482【SDOI2010】猪国杀*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3326">Luogu P3326【SDOI2015】立体图*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3693">Luogu P3693 琪露诺的冰雪小屋*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5380">Luogu P5380【THUPC2019】鸭棋*</a></li>
+</ul>
+<p>其中，题目<a target="_blank" rel="noopener" href="https://www.luogu.org/problem/T85990">TarjanLusa</a>为$\text{Herself32}$贡献，在此作者表示深深的感谢</p>
+<hr>
+<h2 id="Part-2-2-排序"><a href="#Part-2-2-排序" class="headerlink" title="Part 2.2 排序"></a>Part 2.2 排序</h2><blockquote>
+<p>通过排序，我们可以让一个序列变的有序，更加方便我们操作。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1177">Luogu P1177【模板】快速排序</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1095">Luogu P1095 明明的随机数</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/T85717">LYOI T85717 Grades</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1068">Luogu P1068 分数线划定</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1051">Luogu P1051 谁拿了最多奖学金</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1583">Luogu P1583 魔法照片</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3955">Luogu P3955 图书管理员</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1309">Luogu P1309 瑞士轮</a></li>
+</ul>
+<p>其中，题目<a target="_blank" rel="noopener" href="https://www.luogu.org/problem/T85717">Grades</a>为$\text{Liuzhe}$贡献，在此作者表示深深的谢意。</p>
+<hr>
+<h2 id="Part-2-3-贪心"><a href="#Part-2-3-贪心" class="headerlink" title="Part 2.3 贪心"></a>Part 2.3 贪心</h2><blockquote>
+<p>事实证明，在生活中贪心不是个好习惯，但在OI中，贪心有时却真的是对的。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1223">Luogu P1223 排队接水</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1090">Luogu P1090 合并果子</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1208">Luogu P1208 混合牛奶</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1094">Luogu P1094 纪念品分组</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1803">Luogu P1803 线段覆盖</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P2672">Luogu P2672 推销员</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1080">Luogu P1080 国王游戏</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P2123">Luogu P2123 皇后游戏</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1180B">Codeforces 1180B Nick and Array</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF140C">Codeforces 140C New Year Snowmen</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3467">Luogu P3467 【POI2008】PLA-Postering</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF161B">Codeforces 161B Discounts</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4053">Luogu P4053 【JSOI2007】建筑抢修</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF660C">Codeforces 660C Hard Process</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1326">Luogu P1326 足球</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF508E">Codeforces 508E Arthur and Brackets</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4107">Luogu P4107 【HEOI2015】兔子与樱花*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF521D">Codeforces 521D Shop*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF183E">Codeforces 183E Candy Shop*</a></li>
+</ul>
+<hr>
+<h2 id="Part-2-4-搜索"><a href="#Part-2-4-搜索" class="headerlink" title="Part 2.4 搜索"></a>Part 2.4 搜索</h2><blockquote>
+<p>高级枚举 &amp; 骗分神器</p>
+</blockquote>
+<h3 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h3><blockquote>
+<p>深度优先搜索(即DFS)是按照深度优先进行搜索，一般采用递归和栈来实现。</p>
+<p>当然了，大部分时候DFS也是考场骗分神器</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1002">Luogu P1002 过河卒</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1644">Luogu P1644 跳马问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1019">Luogu P1019 单词接龙</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1101">Luogu P1101 单词方阵</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1219">Luogu P1219 八皇后</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5194">Luogu P5194 Scales</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3915">Luogu P3915 树的分解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1378">Luogu P1378 油滴扩展</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P5018">Luogu P5018 对称二叉树</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2668">Luogu P2668 斗地主</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2540">Luogu P2540 斗地主增强版</a></li>
+</ul>
+<hr>
+<h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h3><blockquote>
+<p>广度优先搜索(即BFS)是按照广度优先进行搜索，一般采用队列实现。</p>
+<p>更适合处理图上的有关问题</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1162">Luogu P1162 填涂颜色</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1443">Luogu P1443 马的遍历</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3956">Luogu P3956 棋盘</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1332">Luogu P1332 血色先锋队</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1032">Luogu P1032 字串变换</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1135">Luogu P1135 奇怪的电梯</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1126">Luogu P1126 机器人搬重物</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1379">Luogu P1379 八数码难题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1330">Luogu P1330 封锁阳光大学</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2730">USACO P2730 魔板 Magic Squares</a></li>
+</ul>
+<hr>
+<h3 id="折半搜索"><a href="#折半搜索" class="headerlink" title="折半搜索"></a>折半搜索</h3><blockquote>
+<p>在搜索一段有序的数列时，我们可以将数列一分为二，分别搜索后利用排列组合求出最后的答案。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4799">Luogu P4799 【CEOI2015】世界冰球锦标赛*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3067">USACO P3067 Balanced Cow Subsets G*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF525E">Codeforces 525E Anya and Cubes*</a></li>
+</ul>
+<hr>
+<h3 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h3><blockquote>
+<p>在搜索时记录上一个搜索的状态以节省时间，是一种比较常用的优化手法。</p>
+<p>同时，记忆化搜索也是动态规划的一种实现方式。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1434">Luogu P1434【SHOI2002】滑雪</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1514">Luogu P1514 引水入城</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3953">Luogu P3953 逛公园</a></li>
+</ul>
+<hr>
+<h3 id="A-star"><a href="#A-star" class="headerlink" title="A-star"></a>A-star</h3><blockquote>
+<p>在$\text{BFS}$的基础上设计一个合理的估价函数，就成了$\text{A-star}$算法。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1379">Luogu P1379 八数码难题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2324">Luogu P2324【SCOI2005】骑士精神*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4467">Luogu P4467【SCOI2007】k短路*</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2483">Luogu P2483【SDOI2010】魔法猪学院*</a></li>
+</ul>
+<hr>
+<h3 id="搜索的剪枝"><a href="#搜索的剪枝" class="headerlink" title="搜索的剪枝"></a>搜索的剪枝</h3><blockquote>
+<p>没有剪枝的搜索就像没有跳刀的斧王，无法发挥出其应有的威力</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P1731">Luogu P1731 生日蛋糕</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA307">UVA307 小木棍 Sticks</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1120">Luogu P1120 小木棍【数据加强版】</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1312">Luogu P1312 Mayan游戏</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1074">Luogu P1074 靶形数独</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1526">Luogu P1526【NOI2003】智破连环阵*</a></li>
+</ul>
+<hr>
+<h2 id="Part-2-5-二分"><a href="#Part-2-5-二分" class="headerlink" title="Part 2.5 二分"></a>Part 2.5 二分</h2><blockquote>
+<p>可以把一些很困难的计算问题变成判定性问题，前提是必须有序</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1024">Luogu P1024 一元三次方程求解</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2678">Luogu P2678 跳石头</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1314">Luogu P1314 聪明的质监员</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1902">Luogu P1902 刺杀大使</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1083">Luogu P1083 借教室</a></li>
+</ul>
+<hr>
+<h2 id="Part-2-6-分治"><a href="#Part-2-6-分治" class="headerlink" title="Part 2.6 分治"></a>Part 2.6 分治</h2><blockquote>
+<p>分治分治，分而治之。</p>
+<p>即把一些看起来十分巨大的问题分解为一个个小问题依次求解，最后合成答案。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1226">Luogu P1226 【模板】快速幂||取余运算</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1010">Luogu P1010 幂次方</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1228">Luogu P1228 地毯填补问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1429">Luogu P1429 平面最近点对（加强版）</a></li>
+</ul>
+<hr>
+<h1 id="Part-3-动态规划"><a href="#Part-3-动态规划" class="headerlink" title="Part 3 动态规划"></a>Part 3 动态规划</h1><blockquote>
+<p>动态规划(简称$\text{dp}$)通过利用已知状态获取最优解，是$\text{OI}$中最为重要的算法之一。</p>
+<p>其使用需要满足<strong>最优子结构</strong>与<strong>无后效性</strong>原则，并且<strong>注意边界条件的处理</strong></p>
+</blockquote>
+<h2 id="Part-3-1-线性dp"><a href="#Part-3-1-线性dp" class="headerlink" title="Part 3.1 线性dp"></a>Part 3.1 线性dp</h2><blockquote>
+<p>一般设$F_{i , s}$表示区间$[1 , i]$在限制条件为$s$情况下的最优解。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1216">USACO1.5 【IOI1994】数字三角形 Number Triangles</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1020">Luogu P1020 导弹拦截</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1091">Luogu P1091 合唱队形</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1095">Luogu P1095 守望者的逃离</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4310">Luogu P4310 绝世好题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF5C">Codeforces 5C Longest Regular Bracket Sequence</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1944">Luogu P1944 最长括号匹配</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1772">Luogu P1772 【ZJOI2006】物流运输</a></li>
+</ul>
+<hr>
+<h2 id="Part-3-2-背包问题"><a href="#Part-3-2-背包问题" class="headerlink" title="Part 3.2 背包问题"></a>Part 3.2 背包问题</h2><blockquote>
+<p>背包是一类重要的$\text{dp}$模型，包含$0/1$背包，完全背包，多重背包等多种不同形式。近几年的$\text{NOIP / CSP}$考过多次</p>
+<p>需要<strong>熟练掌握其各种变形与套路</strong>。</p>
+</blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1284">Luogu P1284 三角形牧场</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1156">Luogu P1156 垃圾陷阱</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1941">Luogu P1941 飞扬的小鸟</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1282">Luogu P1282 多米诺骨牌</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5322">Luogu P5322 【BJOI2019】排兵布阵</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2224">Luogu P2224 【HNOI2001】产品加工</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4141">Luogu P4141 消失之物</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4158">Luogu P4158 【SCOI2009】粉刷匠</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3188">Luogu P3188 【HNOI2007】梦幻岛宝珠</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5289">Luogu P5289 【十二省联考2019】皮配*</a></li>
+</ul>
+<hr>
+<h2 id="Part-3-2-背包问题-1"><a href="#Part-3-2-背包问题-1" class="headerlink" title="Part 3.2 背包问题"></a>Part 3.2 背包问题</h2></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"></div></div></main><footer id="footer" style="background-image: url(/images/1.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

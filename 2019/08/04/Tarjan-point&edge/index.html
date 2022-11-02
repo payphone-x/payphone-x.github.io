@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【图论算法】Tarjan(割点 &amp; 割边) | Album's Blog</title><meta name="keywords" content="学习笔记,图论,Tarjan,DFS序"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Tarjan真是一位神奇的老人家呐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【图论算法】Tarjan(割点 &amp; 割边)">
+<meta property="og:url" content="http://payphone-x.github.io/2019/08/04/Tarjan-point&edge/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="Tarjan真是一位神奇的老人家呐">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/4.png">
+<meta property="article:published_time" content="2019-08-04T06:31:10.000Z">
+<meta property="article:modified_time" content="2019-10-25T02:16:04.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="Tarjan">
+<meta property="article:tag" content="DFS序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/4.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/08/04/Tarjan-point&amp;edge/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2019-10-25 10:16:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/4.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【图论算法】Tarjan(割点 &amp; 割边)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-08-04T06:31:10.000Z" title="undefined 2019-08-04 14:31:10">2019-08-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/eyhLF0"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/04/eyhLF0.jpg" alt="eyhLF0.jpg"></a></p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在昨晚(2019/8/3)模拟赛爆炸后，作者没脸在$C$班混下去了……</p>
+<p>于是，作者便滚回了$D$，开始了被吊打的生活……</p>
+<hr>
+<h2 id="浅谈Tarjan"><a href="#浅谈Tarjan" class="headerlink" title="浅谈Tarjan"></a>浅谈Tarjan</h2><p>在介绍Tarjan算法之前，我们先来看一下百度百科的解释：</p>
+<blockquote>
+<p>一种由Robert Tarjan提出的求解有向图强连通分量的线性时间的算法。   ——《百度百科》</p>
+</blockquote>
+<p><del>真心够短</del></p>
+<p>还是来看下更加通俗易懂的解释吧</p>
+<p>Tarjan算法是由美国计算机学家Robert Tarjan提出的一系列算法，并不是一种算法。</p>
+<p>在OI中，我们经常会用到Tarjan算法求割点，割边以及强连通分量。</p>
+<p>同时，Tarjan算法还可以用来进行缩点，以简便我们的运算。</p>
+<p>在本篇博客中，我们主要介绍用Tarjan求割点，割边。<del>至于强连通分量什么的……就当我没带眼镜听不见好了o(´^｀)o</del></p>
+<hr>
+<h2 id="前置芝士"><a href="#前置芝士" class="headerlink" title="前置芝士"></a>前置芝士</h2><p>在介绍Tarjan求割点，割边之前，我们先来了解一些芝士</p>
+<h3 id="DFS树"><a href="#DFS树" class="headerlink" title="DFS树"></a>DFS树</h3><p>顾名思义，$DFS$树即在$DFS$过程中形成的树</p>
+<p>就像这张图</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/e6VBpq"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/04/e6VBpq.png" alt="e6VBpq.png"></a></p>
+<p>如果以$0$为起始点进行$DFS$，它的$DFS$树是这样的(画法不唯一)</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/eyXI61"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/04/eyXI61.jpg" alt="eyXI61.jpg"></a></p>
+<p>仔细看一下上图，不难看出<strong>一颗DFS树不存在重复节点，也不存在跨子树的边</strong></p>
+<hr>
+<h3 id="DFS序"><a href="#DFS序" class="headerlink" title="DFS序"></a>DFS序</h3><p>同理，$DFS$序即$DFS$经过点的顺序。</p>
+<p>还是刚才的图</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/e6VBpq"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/04/e6VBpq.png" alt="e6VBpq.png"></a></p>
+<p>如果以$0$为起始点进行$DFS$，它的$DFS$序为$0 , 1 , 2 , 3 , 4$</p>
+<hr>
+<h3 id="割点-amp-割边の定义"><a href="#割点-amp-割边の定义" class="headerlink" title="割点&amp;割边の定义"></a>割点&amp;割边の定义</h3><p>既然我们要求的是割点与割边，那么它们的定义又是什么呐？</p>
+<p>别急，我们这就介绍</p>
+<p><strong>割点</strong>就是<strong>把这个点在图中删去后，图中连通块的个数会增加</strong>的点</p>
+<p>同理，<strong>割边</strong>就是<strong>把这条边在图中删去后，图中连通块个数会增加</strong>的边</p>
+<p>还是用这张图</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/e6VBpq"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/04/e6VBpq.png" alt="e6VBpq.png"></a></p>
+<p>在这张图中，割点为点$0 , 3$。</p>
+<hr>
+<h2 id="Tarjan求割边"><a href="#Tarjan求割边" class="headerlink" title="Tarjan求割边"></a>Tarjan求割边</h2><p>好，相信你现在<del>已经完全理解了上面的内容</del>，那么，我们现在开始介绍Tarjan求割边。</p>
+<p>在想正解之前，我们先来想想暴力一点的做法</p>
+<hr>
+<h3 id="暴力删边"><a href="#暴力删边" class="headerlink" title="暴力删边"></a>暴力删边</h3><p>最暴力的想法应该就是每一次枚举一条边，将其删去，看是不是将原有的连通块拆分成多个连通块。</p>
+<p>时间复杂度$O(n^2)$<del>妥妥的TLE</del></p>
+<hr>
+<h3 id="生成树删边"><a href="#生成树删边" class="headerlink" title="生成树删边"></a>生成树删边</h3><p>对于刚刚的做法，我们有什么可以优化的吗？</p>
+<p>答案是肯定的。</p>
+<p>我们可以先寻找任意一颗生成树，然后仅判断生成树上的边是不是割边</p>
+<p>正确性也很显然：因为生成树已经连接了所有的节点（原来就不连通的节点除外）。所以我们只要判断是不是有另一条边能绕过它即可</p>
+<p>时间复杂度$O(n\times m)$，在数据较大时还是会超时。</p>
+<hr>
+<h3 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h3><p>仔细观察，我们不难得出结论：<strong>环上的边绝对不是割边，即不是割边的边都在某个环上</strong></p>
+<p>既然如此，我们就可以<del>大胆猜想</del>：<strong>不在任何一个环上的边为割边</strong></p>
+<p>所以我们先跑一遍$DFS$，求出$DFS$树，然后我们把图中的非树边（即不在$DFS$树上的边）加入$DFS$树中，看哪一条边被覆盖了。</p>
+<p>那些没有被覆盖的边，即为割边。</p>
+<p>在写代码时，我们开一个名为$dfn$的数组记录$DFS$序，再开一个名为$low$的数组用于表示在DFS树的x的子树中，非树边往上指最小的DFS序。</p>
+<p>之后直接模拟即可</p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> Tarjan_Edge&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> N 500001</span></span><br><span class="line">    <span class="keyword">int</span> dfn[N];</span><br><span class="line">    <span class="keyword">int</span> low[N];</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> root , <span class="keyword">int</span> pre)</span></span>&#123;</span><br><span class="line">        dfn[root] = low[root] = cnt ++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[root] ; i ; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(!dfn[to])&#123;</span><br><span class="line">                Tarjan(to , root);</span><br><span class="line">                low[root] = min(low[root] , low[to]);</span><br><span class="line">                <span class="keyword">if</span>(low[to] &gt; dfn[root])&#123;</span><br><span class="line">                    <span class="built_in">cout</span> &lt;&lt; root &lt;&lt; <span class="string">&quot;-&gt;&quot;</span> &lt;&lt; to &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(to != pre)&#123;</span><br><span class="line">                low[root] = min(low[root] , dfn[to]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Tarjan求割点"><a href="#Tarjan求割点" class="headerlink" title="Tarjan求割点"></a>Tarjan求割点</h2><p>首先，对于一个根节点，如果它DFS树中的子树数量大于等于2，则它一定为割点</p>
+<p>那么对于一个非根节点呐？</p>
+<p>对于非根节点，<strong>我们要满足有一条非树边指向其DFS树上的祖先，他才会是一个割点。</strong>也就是说对于一个节点$u$，如果它是割点，那么满足$low[v] &lt; dfn[u]$;</p>
+<p>剩下的直接照抄即可</p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> Tarjan_point&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> N 500001</span></span><br><span class="line">    <span class="keyword">int</span> dfn[N];</span><br><span class="line">    <span class="keyword">int</span> low[N];</span><br><span class="line">    <span class="keyword">bool</span> cut[N];</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">        dfn[x] = low[x] = ++ cnt;</span><br><span class="line">        <span class="keyword">int</span> child = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[x] ; i; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(!dfn[to])&#123;</span><br><span class="line">                Tarjan(to , fa);</span><br><span class="line">                low[x] = min(low[x] , low[to]);</span><br><span class="line">                <span class="keyword">if</span>(low[to] &gt;= dfn[x] &amp;&amp; x != fa)&#123;</span><br><span class="line">                    cut[x] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(x == fa)&#123;</span><br><span class="line">                    child ++;</span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;</span><br><span class="line">            low[x] = min(low[x] , dfn[to]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(child &gt;= <span class="number">2</span> &amp;&amp; x == fa)&#123;</span><br><span class="line">            cut[x] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="附件-割点模板"><a href="#附件-割点模板" class="headerlink" title="附件[割点模板]"></a>附件[割点模板]</h2><p>代码描述：见<a target="_blank" rel="noopener" href="https://www.luogu.org/problem/P3388">luoguP3388</a></p>
+<p>Code:</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500001</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> end head</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"><span class="keyword">int</span> end[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to)</span></span>&#123;</span><br><span class="line">    edge[++ edge_number].to = to;</span><br><span class="line">    edge[edge_number].last = end[from];</span><br><span class="line">    end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Tarjan_point&#123;</span><br><span class="line">    <span class="keyword">int</span> dfn[N];</span><br><span class="line">    <span class="keyword">int</span> low[N];</span><br><span class="line">    <span class="keyword">bool</span> cut[N];</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Tarjan</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">        dfn[x] = low[x] = ++ cnt;</span><br><span class="line">        <span class="keyword">int</span> child = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[x] ; i; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">            <span class="keyword">if</span>(!dfn[to])&#123;</span><br><span class="line">                Tarjan(to , fa);</span><br><span class="line">                low[x] = min(low[x] , low[to]);</span><br><span class="line">                <span class="keyword">if</span>(low[to] &gt;= dfn[x] &amp;&amp; x != fa)&#123;</span><br><span class="line">                    cut[x] = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(x == fa)&#123;</span><br><span class="line">                    child ++;</span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;</span><br><span class="line">            low[x] = min(low[x] , dfn[to]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(child &gt;= <span class="number">2</span> &amp;&amp; x == fa)&#123;</span><br><span class="line">            cut[x] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Tarjan_point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m;</span><br><span class="line"><span class="keyword">int</span> a , b;</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        add_edge(a , b);</span><br><span class="line">        add_edge(b , a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(dfn[i] == <span class="number">0</span>)&#123;</span><br><span class="line">            Tarjan(i , i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cut[i])&#123;</span><br><span class="line">            ans ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cut[i])&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2><h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/08/04/Tarjan-point&amp;edge/">http://payphone-x.github.io/2019/08/04/Tarjan-point&amp;edge/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a><a class="post-meta__tags" href="/tags/Tarjan/">Tarjan</a><a class="post-meta__tags" href="/tags/DFS%E5%BA%8F/">DFS序</a></div><div class="post_share"><div class="social-share" data-image="/images/4.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/08/09/math1/"><img class="prev-cover" data-lazy-src="/images/30.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【数学】同余问题</div></div></a></div><div class="next-post pull-right"><a href="/2019/08/02/Bit-operation/"><img class="next-cover" data-lazy-src="/images/18.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【位运算】 &amp; 【NOI2014】起床困难综合症-题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/11/03/difference-constraints/" title="【图论算法】差分约束"><img class="cover" data-lazy-src="/images/30.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-03</div><div class="title">【图论算法】差分约束</div></div></a></div><div><a href="/2019/05/01/path/" title="【图论算法】最短路（总结篇）"><img class="cover" data-lazy-src="/images/44.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-01</div><div class="title">【图论算法】最短路（总结篇）</div></div></a></div><div><a href="/2019/03/16/linjiebiao/" title="【图论算法】链式前向星(邻接表)"><img class="cover" data-lazy-src="/images/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-03-16</div><div class="title">【图论算法】链式前向星(邻接表)</div></div></a></div><div><a href="/2019/02/27/Dijkstra/" title="【图论算法】Dijkstra"><img class="cover" data-lazy-src="/images/43.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-27</div><div class="title">【图论算法】Dijkstra</div></div></a></div><div><a href="/2019/02/23/Floyd/" title="【图论算法】Floyd"><img class="cover" data-lazy-src="/images/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-23</div><div class="title">【图论算法】Floyd</div></div></a></div><div><a href="/2020/11/02/01Trie/" title="【算法笔记】01-Trie的维护与应用"><img class="cover" data-lazy-src="/images/21.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-02</div><div class="title">【算法笔记】01-Trie的维护与应用</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%85%E8%B0%88Tarjan"><span class="toc-number">2.</span> <span class="toc-text">浅谈Tarjan</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E8%8A%9D%E5%A3%AB"><span class="toc-number">3.</span> <span class="toc-text">前置芝士</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS%E6%A0%91"><span class="toc-number">3.1.</span> <span class="toc-text">DFS树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS%E5%BA%8F"><span class="toc-number">3.2.</span> <span class="toc-text">DFS序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%B2%E7%82%B9-amp-%E5%89%B2%E8%BE%B9%E3%81%AE%E5%AE%9A%E4%B9%89"><span class="toc-number">3.3.</span> <span class="toc-text">割点&amp;割边の定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan%E6%B1%82%E5%89%B2%E8%BE%B9"><span class="toc-number">4.</span> <span class="toc-text">Tarjan求割边</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E5%88%A0%E8%BE%B9"><span class="toc-number">4.1.</span> <span class="toc-text">暴力删边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91%E5%88%A0%E8%BE%B9"><span class="toc-number">4.2.</span> <span class="toc-text">生成树删边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tarjan"><span class="toc-number">4.3.</span> <span class="toc-text">Tarjan</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tarjan%E6%B1%82%E5%89%B2%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">Tarjan求割点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E4%BB%B6-%E5%89%B2%E7%82%B9%E6%A8%A1%E6%9D%BF"><span class="toc-number">6.</span> <span class="toc-text">附件[割点模板]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;string&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstdlib&gt;
+#include&lt;iomanip&gt;
+#include&lt;vector&gt;
+#include&lt;stack&gt;
+#include&lt;queue&gt;
+#include&lt;deque&gt;
+#include&lt;cmath&gt;
+
+#define N 500001
+#define end head
+
+using namespace std;
+
+struct Edge&amp;#123;
+    int to;
+    int last;
+&amp;#125;edge[N];
+
+int edge_number;
+int end[N];
+
+void add_edge(int from , int to)&amp;#123;
+    edge[++ edge_number].to &#x3D; to;
+    edge[edge_number].last &#x3D; end[from];
+    end[from] &#x3D; edge_number;
+&amp;#125;
+
+namespace Tarjan_point&amp;#123;
+    int dfn[N];
+    int low[N];
+    bool cut[N];
+    int cnt;
+    void Tarjan(int x , int fa)&amp;#123;
+    
+        dfn[x] &#x3D; low[x] &#x3D; ++ cnt;
+        int child &#x3D; 0;
+        for(int i &#x3D; end[x] ; i; i &#x3D; edge[i].last)&amp;#123;
+            int to &#x3D; edge[i].to;
+            if(!dfn[to])&amp;#123;
+                Tarjan(to , fa);
+                low[x] &#x3D; min(low[x] , low[to]);
+                if(low[to] &gt;&#x3D; dfn[x] &amp;&amp; x !&#x3D; fa)&amp;#123;
+                    cut[x] &#x3D; true;
+                &amp;#125;
+                if(x &#x3D;&#x3D; fa)&amp;#123;
+                    child ++;
+                &amp;#125;  
+            &amp;#125;
+            low[x] &#x3D; min(low[x] , dfn[to]);
+        &amp;#125;
+        if(child &gt;&#x3D; 2 &amp;&amp; x &#x3D;&#x3D; fa)&amp;#123;
+            cut[x] &#x3D; true;
+        &amp;#125;
+    &amp;#125;
+&amp;#125;
+
+using namespace Tarjan_point;
+
+int n , m;
+int a , b;
+int ans;
+
+int main()&amp;#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int i &#x3D; 1; i &lt;&#x3D; m; i ++)&amp;#123;
+        cin &gt;&gt; a &gt;&gt; b;
+        add_edge(a , b);
+        add_edge(b , a);
+    &amp;#125;
+    for(int i &#x3D; 1; i &lt;&#x3D; n; i ++)&amp;#123;
+        if(dfn[i] &#x3D;&#x3D; 0)&amp;#123;
+            Tarjan(i , i);
+        &amp;#125;
+    &amp;#125;
+    for(int i &#x3D; 1; i &lt;&#x3D; n; i ++)&amp;#123;
+        if(cut[i])&amp;#123;
+            ans ++;
+        &amp;#125;
+    &amp;#125;
+    cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+    for(int i &#x3D; 1; i &lt;&#x3D; n; i ++)&amp;#123;
+        if(cut[i])&amp;#123;
+            cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+        &amp;#125;
+    &amp;#125;
+    return 0;
+&amp;#125;
+</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/4.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

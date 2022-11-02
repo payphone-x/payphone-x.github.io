@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【图论算法】最短路（总结篇） | Album's Blog</title><meta name="keywords" content="学习笔记,图论,Floyd,Dijkstra,Algorithm,SPFA,总结篇"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一篇迟到了三个多星期的博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【图论算法】最短路（总结篇）">
+<meta property="og:url" content="http://payphone-x.github.io/2019/05/01/path/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="一篇迟到了三个多星期的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/44.png">
+<meta property="article:published_time" content="2019-05-01T00:25:03.000Z">
+<meta property="article:modified_time" content="2020-05-11T02:55:50.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="Floyd">
+<meta property="article:tag" content="Dijkstra">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="SPFA">
+<meta property="article:tag" content="总结篇">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/44.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/05/01/path/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2020-05-11 10:55:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/44.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【图论算法】最短路（总结篇）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-05-01T00:25:03.000Z" title="undefined 2019-05-01 08:25:03">2019-05-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>一篇<del>迟到了三个多星期的</del>博客</p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>咳咳……</p>
+<p>现在，$Payphone-X$终于学完了最短路 <del>（其实三周前就已经学完了的个说）</del></p>
+<p>现在，他要<del>胡扯</del>一篇最短路总结</p>
+<hr>
+<h2 id="定义篇"><a href="#定义篇" class="headerlink" title="定义篇"></a>定义篇</h2><p>可以先看看<del>维基百科</del>对于最短路的解释</p>
+<blockquote>
+<p>最短路问题是图论研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。<br>                                  ——维基百科</p>
+</blockquote>
+<p>是不是听起来很像废话……</p>
+<p>还是来看看通俗一点的解释吧</p>
+<p>最短路算法，即在一个加权图中求某两点相距的最短路程的长度的算法。</p>
+<p>分为<strong>单源最短路</strong>与<strong>多元最短路</strong>两种。</p>
+<p>其中</p>
+<ul>
+<li><p>多源最短路求的是图中<strong>所有点之间</strong>的最短路。</p>
+</li>
+<li><p>单源最短路求的是图中任意一点到其他点之间的最短路。</p>
+</li>
+</ul>
+<hr>
+<h2 id="松弛操作"><a href="#松弛操作" class="headerlink" title="松弛操作"></a>松弛操作</h2><p>在讲松弛操作之前，我们要先明确一个事实</p>
+<p>那就是<strong>在计算两点间的最短路时，通常不仅仅会算出两点间的最短路，而会把许多点之间的最短路一同算出来</strong></p>
+<p>那……</p>
+<p>这是为什么呐？？？</p>
+<p>就是为了松弛操作。</p>
+<p>松弛操作，从字面上解释就是指将两点间较长的路径进行替换，换为一条较短的路径。</p>
+<p>换句话说，就是当你发现这两个地方之间还有更短的路可以走时，用这条路径来替换已知的较短路径，直到不能替换为止。</p>
+<p>这时的“已知的较短路径”，就是我们要求解的最短路。</p>
+<p>松弛操作的基本模式是这样的</p>
+<ul>
+<li><p>对于任意两点 $u$，$v$目前的最短路，我们可以用$u$，$w$与$w$，$v$之间的最短路去更新$u$，$v$的最短路，即<script type="math/tex">s(u,v) = min(s(u,v) , s(u,w) + s(w,v))</script></p>
+</li>
+<li><p>在计算单源最短路时，若$u$，$v$目前的最短路为$s(u,v)$， 则对于$v$所直接连到的节点$w$，有<script type="math/tex">s(u,v) = min(s(u,v) , s(u,w) + s(w,v))</script></p>
+</li>
+</ul>
+<p>至于为什么这样做，原因还是在于单源——因为我们在计算单源最短路时，只关心$u$到其他点的最短路，因此$w$到$v$的最短路就极不易求。因此，我们换为两点间的直接距离来减小时间复杂度。</p>
+<p>这就是我们为什么要计算其他点最短路——为了<strong>松弛操作</strong>的顺利进行。</p>
+<hr>
+<h2 id="Floyd-Warshall"><a href="#Floyd-Warshall" class="headerlink" title="Floyd-Warshall"></a>Floyd-Warshall</h2><blockquote>
+<p>三层循环，意味着邻接矩阵可行。<br>                          ——Wei_taming</p>
+</blockquote>
+<p>众所周知，Floyd算法是一种<del>极其简单的</del>算法</p>
+<p>但同时，它也是最快的<strong>多元最短路</strong>算法</p>
+<p>Floyd算法基于DP，说白了，就是枚举中间点，不停地进行松弛操作来更新最短路。</p>
+<p>代码实现也很容易，但时间复杂度比较高，为$O(n^3)$</p>
+<p><strong>模板如下</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---Floyd---*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">map</span>[<span class="number">1001</span>][<span class="number">1001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">int</span> a , b , c;</span><br><span class="line">	<span class="built_in">memset</span>(<span class="built_in">map</span> , <span class="number">0x3f</span> , <span class="keyword">sizeof</span>(<span class="built_in">map</span>));</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">		<span class="built_in">map</span>[a][b] = c ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k ++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">				<span class="built_in">map</span>[i][j] = min(<span class="built_in">map</span>[i][j] , <span class="built_in">map</span>[i][k] + <span class="built_in">map</span>[k][j]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j ++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="built_in">map</span>[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><p>众所周知，Dijkstra是一种<strong>单源最短路</strong>算法，可以用于没有负边权的最短路问题。</p>
+<p>而且Dijkstra基于贪心，相对来说比较好想一些。</p>
+<p>它的实现流程如下：</p>
+<blockquote>
+<ol>
+<li><p>选一个点做起始点。</p>
+</li>
+<li><p>遍历与起始点相连的所有边，寻找出一条最短的记录下来。</p>
+</li>
+<li><p>把这条边的另一个端点作为起始点，然后循环。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="举个栗砸"><a href="#举个栗砸" class="headerlink" title="举个栗砸"></a>举个栗砸</h3><p>就像下图<del>（点不开的请自觉滚回长城里边）</del></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EYx2z4"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EYx2z4.gif" alt="EYx2z4.gif"></a></p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">第一次循环，发现d[1]=0为最小值，于是标记结点1为已访问，对2，3，5进行松弛操作：</span><br><span class="line">第二次循环，发现d[2]=4为最小值，于是标记结点2为已访问，对1，3进行松弛操作：</span><br><span class="line">第三次循环，发现d[3]=5为最小值，于是标记结点3为已访问，对1，2，4进行松弛操作：</span><br><span class="line">第四次循环，发现d[5]=6为最小值，于是标记结点5为已访问，对1，4，6进行松弛操作：</span><br><span class="line">第五次循环，发现d[4]=7为最小值，于是标记结点4为已访问，对3，5，7，8进行松弛操作：</span><br><span class="line">第六次循环，发现d[8]=13为最小值，于是标记结点8为已访问，对4，7进行松弛操作：</span><br><span class="line">第七次循环，发现d[6]=14为最小值，于是标记结点6为已访问，对5，7进行松弛操作：</span><br><span class="line">第八次循环，发现d[7]=15为最小值，于是标记结点7为已访问，对4，6，8进行松弛操作：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>正因如此，Dijkstra的时间复杂度较高，为$O(n^2)$</p>
+<p>但Dijkstra的算法稳定性比较强，也就是说，<strong>Dijkstra很难被卡</strong>。</p>
+<p>而且不难看出我们在dis数组中选择最小值时，可以用一些数据结构来进行优化。<del>线段树？平衡树？</del></p>
+<p>下面，我们就来研究一下这些优化。</p>
+<h3 id="Dijkstra-priority-queue"><a href="#Dijkstra-priority-queue" class="headerlink" title="Dijkstra + priority_queue"></a>Dijkstra + priority_queue</h3><ul>
+<li><p>不难发现，当我们在dis数组中寻找最小值时，需要一个个进行遍历。</p>
+</li>
+<li><p>因此，我们可以将其放入优先队列（堆）中，直接弹出。</p>
+</li>
+<li><p>优化后的时间复杂度为$O(nlogn)$</p>
+</li>
+</ul>
+<p><strong>模板如下</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---Dijkstra + Heap---*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">	<span class="keyword">int</span> dis;</span><br><span class="line">&#125;edge[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"><span class="keyword">int</span> end[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> dis)</span></span>&#123;</span><br><span class="line">	edge[++ edge_number].to = to;</span><br><span class="line">	edge[edge_number].dis  = dis;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">	<span class="built_in">priority_queue</span>&lt; <span class="built_in">pair</span>&lt;<span class="keyword">int</span> , <span class="keyword">int</span>&gt; , <span class="built_in">vector</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span> , <span class="keyword">int</span>&gt; &gt; , greater&lt;<span class="built_in">pair</span> &lt;<span class="keyword">int</span> , <span class="keyword">int</span>&gt; &gt; &gt; Q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span> (i != s)&#123;</span><br><span class="line">			dis[i] = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) Q.push(<span class="built_in">make_pair</span>(dis[i], i));</span><br><span class="line">	<span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">		<span class="keyword">int</span> v = Q.top().second;</span><br><span class="line">		Q.pop();</span><br><span class="line">		<span class="keyword">if</span>(vis[v] == <span class="literal">true</span>)&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125; </span><br><span class="line">		vis[v] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = end[v]; i != <span class="number">0</span>;i = edge[i].last)&#123;</span><br><span class="line">			<span class="keyword">int</span> to = edge[i].to;</span><br><span class="line">			<span class="keyword">if</span>(dis[to] &gt; dis[v] + edge[i].dis)&#123;</span><br><span class="line">				dis[to] = dis[v] + edge[i].dis; </span><br><span class="line">				Q.push(<span class="built_in">make_pair</span>(dis[to],to));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m , s;</span><br><span class="line">	<span class="keyword">int</span> a , b , c; </span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b  &gt;&gt; c;</span><br><span class="line">		add_edge(a , b , c);</span><br><span class="line">	&#125;</span><br><span class="line">	Dijkstra(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="SPFA"><a href="#SPFA" class="headerlink" title="SPFA"></a>SPFA</h2><p>SPFA与Dijkstra一样，是一种<strong>单源最短路</strong>算法</p>
+<p>而且……</p>
+<p>SPFA<strong>可以处理负边权</strong></p>
+<p>那么</p>
+<p>为什么SPFA可以处理负边权呐？？？</p>
+<p><del>众所周知</del>，SPFA是一个基于队列的算法，它的实现流程大概是这样的</p>
+<blockquote>
+<ol>
+<li><p>初始化dis数组，将其全部赋值为一个很大的数</p>
+</li>
+<li><p>选一个点做起始点，并将起始点丢入队列。 </p>
+</li>
+<li><p>改变所有与起始点相连点的最短路，并做出标记</p>
+</li>
+<li><p>弹出起始点，把刚刚标记的所有点作为起始点丢进队列，并循环，直到队列为空为止。</p>
+</li>
+</ol>
+</blockquote>
+<p>还不懂？</p>
+<h3 id="举个栗砸-1"><a href="#举个栗砸-1" class="headerlink" title="举个栗砸"></a>举个栗砸</h3><p>就像下图，我们以点$a$为起始点</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EtKaSH"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EtKaSH.jpg" alt="EtKaSH.jpg"></a></p>
+<p>首先我们建立从点$a$到各点的最短路数组，建出来后就像这样。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EtK6k8"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EtK6k8.jpg" alt="EtK6k8.jpg"></a></p>
+<p>然后我们把起始点$a$放入队列，对以$a$为起始点的所有边进行松弛操作，并更新最短路。完成后表格如下</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EtMl9g"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EtMl9g.jpg" alt="EtMl9g.jpg"></a></p>
+<p>在松弛时三个点的最短路径变小了，而这些点队列中都没有出现，因此这些点需要入队.此时，队列中新入队了三个结点$b,c,d$</p>
+<p>之后节点$b$出队，把以$b$为起始点的所有边进行松弛操作，并更新最短路。完成后表格变成了这个样子</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EtMDgJ"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EtMDgJ.jpg" alt="EtMDgJ.jpg"></a></p>
+<p>现在$e$点的最短路径也已经改变，因此，我们把它也扔进队列中。依次循环……</p>
+<p><del>以下省略3000字……</del></p>
+<p>最后，我们算出了所有点的最短路。表格如下</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/EtMIvd"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/02/EtMIvd.jpg" alt="EtMIvd.jpg"></a></p>
+<p>是不是很简单吖<del>（逃</del></p>
+<p>由此可以看出，SPFA在面对负边权时，不会像Dijkstra一样进行<del>无脑循环</del>，而是加入队列。</p>
+<p>因此，SPFA是可以处理负边权的。但<strong>SPFA不能处理负权回路</strong></p>
+<p>时间复杂度为$O(km)$， 其中，$m$为边数，而$k$为每个节点的平均入队次数，一般为2。<del>至于为啥我也不会证</del></p>
+<p><strong>模板如下</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---SPFA---*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> dis;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> dis)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].dis = dis;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span> &gt; Q;</span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">bool</span> visited[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m , s;</span><br><span class="line"><span class="keyword">int</span> a , b , c;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i ++)&#123;</span><br><span class="line">        dis[i] = <span class="number">0x3f3f3f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    Q.push(s);</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> first;</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        first = Q.front();</span><br><span class="line">        Q.pop();</span><br><span class="line">        visited[first] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[first]; i ; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dis[edge[i].to] &gt; dis[first] + edge[i].dis)&#123;</span><br><span class="line">            	dis[edge[i].to] = dis[first] + edge[i].dis;</span><br><span class="line">                <span class="keyword">if</span>(visited[edge[i].to] == <span class="literal">false</span>)&#123;</span><br><span class="line">                    visited[edge[i].to] = <span class="literal">true</span>;</span><br><span class="line">                    Q.push(edge[i].to);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">		add_edge(a , b , c);</span><br><span class="line">	&#125;</span><br><span class="line">	SPFA(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[i] == <span class="number">0x3f3f3f</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;2147483647&quot;</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<h3 id="SPFA的算法优化"><a href="#SPFA的算法优化" class="headerlink" title="SPFA的算法优化"></a>SPFA的算法优化</h3><p>由于SPFA过于优秀<del>太容易卡</del>，因此SPFA有许多算法优化。</p>
+<p><del>可以帮死去的SPFA做心肺复苏</del></p>
+<p>下面，我们就来具体看一下SPFA的优化</p>
+<h4 id="SLF（Small-Label-First）"><a href="#SLF（Small-Label-First）" class="headerlink" title="SLF（Small Label First）"></a>SLF（Small Label First）</h4><p>SLF的思路其实很简单：</p>
+<p>我们把朴素算法下SPFA的队列改为双端队列（即deque）。</p>
+<p>对于每一个加入队列的节点$s$，如果$dis[s]$ &lt; 队首的$dis[first]$， 则$u$被加入队首。</p>
+<p>否则的话，$u$被加入队尾。</p>
+<p><strong>模板如下</strong>：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---SPFA + SLF---*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> dis;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> dis)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].dis = dis;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span> &gt; Q;</span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">bool</span> visited[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n , m , s;</span><br><span class="line"><span class="keyword">int</span> a , b , c;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i ++)&#123;</span><br><span class="line">        dis[i] = <span class="number">0x3f3f3f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    Q.push_back(s);</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> first;</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        first = Q.front();</span><br><span class="line">        Q.pop_front();</span><br><span class="line">        visited[first] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[first]; i ; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dis[edge[i].to] &gt; dis[first] + edge[i].dis)&#123;</span><br><span class="line">            	dis[edge[i].to] = dis[first] + edge[i].dis;</span><br><span class="line">                Q.front() = first;</span><br><span class="line">				<span class="keyword">if</span>(visited[edge[i].to] == <span class="literal">false</span>)&#123;</span><br><span class="line">                    visited[edge[i].to] = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">if</span>(dis[edge[i].to] &lt; dis[Q.front()])&#123;</span><br><span class="line">                    	Q.push_front(edge[i].to);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                    	Q.push_back(edge[i].to);</span><br><span class="line">                    &#125;</span><br><span class="line">		</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">		add_edge(a , b , c);</span><br><span class="line">	&#125;</span><br><span class="line">	SPFA(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[i] == <span class="number">0x3f3f3f</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;2147483647&quot;</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="LLL（Large-Label-Last）"><a href="#LLL（Large-Label-Last）" class="headerlink" title="LLL（Large Label Last）"></a>LLL（Large Label Last）</h4><p>LLL的思路也很简单。</p>
+<p>对于每一个要入队的节点$s$，我们把$dis[s]$与$dis$的平均值比较。</p>
+<p>若$dis[s]$更大，就把其放入队尾，再取队首元素进行比较。直到队首的$dis[s]$ &lt; $dis$的平均值为止。</p>
+<p><strong>模板如下</strong>：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---SPFA + LLL---*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> dis;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">&#125;edge[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> dis)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].dis = dis;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span> &gt; Q;</span><br><span class="line"><span class="keyword">bool</span> visited[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> n , m , s;</span><br><span class="line"><span class="keyword">int</span> a , b , c;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> cnt = s , sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s; i ++)&#123;</span><br><span class="line">		dis[i] = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	dis[s] = <span class="number">0</span>;</span><br><span class="line">	Q.push(s);</span><br><span class="line">	visited[s] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">int</span> first;</span><br><span class="line">	<span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">		first = Q.front();</span><br><span class="line">		<span class="keyword">while</span>(dis[first]*cnt &gt; sum)&#123;</span><br><span class="line">			Q.pop();</span><br><span class="line">			Q.push(first);</span><br><span class="line">			first = Q.front();</span><br><span class="line">		&#125;</span><br><span class="line">		Q.pop();</span><br><span class="line">		cnt--;</span><br><span class="line">		sum = sum - dis[first];</span><br><span class="line">		visited[first]  = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = end[first]; i != <span class="number">0</span>; i = edge[i].last)&#123;</span><br><span class="line">			<span class="keyword">if</span>(dis[edge[i].to] &gt; dis[first] + edge[i].dis)&#123;</span><br><span class="line">				dis[edge[i].to] = dis[first] + edge[i].dis;</span><br><span class="line">				<span class="keyword">if</span>(visited[edge[i].to] == <span class="literal">false</span>)&#123;</span><br><span class="line">					sum = sum + dis[edge[i].to];</span><br><span class="line">					cnt ++;</span><br><span class="line">					Q.push(edge[i].to);</span><br><span class="line">				&#125;	</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">		add_edge(a , b , c);</span><br><span class="line">	&#125;</span><br><span class="line">	SPFA(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[i] == <span class="number">0x3f3f3f</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;2147483647&quot;</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="SLF-LLL"><a href="#SLF-LLL" class="headerlink" title="SLF + LLL"></a>SLF + LLL</h4><p>不多说，直接上代码</p>
+<p><strong>模板如下</strong><br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*---SPFA + SLF + LLL---*/</span> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to;</span><br><span class="line">	<span class="keyword">int</span> last;</span><br><span class="line">	<span class="keyword">int</span> dis;</span><br><span class="line">&#125;edge[<span class="number">500001</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> end[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> edge_number;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from , <span class="keyword">int</span> to , <span class="keyword">int</span> dis)</span></span>&#123;</span><br><span class="line">	edge[++edge_number].to = to;</span><br><span class="line">	edge[edge_number].dis = dis;</span><br><span class="line">	edge[edge_number].last = end[from];</span><br><span class="line">	end[from] = edge_number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> visited[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> dis[<span class="number">500001</span>];</span><br><span class="line"><span class="keyword">int</span> n , m , s;</span><br><span class="line"><span class="keyword">int</span> a , b , c;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">SPFA</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">int</span> &gt;Q;</span><br><span class="line">    <span class="keyword">int</span> cnt = s , sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        dis[i] = <span class="number">0x3f3f3f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    Q.push_back(s);</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> first;</span><br><span class="line">    <span class="keyword">while</span>(!Q.empty())&#123;</span><br><span class="line">        first = Q.front();</span><br><span class="line">        <span class="keyword">while</span>(dis[first]*cnt &gt; sum)&#123;</span><br><span class="line">            Q.pop_back();</span><br><span class="line">            Q.push_back(first);</span><br><span class="line">            first = Q.front();</span><br><span class="line">        &#125;</span><br><span class="line">        Q.pop_front();</span><br><span class="line">        cnt--;</span><br><span class="line">        sum-= dis[first];</span><br><span class="line">        visited[first] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = end[first]; i != <span class="number">0</span> ; i = edge[i].last)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dis[edge[i].to] &gt; dis[first] + edge[i].dis)&#123;</span><br><span class="line">                dis[edge[i].to] = dis[first] + edge[i].dis;</span><br><span class="line">                <span class="keyword">if</span>(visited[edge[i].to] == <span class="literal">false</span>)&#123;</span><br><span class="line">                    sum+=dis[edge[i].to];</span><br><span class="line">                    cnt ++;</span><br><span class="line">                    <span class="keyword">if</span>(dis[edge[i].to] &lt; dis[Q.front()])&#123;</span><br><span class="line">                    	Q.push_front(edge[i].to);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> Q.push_back(edge[i].to);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line">		add_edge(a , b , c);</span><br><span class="line">	&#125;</span><br><span class="line">	SPFA(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[i] == <span class="number">0x3f3f3f</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;2147483647&quot;</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; dis[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure></p>
+<p>综合来说，在使用SLF优化时可以使SPFA的运行效率提升 15% ~ 20% ，而SLF + LLL可以使SPFA效率提高 50% 以上。</p>
+<p><del>但还是能卡掉哒QAQ</del></p>
+<h3 id="卡SPFA"><a href="#卡SPFA" class="headerlink" title="卡SPFA"></a>卡SPFA</h3><p>不知道你们有没有在luogu上看到这么一句话</p>
+<blockquote>
+<p>关于SPFA， 它死了。</p>
+</blockquote>
+<p>事情其实是这样的</p>
+<p><strong>在NOI 2018 Day1 T1归程 中，出题人卡了SPFA，导致使用SPFA求最短路的OIer们从$100-&gt; 60$ , $Ag-&gt;Cu$.</strong></p>
+<p>很多选手，都因此没能与理想的大学签约……（下图为NOI 2018时出题人讲评时的照片）</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ENfx8P"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/05/03/ENfx8P.jpg" alt="ENfx8P.jpg"></a></p>
+<p>或者说，你们可以看一下某乎上的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/292283275">一篇文章</a></p>
+<p>作者在这篇文章里找到了一位用户的回答：</p>
+<blockquote>
+<p>SPFA 的受到怀疑和最终消亡，是 OI 界水平普遍提高、命题规范完善和出题人的使命感和责任心增强的最好见证。<br>                                                                                   ——一位知乎用户</p>
+</blockquote>
+<p>作者不对这位用户做出任何评价，因为作者也没有这个资格。</p>
+<p>但作者认为，<strong>如果一昧的在存在负边权的图中丧心病狂的卡SPFA，也没有什么意思。</strong></p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://herself32.github.io">Herself32’s Github Blog</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://sshwy.gitee.io">Sshwy’s Blog</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.luogu.org/blog/xhhkwy/spfa-hacker-orzorz">洛谷日报第111期-SPFA算法的玄学方法</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/muxidreamtohit/article/details/7894298">muximuxi525’s博客园</a></p>
+</li>
+</ol>
+</blockquote>
+<p>鸣谢上面的几位dalao在最短路方面给予我的帮助</p>
+<hr>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li><p>2019.5.2 更新了SPFA， SPFA + SLF代码，并修改少量错别字。</p>
+</li>
+<li><p>2019.5.3 更新了SPFA + LLL， SPFA + SLF + LLL 代码，卡SPFA， 参考资料部分.</p>
+</li>
+</ul>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/05/01/path/">http://payphone-x.github.io/2019/05/01/path/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a><a class="post-meta__tags" href="/tags/Floyd/">Floyd</a><a class="post-meta__tags" href="/tags/Dijkstra/">Dijkstra</a><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a><a class="post-meta__tags" href="/tags/SPFA/">SPFA</a><a class="post-meta__tags" href="/tags/%E6%80%BB%E7%BB%93%E7%AF%87/">总结篇</a></div><div class="post_share"><div class="social-share" data-image="/images/44.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/06/17/unionfind/"><img class="prev-cover" data-lazy-src="/images/15.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【数据结构】并查集</div></div></a></div><div class="next-post pull-right"><a href="/2019/04/13/history/"><img class="next-cover" data-lazy-src="/images/24.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【文化课专栏】历史篇(1)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/02/27/Dijkstra/" title="【图论算法】Dijkstra"><img class="cover" data-lazy-src="/images/43.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-27</div><div class="title">【图论算法】Dijkstra</div></div></a></div><div><a href="/2019/02/23/Floyd/" title="【图论算法】Floyd"><img class="cover" data-lazy-src="/images/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-23</div><div class="title">【图论算法】Floyd</div></div></a></div><div><a href="/2019/11/03/difference-constraints/" title="【图论算法】差分约束"><img class="cover" data-lazy-src="/images/30.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-03</div><div class="title">【图论算法】差分约束</div></div></a></div><div><a href="/2019/10/30/STL-plus/" title="【STL】浅谈STL在OI中的应用"><img class="cover" data-lazy-src="/images/18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-30</div><div class="title">【STL】浅谈STL在OI中的应用</div></div></a></div><div><a href="/2019/09/10/math2/" title="【数学】数学杂烩"><img class="cover" data-lazy-src="/images/26.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-10</div><div class="title">【数学】数学杂烩</div></div></a></div><div><a href="/2019/08/04/Tarjan-point&edge/" title="【图论算法】Tarjan(割点 & 割边)"><img class="cover" data-lazy-src="/images/4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-04</div><div class="title">【图论算法】Tarjan(割点 & 割边)</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%AF%87"><span class="toc-number">2.</span> <span class="toc-text">定义篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%BE%E5%BC%9B%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">松弛操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Floyd-Warshall"><span class="toc-number">4.</span> <span class="toc-text">Floyd-Warshall</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra"><span class="toc-number">5.</span> <span class="toc-text">Dijkstra</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%B8%AA%E6%A0%97%E7%A0%B8"><span class="toc-number">5.1.</span> <span class="toc-text">举个栗砸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dijkstra-priority-queue"><span class="toc-number">5.2.</span> <span class="toc-text">Dijkstra + priority_queue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPFA"><span class="toc-number">6.</span> <span class="toc-text">SPFA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%B8%AA%E6%A0%97%E7%A0%B8-1"><span class="toc-number">6.1.</span> <span class="toc-text">举个栗砸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPFA%E7%9A%84%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96"><span class="toc-number">6.2.</span> <span class="toc-text">SPFA的算法优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SLF%EF%BC%88Small-Label-First%EF%BC%89"><span class="toc-number">6.2.1.</span> <span class="toc-text">SLF（Small Label First）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LLL%EF%BC%88Large-Label-Last%EF%BC%89"><span class="toc-number">6.2.2.</span> <span class="toc-text">LLL（Large Label Last）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SLF-LLL"><span class="toc-number">6.2.3.</span> <span class="toc-text">SLF + LLL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A1SPFA"><span class="toc-number">6.3.</span> <span class="toc-text">卡SPFA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">7.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-number">8.</span> <span class="toc-text">更新日志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/44.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

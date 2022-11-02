@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【成长之路】记我的第一场ACM | Album's Blog</title><meta name="keywords" content="成长之路,灌水区"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我的首场ACM，也是首场Rank 1的ACM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【成长之路】记我的第一场ACM">
+<meta property="og:url" content="http://payphone-x.github.io/2019/08/11/my-first-acm/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="我的首场ACM，也是首场Rank 1的ACM">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/11.png">
+<meta property="article:published_time" content="2019-08-11T11:22:20.000Z">
+<meta property="article:modified_time" content="2020-04-11T03:53:54.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="成长之路">
+<meta property="article:tag" content="灌水区">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/11.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/08/11/my-first-acm/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2020-04-11 11:53:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/11.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【成长之路】记我的第一场ACM</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-08-11T11:22:20.000Z" title="undefined 2019-08-11 19:22:20">2019-08-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/">成长之路</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转眼间，来浙江集训也有十来天了。好像自从来到这里开始，我就一直在期待这场ACM。</p>
+<p>虽说之前了解过一点ACM的知识，但也仅限于别人的Blog与游记之中。自己的亲身体验，也还是第一次。</p>
+<p>这场ACM，打的也真的算是一波三折。</p>
+<p>不过最后结果还挺不错的，也算一次非凡的经历吧。</p>
+<hr>
+<h2 id="赛前组队"><a href="#赛前组队" class="headerlink" title="赛前组队"></a>赛前组队</h2><p>赛前一天，大家都处于欢乐的组队状态之中</p>
+<p>之前我和一起来浙江的ygj，jzx约好一队，可比赛前一天中午我们却又因为各种各样的原因决定重新组队。</p>
+<p>上课之前，我在教室前排吆喝了一句还有队伍缺人吗？过了一会，南外的zxb与金华的wd dalao就来拉我进队。</p>
+<p>然后我们就在一起想队名，直到快下课我们才想到了一个还中听的名字，叫$\text{Lemon}$$。</p>
+<p>之后听说Rank 1可以拿到烤肉券，但我们也不觉得自己能拿到，所以就没把这个当回事。</p>
+<p>除此之外就是各种$\text{fAKe}$</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/11/expZCj.jpg" alt="expZCj.jpg"></p>
+<p><del>我才不会告诉你那个端茶倒水的是我呐o(´^｀)o</del></p>
+<hr>
+<h2 id="比赛的小插曲"><a href="#比赛的小插曲" class="headerlink" title="比赛的小插曲"></a>比赛的小插曲</h2><p>比赛前一天晚上，我习惯性的登录了一下Codeforces，却发现Codeforces的页面没了</p>
+<p>“或许又被鸽到长城外边去了？”我心里这样想着，但又有种不是很好的感觉，也没多想就睡觉了。</p>
+<p>结果第二天，我的感觉真TM灵验了！Codeforces真TM炸了！</p>
+<p>更可怕的是，我们的题目都是依靠Codeforces进行评测的。</p>
+<p>就这样，我们打了一天的三人$\text{OI}$赛制……</p>
+<p>到了下午，Codeforces还是没好，没办法，SR老师只好先讲题。</p>
+<p>在讲题时，我发现我们打的基本都是正解，也就是说，如果Codeforces没炸的话，我们应该会是前几名。</p>
+<p><del>自闭ing</del></p>
+<p>到了晚上，我给Logey，HandwerSTD，Shq抱怨这事，结果一句安慰都没得到……</p>
+<p><del>自闭$\times$ 2 ing</del></p>
+<p>不过第二天，SR老师说等毛老师来了之后还会给我们补一场ACM。之后我就重新回到了期待之中</p>
+<hr>
+<h2 id="正式比赛"><a href="#正式比赛" class="headerlink" title="正式比赛"></a>正式比赛</h2><h3 id="比赛前"><a href="#比赛前" class="headerlink" title="比赛前"></a>比赛前</h3><p>三天后，毛老师果然给我们补了一场ACM。</p>
+<p>比赛前一天晚上，我想早睡，可Herself32却要暴切黑题来吊打我……</p>
+<p>于是乎，我又陪她熬到了十二点半……</p>
+<p>结果第二天早上，Herself32又赖床，咋都叫不醒，快八点才从床上爬起来<del>（Herself32：嘤）</del></p>
+<p>等我到教室的时候，教室已经基本坐满了，但幸好zxb与wd dalao为我留了位置。</p>
+<p>过了不到5分钟毛老师就开始下放密码。</p>
+<p>当我看到密码的那一刻，我真心有种智熄的感觉……</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ex9DO0"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/11/ex9DO0.jpg" alt="ex9DO0.jpg"></a></p>
+<p><del>毛老师您是魔鬼吗？？？</del></p>
+<hr>
+<h3 id="比赛开始"><a href="#比赛开始" class="headerlink" title="比赛开始"></a>比赛开始</h3><p>拿到密码之后我们就开始看题……一人一道，zxb和wd dalao正序开题，我倒序。</p>
+<p>看到$J$题的第一眼我就发现这是一颗需要区间$gcd$线段树，<del>但我不会写</del>。</p>
+<p>又一看$I$题，艹，这是什么神仙题，怎么那么多圆？<del>(后来才知道那是一道SB数学题)</del></p>
+<p>而zxb dalao那边已经开始做$A$题，在大概15分钟的时候我们交了一发$A$，结果T到飞起。</p>
+<p>而我开始看$D$题，不久便想到了一个时间复杂度为$O(n^2)$的做法，后来优化成了$O(nlogn)$，交了一发，过了。</p>
+<p>与此同时，zxb他们也想到了第一题的优化做法，交了一发，也过了。</p>
+<p>就这样，我们在开场$1$个小时之后成了全场Rank 1。</p>
+<hr>
+<h3 id="稳住，别浪"><a href="#稳住，别浪" class="headerlink" title="稳住，别浪"></a>稳住，别浪</h3><p>可Rank 1的排名并没有持续太久，一回便被反超了。</p>
+<p>于是乎，我开始肝$B$题，zxb开始肝$I$题，而wd开始肝$E$题。</p>
+<p>当我看到$B$题时，我只知道它要考$xor$的某些性质，但我并不知道它到底想考那条性质。</p>
+<p>so……我便一条条的回想$xor$的性质。</p>
+<p>大概5分钟后，我的脑海里浮现出了一句话</p>
+<blockquote>
+<p>$xor$的逆运算是其本身，也就是说(a ^ b) ^ b = a</p>
+</blockquote>
+<p>然后，我便把思路告诉了zxb，不久后，我们队伍就A了这道题。</p>
+<p>又过了一会，zxb切掉了$I$题，我们队伍又回到了Rank 1。</p>
+<p>此时，距离比赛结束还有3个小时。</p>
+<hr>
+<h3 id="惊险又刺激的30min"><a href="#惊险又刺激的30min" class="headerlink" title="惊险又刺激的30min"></a>惊险又刺激的30min</h3><p>之后，我们队伍就一直在Rank 1保持着。</p>
+<p>但大约1个小时之后，事情又出现了转机。</p>
+<p>1个小时之后，我们的队伍又被再次反超，这次的对手，是ZROI-D班的一哥。</p>
+<p>说实话，我们都没有信心能够打败这样的对手。但我们一直在努力争取着，不让他们与我们拉开太大的分数。</p>
+<p>很快，我们就A掉了除了$E$，$F$的所有题，而对手，也是一样。</p>
+<p>这时，就看谁能更快$A$掉剩下的两题了。</p>
+<p>我和zxb一起肝$F$，但对手好像更快，没过多久，他们就$A$掉了$F$题</p>
+<p>我们的压力更大了……</p>
+<p>我手造了几组样例，一直试图找到其中的规律，可无奈怎也找不到。</p>
+<p>没办法，只好写了个爆搜交了上去。</p>
+<p>结果</p>
+<p><strong>A了</strong></p>
+<p><del>我艹这TM什么辣鸡数据啊</del></p>
+<p>之后我们两个便与wd一起搞$E$题，但可惜到最后也没搞出来。</p>
+<p>而对手根本没有考虑到我们之前已经写了一部分$E$，再加上他们罚时过多，知道自己没有翻盘的可能，便开始摸起了鱼。</p>
+<p>最后，我们真的成功拿到了Rank 1。</p>
+<p><strong>我们，成功了</strong></p>
+<hr>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这次的ACM中我们打出了不错的成绩，我认为有以下几点原因</p>
+<ol>
+<li>队伍分工比较明确。</li>
+<li>每个人都各有所长，都可以得以发挥</li>
+<li>提前写了一道别人没有写的题目，在最后关头抢到了先机</li>
+<li>意志坚定，没人摸鱼。</li>
+</ol>
+<p>当然了，这是我的第一场ACM，但肯定不是最后一场。未来，还有很长的路要走呐</p>
+<p>加油吧OvO</p>
+<hr>
+<h2 id="花絮"><a href="#花絮" class="headerlink" title="花絮"></a>花絮</h2><p>顺便晒一下今天晚上Rank1的奖品<del>(故意挑事.jpg)</del></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/exAeTP"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/12/exAeTP.jpg" alt="exAeTP.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/exAuY8"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/12/exAuY8.jpg" alt="exAuY8.jpg"></a><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/exAKfS"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/08/12/exAKfS.jpg" alt="exAKfS.jpg"></a></p>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/08/11/my-first-acm/">http://payphone-x.github.io/2019/08/11/my-first-acm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF/">成长之路</a><a class="post-meta__tags" href="/tags/%E7%81%8C%E6%B0%B4%E5%8C%BA/">灌水区</a></div><div class="post_share"><div class="social-share" data-image="/images/11.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/08/12/nothing/"><img class="prev-cover" data-lazy-src="/images/2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【文章转载】慢慢的，就没有了，就像从未存在过</div></div></a></div><div class="next-post pull-right"><a href="/2019/08/09/math1/"><img class="next-cover" data-lazy-src="/images/30.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【数学】同余问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/10/19/csp-s2019-1/" title="【成长之路】CSP-S2019初赛退役记"><img class="cover" data-lazy-src="/images/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-19</div><div class="title">【成长之路】CSP-S2019初赛退役记</div></div></a></div><div><a href="/2022/09/07/back/" title="【成长之路】再见，高三"><img class="cover" data-lazy-src="/images/33.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-07</div><div class="title">【成长之路】再见，高三</div></div></a></div><div><a href="/2020/11/26/noip-error/" title="【总结篇】考场策略 & 常犯错误总结"><img class="cover" data-lazy-src="/images/8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-26</div><div class="title">【总结篇】考场策略 & 常犯错误总结</div></div></a></div><div><a href="/2019/10/08/zz-mistake/" title="【成长之路】Payphone-X的zz错误"><img class="cover" data-lazy-src="https://shop.io.mi-img.com/app/shop/img?id=shop_f0915dd7d99b8bfe271a36fdb52ab5a2.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-08</div><div class="title">【成长之路】Payphone-X的zz错误</div></div></a></div><div><a href="/2019/11/04/csp-s30sentences/" title="【文章转载】复赛时要记住的30句话"><img class="cover" data-lazy-src="/images/43.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-04</div><div class="title">【文章转载】复赛时要记住的30句话</div></div></a></div><div><a href="/2019/08/12/nothing/" title="【文章转载】慢慢的，就没有了，就像从未存在过"><img class="cover" data-lazy-src="/images/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-12</div><div class="title">【文章转载】慢慢的，就没有了，就像从未存在过</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%9B%E5%89%8D%E7%BB%84%E9%98%9F"><span class="toc-number">2.</span> <span class="toc-text">赛前组队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E7%9A%84%E5%B0%8F%E6%8F%92%E6%9B%B2"><span class="toc-number">3.</span> <span class="toc-text">比赛的小插曲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%BC%8F%E6%AF%94%E8%B5%9B"><span class="toc-number">4.</span> <span class="toc-text">正式比赛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E5%89%8D"><span class="toc-number">4.1.</span> <span class="toc-text">比赛前</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E5%BC%80%E5%A7%8B"><span class="toc-number">4.2.</span> <span class="toc-text">比赛开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E4%BD%8F%EF%BC%8C%E5%88%AB%E6%B5%AA"><span class="toc-number">4.3.</span> <span class="toc-text">稳住，别浪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%8A%E9%99%A9%E5%8F%88%E5%88%BA%E6%BF%80%E7%9A%8430min"><span class="toc-number">4.4.</span> <span class="toc-text">惊险又刺激的30min</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%B1%E7%B5%AE"><span class="toc-number">6.</span> <span class="toc-text">花絮</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/11.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

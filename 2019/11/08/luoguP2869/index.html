@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【USACO &amp; JZOI】挑剔的美食家-题解 | Album's Blog</title><meta name="keywords" content="题解,贪心,纪中集训,USACO,Treap"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSP-S 2019纪中集训-Day15T3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【USACO &amp; JZOI】挑剔的美食家-题解">
+<meta property="og:url" content="http://payphone-x.github.io/2019/11/08/luoguP2869/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="CSP-S 2019纪中集训-Day15T3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/48.png">
+<meta property="article:published_time" content="2019-11-08T08:06:25.000Z">
+<meta property="article:modified_time" content="2019-11-08T08:50:00.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="纪中集训">
+<meta property="article:tag" content="USACO">
+<meta property="article:tag" content="Treap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/48.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/11/08/luoguP2869/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2019-11-08 16:50:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/48.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【USACO &amp; JZOI】挑剔的美食家-题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-11-08T08:06:25.000Z" title="undefined 2019-11-08 16:06:25">2019-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">解题报告</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="题意描述"><a href="#题意描述" class="headerlink" title="题意描述"></a>题意描述</h2><p>与很多奶牛一样，<code>Farmer John</code>那群养尊处优的奶牛们对食物越来越挑剔，随便拿堆草就能打发她们午饭的日子自然是一去不返了。</p>
+<p>现在，<code>Farmer John</code>不得不去牧草专供商那里购买大量美味多汁的牧草，来满足他那$n$头挑剔的奶牛。</p>
+<p>所有奶牛都对<code>Farmer John</code>提出了她对牧草的要求：第$i$头奶牛要求她的食物每份的价钱不低于$a_i$，并且鲜嫩程度不能低于$B_i$。</p>
+<p>商店里供应有$m$种不同的牧草，第$i$种牧草的定价为$c_i$，鲜嫩程度为$d_i$。</p>
+<p>并且，奶牛们为了显示她们的与众不同，每头奶牛都要求她的食物是独一无二的，也就是说，没有哪两头奶牛会选择同一种食物。</p>
+<p><code>Farmer John</code>想知道，为了让所有奶牛满意，他最少得在购买食物上花多少钱？</p>
+<hr>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行包含两个整数$n,m$，分别表示奶牛的数量与牧草数量。</p>
+<p>第$2$行到第$n + 1$行每行包含$2$个用空格隔开的整数，分别为$a_i$与$b_i$。</p>
+<p>第$n+2$行到第$n+m+1$行，每行包含$2$个用空格隔开的整数，分别为$c_i$与$d_i$。</p>
+<hr>
+<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出仅有一行，包含一个整数，即最小花费。</p>
+<p>若无法满足要求，则输出<code>-1</code>即可。</p>
+<hr>
+<h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">4 7</span><br><span class="line">1 1</span><br><span class="line">2 3</span><br><span class="line">1 4</span><br><span class="line">4 2</span><br><span class="line">3 2</span><br><span class="line">2 1</span><br><span class="line">4 3</span><br><span class="line">5 2</span><br><span class="line">5 4</span><br><span class="line">2 6</span><br><span class="line">4 4</span><br></pre></td></tr></table></figure>
+<h3 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h2><p>给奶牛$1$吃价钱为$2$的$2$号牧草，奶牛$2$吃价钱为$4$的$3$号牧草，奶牛$3$分到价钱为$2$的$6$号牧草，奶牛$4$选择价钱为$4$的$7$号牧草，这种分配方案的总花费是$12$。</p>
+<p>可以证明，这是所有方案中花费最少的。</p>
+<hr>
+<h2 id="数据范围与约定"><a href="#数据范围与约定" class="headerlink" title="数据范围与约定"></a>数据范围与约定</h2><p>对于$30\%$的数据，保证$1 \leq n,m \leq 1000$，</p>
+<p>对于$100\%$的数据，保证$1 \leq n , m \leq 10^5$，$1 \leq a_i , b_i , c_i , d_i \leq 10^9$</p>
+<hr>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>比较明显的一道贪心。</p>
+<p>贪心的思路也比较简单，只要先满足美味度要求较高的奶牛，对于美味度要求相同的话，则先满足价格要求低的。</p>
+<p>证明也很容易，不难看出，对于第$i$头奶牛，它可以吃的牧草第$i + 1$头奶牛也一定能吃，因为我们先满足了美味度要求较高的奶牛。</p>
+<p>则我们在枚举每一头奶牛时记录一下现在记录到了哪一个牧草，然后只记录后面的牧草，把该奶牛能吃的牧草加入待选牧草中。选择时选择待选牧草中<strong>不低于当前奶牛价格要求</strong>的牧草中<strong>价值最小</strong>的牧草即可。</p>
+<p>但是，上述做法直接实现的复杂度是$O(n^2)$的，而且很不好写。需要使用数据结构优化。</p>
+<p>重新梳理一下上面的思路，发现我们需要写一种支持以下$3$种操作的数据结构，分别是</p>
+<ol>
+<li>插入一个元素</li>
+<li>删除一个元素</li>
+<li>查询不小于某元素的第一个数，即该元素的后继。</li>
+</ol>
+<p><code>Fhq_Treap</code>即可。</p>
+<p>剩下的见代码注释。</p>
+<hr>
+<h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100001</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Treap&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> lson(x) node[x].l</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> rson(x) node[x].r</span></span><br><span class="line"></span><br><span class="line">    ll node_num , root;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">        ll dis;</span><br><span class="line">        ll size;</span><br><span class="line">        ll rd;</span><br><span class="line">        ll l , r;</span><br><span class="line">        Node(ll dis = <span class="number">0</span>) : dis(dis) , size(<span class="number">1</span>) , rd(rand()) , l(<span class="number">0</span>) , r(<span class="number">0</span>) &#123;&#125;;</span><br><span class="line">    &#125;node[N];</span><br><span class="line"></span><br><span class="line">    <span class="function">I <span class="keyword">void</span> <span class="title">update</span><span class="params">(ll x)</span></span>&#123;  </span><br><span class="line">        node[x].size = (lson(x) ? node[lson(x)].size : <span class="number">0</span>) + (rson(x) ? node[rson(x)].size : <span class="number">0</span>) + <span class="number">1</span>; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">spilt</span><span class="params">(ll n , ll k , ll &amp;x , ll &amp;y)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">if</span>(!n) x = y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(node[n].dis &gt; k)&#123;</span><br><span class="line">            spilt(lson(n) , k , x , y);</span><br><span class="line">            lson(n) = y;</span><br><span class="line">            update(y = n);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            spilt(rson(n) , k , x , y);</span><br><span class="line">            rson(n) = x;</span><br><span class="line">            update(x = n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">merge</span><span class="params">(ll x , ll y)</span></span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(!x || !y) <span class="keyword">return</span> x + y;</span><br><span class="line">        <span class="keyword">if</span>(node[x].rd &lt; node[y].rd)&#123;</span><br><span class="line">            rson(x) = merge(rson(x) , y);</span><br><span class="line">            update(x);</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            lson(y) = merge(x , lson(y));</span><br><span class="line">            update(y);</span><br><span class="line">            <span class="keyword">return</span> y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(ll k)</span></span>&#123;</span><br><span class="line">        ll x , y;</span><br><span class="line">        spilt(root , k , x , y);</span><br><span class="line">        node[++ node_num] = Node(k);</span><br><span class="line">        root = merge(merge(x , node_num) , y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(ll k)</span></span>&#123;</span><br><span class="line">        ll x , y , z;</span><br><span class="line">        spilt(root , k , x , z);</span><br><span class="line">        spilt(x , k - <span class="number">1</span> , x , y);</span><br><span class="line">        y = merge(lson(y) , rson(y));</span><br><span class="line">        root = merge(merge(x , y) , z);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">I ll <span class="title">upper</span><span class="params">(ll k)</span></span>&#123;</span><br><span class="line">        ll x , y , t;</span><br><span class="line">        spilt(root , k - <span class="number">1</span>, x , y);</span><br><span class="line">        t = y;</span><br><span class="line">        <span class="keyword">while</span>(lson(t))&#123;</span><br><span class="line">            t = lson(t);</span><br><span class="line">        &#125;</span><br><span class="line">        root = merge(x , y);</span><br><span class="line">        <span class="keyword">return</span> node[t].dis;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll n , m;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Cow</span>&#123;</span></span><br><span class="line">    ll val , del;</span><br><span class="line">&#125;cow[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp1</span><span class="params">(Cow a , Cow b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.del &gt; b.del;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Cao</span>&#123;</span></span><br><span class="line">    ll val , del;</span><br><span class="line">&#125;cao[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(Cao a , Cao b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.del &gt; b.del;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; cow[i].val &gt;&gt; cow[i].del;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; cao[i].val &gt;&gt; cao[i].del;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(cow + <span class="number">1</span> , cow + <span class="number">1</span> + n , cmp1); <span class="comment">//先将奶牛与牧草分别按照美味度降序排序。</span></span><br><span class="line">    sort(cao + <span class="number">1</span> , cao + <span class="number">1</span> + m , cmp2);</span><br><span class="line">    ll tmp , num = <span class="number">1</span> , ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n;  i ++)&#123;</span><br><span class="line">        tmp = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(cao[num].del &gt;= cow[i].del &amp;&amp; num &lt;= m)&#123;  </span><br><span class="line">            Treap :: insert(cao[num].val);  <span class="comment">//将这头奶牛能吃的牧草全部加入待选牧草</span></span><br><span class="line">            num ++;</span><br><span class="line">        &#125;</span><br><span class="line">        tmp = Treap :: upper(cow[i].val);   <span class="comment">//寻找该奶牛要求的后继</span></span><br><span class="line">        <span class="keyword">if</span>(tmp == <span class="number">-1</span>)&#123;  <span class="comment">//若找不到，则证明无解</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += tmp; <span class="comment">//记录答案</span></span><br><span class="line">        Treap :: remove(tmp);   <span class="comment">//删除该牧草</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/11/08/luoguP2869/">http://payphone-x.github.io/2019/11/08/luoguP2869/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a><a class="post-meta__tags" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a><a class="post-meta__tags" href="/tags/%E7%BA%AA%E4%B8%AD%E9%9B%86%E8%AE%AD/">纪中集训</a><a class="post-meta__tags" href="/tags/USACO/">USACO</a><a class="post-meta__tags" href="/tags/Treap/">Treap</a></div><div class="post_share"><div class="social-share" data-image="/images/48.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/11/09/CF508E/"><img class="prev-cover" data-lazy-src="/images/17.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【Codeforces】Arthur and Brackets-题解</div></div></a></div><div class="next-post pull-right"><a href="/2019/11/07/luoguP3197/"><img class="next-cover" data-lazy-src="/images/14.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【HNOI2008】越狱-题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/11/02/luoguP3467/" title="【POI2008 & JZOI】PLA-Postering-题解"><img class="cover" data-lazy-src="/images/35.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-02</div><div class="title">【POI2008 & JZOI】PLA-Postering-题解</div></div></a></div><div><a href="/2019/10/31/GmojP1295/" title="【USACO & JZOI】布局-题解"><img class="cover" data-lazy-src="/images/37.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-31</div><div class="title">【USACO & JZOI】布局-题解</div></div></a></div><div><a href="/2019/10/26/GmojP3814/" title="【JZOI】天黑黑-题解"><img class="cover" data-lazy-src="/images/22.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-26</div><div class="title">【JZOI】天黑黑-题解</div></div></a></div><div><a href="/2019/10/24/vijosP1615/" title="【Vijos & JZOI】旅行-题解"><img class="cover" data-lazy-src="/images/30.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-24</div><div class="title">【Vijos & JZOI】旅行-题解</div></div></a></div><div><a href="/2020/11/29/loj2333/" title="【JOI2017 Final】准高速电车-题解"><img class="cover" data-lazy-src="/images/17.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-29</div><div class="title">【JOI2017 Final】准高速电车-题解</div></div></a></div><div><a href="/2020/11/27/loj3013/" title="【JOI2019 Final】硬币收藏-题解"><img class="cover" data-lazy-src="/images/14.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-27</div><div class="title">【JOI2019 Final】硬币收藏-题解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">题意描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">输入格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">输出格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Input-amp-Output-%E2%80%98s-examples"><span class="toc-number">4.</span> <span class="toc-text">Input &amp; Output ‘s examples</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-%E2%80%98s-eg"><span class="toc-number">4.1.</span> <span class="toc-text">Input ‘s eg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-%E2%80%98s-eg"><span class="toc-number">4.2.</span> <span class="toc-text">Output ‘s eg</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E4%BE%8B%E8%A7%A3%E9%87%8A"><span class="toc-number">5.</span> <span class="toc-text">样例解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E4%B8%8E%E7%BA%A6%E5%AE%9A"><span class="toc-number">6.</span> <span class="toc-text">数据范围与约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">7.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Accepted"><span class="toc-number">8.</span> <span class="toc-text">Code[Accepted]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/48.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

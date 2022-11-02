@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【玄学篇】模拟退火 &amp; 【JSOI2004】平衡点 / 吊打XXX-题解 | Album's Blog</title><meta name="keywords" content="学习笔记,题解,搜索,Algorithm,暴力,各省省选,玄学,模拟退火"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="模拟退火，参数难调，~~急需欧皇~~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【玄学篇】模拟退火 &amp; 【JSOI2004】平衡点 &#x2F; 吊打XXX-题解">
+<meta property="og:url" content="http://payphone-x.github.io/2019/06/19/Simulate-Anneal/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="模拟退火，参数难调，~~急需欧皇~~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/5.png">
+<meta property="article:published_time" content="2019-06-19T05:56:51.000Z">
+<meta property="article:modified_time" content="2020-05-11T03:01:54.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="搜索">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="暴力">
+<meta property="article:tag" content="各省省选">
+<meta property="article:tag" content="玄学">
+<meta property="article:tag" content="模拟退火">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/5.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/06/19/Simulate-Anneal/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2020-05-11 11:01:54'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/5.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【玄学篇】模拟退火 &amp; 【JSOI2004】平衡点 / 吊打XXX-题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-06-19T05:56:51.000Z" title="undefined 2019-06-19 13:56:51">2019-06-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/">算法笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>模拟退火，参数难调，<del>急需欧皇</del><br>                              ——《AK杀》</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天（2019/6/19），$Payphone-X$想要学习最小生成树，结果翻到了模拟退火……</p>
+<p>于是乎</p>
+<p>就有了今天这篇博客</p>
+<hr>
+<h2 id="何为模拟退火"><a href="#何为模拟退火" class="headerlink" title="何为模拟退火"></a>何为模拟退火</h2><p>先来看看百度百科对于模拟退火的解释</p>
+<blockquote>
+<p>模拟退火的出发点是基于物理中固体物质的退火过程与一般组合优化问题之间的相似性。模拟退火算法是一种通用的优化算法，其物理退火过程由加温过程、等温过程、冷却过程这三部分组成。</p>
+<p>——百度百科</p>
+</blockquote>
+<p>嗯……</p>
+<p>看起来有点玄学的气息……</p>
+<p>还是来看看通俗的解释吧。</p>
+<p>简单的说，模拟退火是一种随机化搜索算法。<del>（所有除了机惨的算法里需要用到rand与random_shuffle的算法</del></p>
+<p>它<strong>可以求得一段多峰函数的极值</strong><del>（也可能求不出来</del></p>
+<p>也就是说，当我们面对一个方案数极大（甚至是无穷大）的题目时，可以使用模拟退火</p>
+<p><del>是一个<strong>比较看脸</strong>的算法</del></p>
+<hr>
+<h2 id="爬山算法"><a href="#爬山算法" class="headerlink" title="爬山算法"></a>爬山算法</h2><p>在讲模拟退火之前，我们先来看看它的基础算法——爬山算法</p>
+<p>爬山算法是一种基于贪心的暴力搜索，可以求得一个单峰函数的极值。</p>
+<p>它的原理是每一次寻找一个比当前更优的解，一旦找不出，就结束。</p>
+<p>就像这样：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/VORKEt"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/06/19/VORKEt.jpg" alt="VORKEt.jpg"></a></p>
+<p>当爬到顶峰，即无法继续向上爬时，即停止搜索。就像这样：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/VORRV1"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/06/19/VORRV1.jpg" alt="VORRV1.jpg"></a></p>
+<p>嗯……</p>
+<p>现在为止，一切好像都很正常</p>
+<p>但……如果整张图是这样的</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/VOfw1U"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/06/19/VOfw1U.jpg" alt="VOfw1U.jpg"></a></p>
+<p>就自闭了……</p>
+<p>而<strong>模拟退火会在寻找到一个非局部最优解时，赋予一个接受他的概率。从而继续向下寻找，直到找到全局最优解</strong>。<br>（ps.即在爬山时，模拟退火会有一定概率下降当前高度去寻找是否可以有别的路到达更高的高度。）</p>
+<hr>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>要想了解模拟退火，就必须了解<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%80%80%E7%81%AB/1039313?fr=aladdin">金属的退火原理</a></p>
+<p>简单来说，就是将金属加热到一定温度，保持足够时间，然后以适宜速度冷却。</p>
+<p>而OI上，就是每次随机出一个新解。如果这个解更优，就接受它，否则以一个与温度和与最优解的差相关的概率接受它。</p>
+<p>设这个新的解与最优解的差为 $\Delta E$ ，温度为 $T$ ， $k$ 为一个随机数，那么这个概率为 $\displaystyle e^{\frac{\Delta E}{kT}}$</p>
+<hr>
+<p>​    </p>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="降温"><a href="#降温" class="headerlink" title="降温"></a>降温</h3><p>模拟退火时有3个参数，分别为初始温度$T_0$，降温系数$Δ$，终止温度$T_k$。</p>
+<p>其中，$T_0$的值会很大，$Δ$是一个略小于$1$的正数，$T_k$是一个略大于$0$的数</p>
+<p>我们先把初始温度$T_0$的值赋给$T$，每一次降温时让$T = T * Δ$，直到$T ≤ T_k$为止</p>
+<p>伪代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> start = <span class="number">120</span>, s = <span class="number">0.96</span> , finish = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">double</span> tem = start;</span><br><span class="line"><span class="keyword">while</span>(tem &gt; finish)&#123;</span><br><span class="line">    tem = tem * s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果转换成图片，大概是这样的</p>
+<p><a target="_blank" rel="noopener" href="https://i.loli.net/2019/06/19/5d09f8b0e056657108.gif"><img src= "/img/loading.gif" data-lazy-src="https://i.loli.net/2019/06/19/5d09f8b0e056657108.gif" alt="Hill_Climbing_with_Simulated_Annealing.gif"></a></p>
+<p>可以看出，随着温度的不断降低，解也不断稳定下来，并集中在最优解附近。</p>
+<hr>
+<h3 id="others"><a href="#others" class="headerlink" title="others"></a>others</h3><p>不多说，直接看表。</p>
+<blockquote>
+<ol>
+<li><p>首先，我们在程序开始时需要srand(一个常数)来随机化，这个常数可以是任意的常数，比如$23333$ , $1212121$ <del>或古老东方的某个神秘的八位信仰质数</del></p>
+</li>
+<li><p>一遍退火一般不能直接得到最优解，所以要在不TLE的情况下多跑几遍。</p>
+</li>
+<li><p>模拟退火的时间复杂度比较玄学，一般降温系数 $Δ$ 与 $1$ 的差减少一个数量级, 耗时大约多 $10$ 倍；但$T_0$ 和 $T_k$ 如果变化一个数量级, 耗时却不会变化很大。</p>
+</li>
+<li><p>最近有的出题人卡常数随机化，针对此种状况，我们可以    srand((unsigned)time(NULL));</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h3><p>众所周知，调参是一门<del>极其玄学</del>的艺术</p>
+<p>不信可以看我的提交记录：</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Vvi79I"><img src= "/img/loading.gif" data-lazy-src="https://s2.ax1x.com/2019/06/20/Vvi79I.jpg" alt="Vvi79I.jpg"></a></p>
+<p>在调参过程中，不同的$Δ$，$T_0$，$T_k$，$srand$常数甚至退火的次数都会影响最后的答案。</p>
+<p>下面，我们就来探讨一下如何调参</p>
+<blockquote>
+<p>Q：答案不是最优的怎么办？</p>
+<p>A：<strong>以下几种方法：调大 $Δ$ ，调大 $T_0$ ，调小 $T_k$ ，以及多跑几遍。</strong>其中，如果您的程序跑的比较快，可以尝试多跑几遍或调大$Δ$，调大 $T_0$ 与调小 $T_k$对运行时间影响较小，但可能效果不会很明显。</p>
+<p>Q：还是跑不出最优解怎么办？</p>
+<p>A：可以尝试更换随机数种子，或者 srand(rand())srand(rand());总有可能跑过。</p>
+<p>Q：那我提交了两页都没有$AC$，咋办啊？</p>
+<p>A：<del>那您还是写正解吧</del></p>
+</blockquote>
+<hr>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>现在，我们以这道题为例来讲解模拟退火的应用。</p>
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>如图：有$n$个重物，每个重物系在一条足够长的绳子上。</p>
+<p>每条绳子自上而下穿过桌面上的洞，然后系在一起，图中$X$处就是公共的绳结。</p>
+<p>假设绳子是完全弹性的（不会造成能量损失），桌子足够高（因而重物不会垂到地上），且忽略所有的摩擦。</p>
+<p>问绳结$X$最终平衡于何处。</p>
+<p><a target="_blank" rel="noopener" href="https://i.loli.net/2019/06/19/5d0a0022c7f3325675.jpg"><img src= "/img/loading.gif" data-lazy-src="https://i.loli.net/2019/06/19/5d0a0022c7f3325675.jpg" alt="148.jpg"></a></p>
+<p>（注意：桌面上的洞都比绳结$X$小得多，所以即使某个重物特别重，绳结$X$也不可能穿过桌面上的洞掉下来，最多是卡在某个洞口处。）</p>
+<hr>
+<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>第一行为一个正整数$n$，表示重物和洞的数目。</p>
+<p>接下来的$n$行，每行是3个整数：$X_i.Y_i.W_i$，分别表示第$i$个洞的坐标以及第 $i$个重物的重量。</p>
+<hr>
+<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>输出两个浮点数（保留小数点后三位）分别表示处于最终平衡状态时绳结$X$的横坐标和纵坐标。两个数以一个空格隔开。</p>
+<hr>
+<h3 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h3><h4 id="Input-‘s-eg"><a href="#Input-‘s-eg" class="headerlink" title="Input ‘s eg"></a>Input ‘s eg</h4><blockquote>
+<p>3<br>0 0 1<br>0 2 1<br>1 1 1</p>
+</blockquote>
+<h4 id="Output-‘s-eg"><a href="#Output-‘s-eg" class="headerlink" title="Output ‘s eg"></a>Output ‘s eg</h4><blockquote>
+<p>0.577 1.000</p>
+</blockquote>
+<hr>
+<h3 id="数据范围和约定"><a href="#数据范围和约定" class="headerlink" title="数据范围和约定"></a>数据范围和约定</h3><p>对于$100\%$数据 ，$1≤n≤1000$，$-10000≤x,y≤10000, 0&lt; w ≤ 1000$ </p>
+<hr>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>恐怕这是OI上为数不多的物理题了……<del>（看不懂题的话先补物理去吧）</del></p>
+<p>根据<del>初中</del>物理的知识，当系统处于平衡状态时，系统的总能量最小。<del>（有人说初中不学这玩意，但老宋确实讲了，而且创客转OI的同学们应该觉得这是基础</del></p>
+<p>又因为物体静止,不用考虑动能与弹性势能，则此时系统的总能量是等于各个物体的重力势能之和。</p>
+<p>由公式$E_重 = mgh$可得，物体的重力势能取决于物体的质量与高度，</p>
+<p>由于每个物体的质量是固定的（题目给出），我们能调整的，只有物体的高度。</p>
+<p>为了让系统的重力势能尽可能小，我们需要尽量每一个物体的高度更小，即使每一个$h$更小，也就是让桌子下面的绳子长度更长。</p>
+<p>也就是说，我们要让在桌子上边的绳子长度尽量的短。</p>
+<p>当桌子上边的绳子长度最短时，就达到了平衡状态。</p>
+<p>所以我们用模拟退火跑出桌上绳子的最短长度，然后找出此时绳结的坐标即可。</p>
+<hr>
+<h3 id="附件-AC标程"><a href="#附件-AC标程" class="headerlink" title="附件[AC标程]"></a>附件[AC标程]</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*#include&lt;iostream&gt;</span></span><br><span class="line"><span class="comment">#include&lt;cstdio&gt;</span></span><br><span class="line"><span class="comment">#include&lt;cstring&gt;</span></span><br><span class="line"><span class="comment">#include&lt;algorithm&gt;</span></span><br><span class="line"><span class="comment">#include&lt;cmath&gt;</span></span><br><span class="line"><span class="comment">#include&lt;iomanip&gt;*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdcpp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> debug(x)&#123;\</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;----------------------------\n&quot;</span>);\</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;DEBUG: There is no bug /n&quot;</span>,x);\</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dai 0.996		<span class="comment">//降温系数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> C 4				<span class="comment">//模拟退火的执行次数</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Things</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;	<span class="comment">//物体横坐标</span></span><br><span class="line">	<span class="keyword">int</span> y;	<span class="comment">//物体纵坐标</span></span><br><span class="line">	<span class="keyword">int</span> w;	<span class="comment">//物体重量</span></span><br><span class="line">&#125;t[N];     </span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> ansx , ansy , answ;	<span class="comment">//答案</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">energy</span><span class="params">(<span class="keyword">double</span> x , <span class="keyword">double</span> y)</span></span>&#123;		<span class="comment">//公式模拟</span></span><br><span class="line">	<span class="keyword">double</span> r = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">double</span> dx , dy;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		dx = x - t[i].x;</span><br><span class="line">		dy = y - t[i].y;</span><br><span class="line">		r = r + <span class="built_in">sqrt</span>(dx * dx + dy * dy) * t[i].w;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SA</span><span class="params">()</span></span>&#123;		<span class="comment">//模拟退火</span></span><br><span class="line">	<span class="keyword">double</span> tem = <span class="number">3000</span>;		<span class="comment">//初始温度调高</span></span><br><span class="line">	<span class="keyword">while</span>(tem &gt; <span class="number">1e-15</span>)&#123;</span><br><span class="line">		<span class="keyword">double</span> ex = ansx + (rand() * <span class="number">2</span> - RAND_MAX) * tem;</span><br><span class="line">		<span class="keyword">double</span> ey = ansy + (rand() * <span class="number">2</span> - RAND_MAX) * tem;</span><br><span class="line">		<span class="keyword">double</span> ew = energy(ex , ey);</span><br><span class="line">		<span class="keyword">double</span> ac = ew - answ;</span><br><span class="line">		<span class="keyword">if</span>(ac &lt; <span class="number">0</span>)&#123;			<span class="comment">//如果答案比当前答案更优，则接受</span></span><br><span class="line">			ansx = ex;</span><br><span class="line">			ansy = ey;</span><br><span class="line">			answ = ew;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">exp</span> (-(ew - answ) / tem) * RAND_MAX &gt; rand())&#123;</span><br><span class="line">			ansx = ex;</span><br><span class="line">			ansy = ey;		<span class="comment">//否则以一定概率接受</span></span><br><span class="line">		&#125;</span><br><span class="line">		tem = dai * tem;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">()</span></span>&#123;				<span class="comment">//多跑几遍才能跑出最优解</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= C; i ++)&#123;</span><br><span class="line">        SA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; t[i].x &gt;&gt; t[i].y &gt;&gt; t[i].w;</span><br><span class="line">		ansx = ansx + t[i].x;</span><br><span class="line">		ansy = ansy + t[i].y;</span><br><span class="line">	&#125;</span><br><span class="line">	ansx = ansx / n;		<span class="comment">//取平均值作为初始答案</span></span><br><span class="line">	ansy = ansy / n;</span><br><span class="line">	answ = energy(ansx , ansy);</span><br><span class="line">	work();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; fixed &lt;&lt; setprecision(<span class="number">3</span>) &lt;&lt; ansx &lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt; ansy &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/06/19/Simulate-Anneal/">http://payphone-x.github.io/2019/06/19/Simulate-Anneal/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a><a class="post-meta__tags" href="/tags/%E6%90%9C%E7%B4%A2/">搜索</a><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a><a class="post-meta__tags" href="/tags/%E6%9A%B4%E5%8A%9B/">暴力</a><a class="post-meta__tags" href="/tags/%E5%90%84%E7%9C%81%E7%9C%81%E9%80%89/">各省省选</a><a class="post-meta__tags" href="/tags/%E7%8E%84%E5%AD%A6/">玄学</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/">模拟退火</a></div><div class="post_share"><div class="social-share" data-image="/images/5.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/06/26/luoguP1969/"><img class="prev-cover" data-lazy-src="/images/2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【NOIP2013/2018】积木大赛-题解</div></div></a></div><div class="next-post pull-right"><a href="/2019/06/18/luoguP1119/"><img class="next-cover" data-lazy-src="/images/7.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【洛谷精选】灾后重建-题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/10/30/STL-plus/" title="【STL】浅谈STL在OI中的应用"><img class="cover" data-lazy-src="/images/18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-30</div><div class="title">【STL】浅谈STL在OI中的应用</div></div></a></div><div><a href="/2019/10/04/Chtholly-Tree/" title="【数据结构】ODT(珂朵莉树)"><img class="cover" data-lazy-src="https://i.loli.net/2019/10/06/iaJnEBbNKoTYQP2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-04</div><div class="title">【数据结构】ODT(珂朵莉树)</div></div></a></div><div><a href="/2019/08/02/Bit-operation/" title="【位运算】 & 【NOI2014】起床困难综合症-题解"><img class="cover" data-lazy-src="/images/18.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-02</div><div class="title">【位运算】 & 【NOI2014】起床困难综合症-题解</div></div></a></div><div><a href="/2019/05/01/path/" title="【图论算法】最短路（总结篇）"><img class="cover" data-lazy-src="/images/44.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-05-01</div><div class="title">【图论算法】最短路（总结篇）</div></div></a></div><div><a href="/2019/02/27/Dijkstra/" title="【图论算法】Dijkstra"><img class="cover" data-lazy-src="/images/43.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-27</div><div class="title">【图论算法】Dijkstra</div></div></a></div><div><a href="/2019/02/23/Floyd/" title="【图论算法】Floyd"><img class="cover" data-lazy-src="/images/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-02-23</div><div class="title">【图论算法】Floyd</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB"><span class="toc-number">2.</span> <span class="toc-text">何为模拟退火</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E5%B1%B1%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">爬山算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">算法原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text">算法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%8D%E6%B8%A9"><span class="toc-number">5.1.</span> <span class="toc-text">降温</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#others"><span class="toc-number">5.2.</span> <span class="toc-text">others</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%8F%82"><span class="toc-number">5.3.</span> <span class="toc-text">调参</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">6.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">6.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">6.2.</span> <span class="toc-text">输入格式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="toc-number">6.3.</span> <span class="toc-text">输出格式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-amp-Output-%E2%80%98s-examples"><span class="toc-number">6.4.</span> <span class="toc-text">Input &amp; Output ‘s examples</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Input-%E2%80%98s-eg"><span class="toc-number">6.4.1.</span> <span class="toc-text">Input ‘s eg</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Output-%E2%80%98s-eg"><span class="toc-number">6.4.2.</span> <span class="toc-text">Output ‘s eg</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%92%8C%E7%BA%A6%E5%AE%9A"><span class="toc-number">6.5.</span> <span class="toc-text">数据范围和约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">6.6.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E4%BB%B6-AC%E6%A0%87%E7%A8%8B"><span class="toc-number">6.7.</span> <span class="toc-text">附件[AC标程]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/5.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

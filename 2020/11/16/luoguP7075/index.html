@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【CSP-S2020】儒略日-题解 | Album's Blog</title><meta name="keywords" content="题解,模拟,二分,Luogu,NOIP"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSP-S2020 T1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSP-S2020】儒略日-题解">
+<meta property="og:url" content="http://payphone-x.github.io/2020/11/16/luoguP7075/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="CSP-S2020 T1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/7.png">
+<meta property="article:published_time" content="2020-11-16T11:26:09.000Z">
+<meta property="article:modified_time" content="2020-11-16T12:34:32.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="Luogu">
+<meta property="article:tag" content="NOIP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/7.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2020/11/16/luoguP7075/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2020-11-16 20:34:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/7.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【CSP-S2020】儒略日-题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-11-16T11:26:09.000Z" title="undefined 2020-11-16 19:26:09">2020-11-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/">解题报告</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>为了简便计算，天文学家们使用儒略日（Julian day）来表达时间。</p>
+<p>所谓儒略日，其定义为<strong>从公元前 4713 年 1 月 1 日正午 12 点到此后某一时刻间所经过的天数</strong>，不满一天者用小数表达。若利用这一天文学历法，则每一个时刻都将被均匀的映射到数轴上，从而得以很方便的计算它们的差值。</p>
+<p>现在，给定一个不含小数部分的儒略日，请你帮忙计算出该儒略日（一定是某一天的中午 $12$ 点）所对应的公历日期。</p>
+<p>我们现行的公历为格里高利历（Gregorian calendar），它是在公元 $1582$ 年由教皇格里高利十三世在原有的儒略历（Julian calendar）的基础上修改得到的（注：儒略历与儒略日并无直接关系）。具体而言，现行的公历日期按照以下规则计算：</p>
+<ol>
+<li><p>公元 $1582$ 年 $10$ 月 $15$ 日（含）以后：适用格里高利历，每年一月 $31$ 天、 二月 $28$ 天或 $29$ 天、三月 $31$ 天、四月 $30$ 天、五月 $31$ 天、六月 $30$ 天、七月 $31$ 天、八月 $31$ 天、九月 $30$ 天、十月 $31$ 天、十一月 $30$ 天、十二月 $31$ 天。其中，闰年的二月为 $29$ 天，平年为 $28$ 天。当年份是 $400$ 的倍数，或日期年份是 $4$ 的倍数但不是 $100$ 的倍数时，该年为闰年。</p>
+</li>
+<li><p>公元 $1582$ 年 $10$ 月 $5$ 日（含）至 $10$ 月 $14$ 日（含）：不存在，这些日期被删除，该年 $10$ 月 $4$ 日之后为 $10$ 月 $15$ 日。</p>
+</li>
+<li><p>公元 $1582$ 年 $10$ 月 $4$ 日（含）以前：适用儒略历，每月天数与格里高利历 相同，但只要年份是 $4$ 的倍数就是闰年。</p>
+</li>
+<li><p>尽管儒略历于公元前 $45$ 年才开始实行，且初期经过若干次调整，但今天人类习惯于按照儒略历最终的规则反推一切 $1582$ 年 $10$ 月 $4$ 日之前的时间。注意，公元零年并不存在，即公元前 $1$ 年的下一年是公元 $1$ 年。因此公元前 $1$ 年、前 $5$ 年、前 $9$ 年、前 $13$ 年……以此类推的年份应视为闰年。</p>
+</li>
+</ol>
+<hr>
+<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>第一行一个整数 $Q$，表示询问的组数。</p>
+<p>接下来 $Q$ 行，每行一个非负整数 $r_i$ ，表示一个儒略日。</p>
+<hr>
+<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>对于每一个儒略日 $r_i$ ，输出一行表示日期的字符串 $s_i$ 。共计 $Q$ 行。 $s_i$的格式如下：</p>
+<p>若年份为公元后，输出格式为 <code>Day Month Year</code>。其中日（Day）、月（Month）、年（Year）均不含前导零，中间用一个空格隔开。</p>
+<p>若年份为公元前，输出格式为 <code>Day Month Year BC</code>。其中年（Year）输出该年份的数值，其余与公元后相同。</p>
+<hr>
+<h2 id="Input-amp-Output-‘s-examples"><a href="#Input-amp-Output-‘s-examples" class="headerlink" title="Input &amp; Output ‘s examples"></a>Input &amp; Output ‘s examples</h2><h3 id="Input-‘s-eg-1"><a href="#Input-‘s-eg-1" class="headerlink" title="Input ‘s eg 1"></a>Input ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">10</span><br><span class="line">100</span><br><span class="line">1000</span><br></pre></td></tr></table></figure>
+<h3 id="Output-‘s-eg-1"><a href="#Output-‘s-eg-1" class="headerlink" title="Output ‘s eg 1"></a>Output ‘s eg 1</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">11 1 4713 BC</span><br><span class="line">10 4 4713 BC</span><br><span class="line">27 9 4711 BC</span><br></pre></td></tr></table></figure>
+<h3 id="Input-‘s-eg-2"><a href="#Input-‘s-eg-2" class="headerlink" title="Input ‘s eg 2"></a>Input ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">2000000</span><br><span class="line">3000000</span><br><span class="line">4000000</span><br></pre></td></tr></table></figure>
+<h3 id="Output-‘s-eg-2"><a href="#Output-‘s-eg-2" class="headerlink" title="Output ‘s eg 2"></a>Output ‘s eg 2</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">14 9 763</span><br><span class="line">15 8 3501</span><br><span class="line">12 7 6239</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p><del>把这题放 T1 的组题人就该拖出去捶一顿算完</del></p>
+<p>大模拟，但单纯 Day By Day 的模拟得分很低。</p>
+<p>看数据范围不难发现需要 $O(1)$ 或 $O(\log n)$ 的回答单次询问，但 $O(1)$ 做法代码难度较大，且不方便考场调试。故笔者提供一种较为好写的 $O(q \log n)$ 做法。</p>
+<p>考虑二分年份。确定年份之后，剩下的日期最多也就 $365$ 天，暴力处理即可。</p>
+<p>考虑如何判断当前年份与目标年份的相对大小。显然，我们只需要计算当前天数到二分年份的 $1$ 月 $1$ 日的天数即可。</p>
+<p>但直接做的话在进入公元时会出问题，因为公元 $0$ 年并不存在。为了避免使用公元 $0$ 年，我们考虑将公元前的年份前移一年，最后算完之后若在公元前则减去一年即可。</p>
+<p>那么就有</p>
+<script type="math/tex; mode=display">ans = 365 \times (x + 4712) + cnt - 10 \times [x > 1582]</script><p>其中 $cnt$ 为闰年的数目。</p>
+<p>考虑如何快速计算闰年的数目。首先先算出 $4$ 的倍数的年数，即 $\lceil \frac{x + 4712}{4} \rceil$</p>
+<p>之后减去 $1583$ 年之后的整百年份，即 $\lceil \frac{x - 1600}{100} \rceil$</p>
+<p>之后加上 $1583$ 年之后能被 $400$ 整除的年份，即 $\lceil \frac{x - 1600}{400} \rceil$</p>
+<p>还有什么的话，就是 <strong>所有变量都需要 long long</strong>。</p>
+<p>题目细节较多，建议对照代码仔细理解。</p>
+<hr>
+<h2 id="Code-Accepted"><a href="#Code-Accepted" class="headerlink" title="Code[Accepted]"></a>Code[Accepted]</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pb push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MP make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PII pair<span class="meta-string">&lt;int , int&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PSL pair<span class="meta-string">&lt;string , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLL pair<span class="meta-string">&lt;long long , long long&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> all(x) (x).begin() , (x).end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> copy(a , b) memcpy(a , b , sizeof(b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> clean(a , b) memset(a , b , sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i , l , r) for (int i = (l); i &lt;= (r); i ++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> per(i , r , l) for (int i = (r); i &gt;= (l); i --)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PE(i , x) for(int i = head[x]; i; i = edge[i].last)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEBUG(x) std :: cerr &lt;&lt; #x &lt;&lt; <span class="meta-string">&#x27;=&#x27;</span> &lt;&lt; x &lt;&lt; std :: endl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(T &amp;x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = getchar(), f = <span class="number">0</span>; x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="built_in">isdigit</span>(c)) f = (c == <span class="string">&#x27;-&#x27;</span>), c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">isdigit</span>(c)) x = x * <span class="number">10</span> + c - <span class="string">&#x27;0&#x27;</span>, c = getchar();</span><br><span class="line">    x = f ? -x : x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">100000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> HA = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line">ll ans = <span class="number">0</span> , y = <span class="number">-4713</span> , m = <span class="number">1</span> , d = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> days[] = &#123;<span class="number">0</span> , <span class="number">31</span> , <span class="number">28</span> , <span class="number">31</span> , <span class="number">30</span> , <span class="number">31</span> , <span class="number">30</span> , <span class="number">31</span> , <span class="number">31</span> , <span class="number">30</span> , <span class="number">31</span> , <span class="number">30</span> , <span class="number">31</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_RUN</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;  <span class="comment">//判断闰年</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">        x *= <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> x % <span class="number">4</span> == <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt;= <span class="number">1582</span>) <span class="keyword">return</span> x % <span class="number">4</span> == <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> (x % <span class="number">400</span> == <span class="number">0</span>) || ((x % <span class="number">4</span> == <span class="number">0</span>) &amp;&amp; (x % <span class="number">100</span> != <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;    <span class="comment">//计算当前年份1月1日对应的天数</span></span><br><span class="line">    ll day = <span class="number">0</span>;</span><br><span class="line">    day += <span class="number">1l</span>l * (x + <span class="number">4712</span>) * <span class="number">365</span>;</span><br><span class="line">    <span class="keyword">if</span>(x &gt; <span class="number">1582</span>) day -= <span class="number">10</span>;</span><br><span class="line">    day += <span class="number">1l</span>l * (x + <span class="number">4712</span> + <span class="number">3</span>) / <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">if</span>(x &gt;= <span class="number">1600</span>)&#123;</span><br><span class="line">        x -= <span class="number">1601</span>;</span><br><span class="line">        day += x / <span class="number">400</span>;</span><br><span class="line">        day -= x / <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> day;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_day</span><span class="params">()</span></span>&#123; <span class="comment">//暴力模拟天数</span></span><br><span class="line">    d ++;</span><br><span class="line">    <span class="keyword">if</span>(y == <span class="number">1582</span> &amp;&amp; m == <span class="number">10</span> &amp;&amp; d == <span class="number">5</span>) d += <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">if</span>(d &gt; days[m] + (check_RUN(y) &amp;&amp; m == <span class="number">2</span>)) m ++ , d = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(m &gt; <span class="number">12</span>) y ++ , m = <span class="number">1</span> , d = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; read(n);</span><br><span class="line">    m = <span class="number">1</span> , d = <span class="number">1</span>;</span><br><span class="line">    ll l = <span class="number">-4712</span> , r = <span class="number">1e9</span> + <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt;= r)&#123;  </span><br><span class="line">        ll mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(check(mid) &gt; n)&#123;</span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> l = mid + <span class="number">1</span> , y = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    n -= check(y);</span><br><span class="line">    <span class="keyword">if</span>(y &lt;= <span class="number">0</span>) y -= <span class="number">1</span>;</span><br><span class="line">    rep(i , <span class="number">1</span> , n) &#123;</span><br><span class="line">        get_day();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(y &lt;= <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;%lld %lld %lld BC\n&quot;</span> , d , m , -y);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%lld %lld %lld \n&quot;</span> , d , m , y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">        freopen(<span class="string">&quot;try.in&quot;</span> , <span class="string">&quot;r&quot;</span> , <span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">&quot;try1.out&quot;</span> , <span class="string">&quot;w&quot;</span> , <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> t; read(t);</span><br><span class="line">    <span class="keyword">while</span>(t --) solve();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2020/11/16/luoguP7075/">http://payphone-x.github.io/2020/11/16/luoguP7075/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a><a class="post-meta__tags" href="/tags/%E4%BA%8C%E5%88%86/">二分</a><a class="post-meta__tags" href="/tags/Luogu/">Luogu</a><a class="post-meta__tags" href="/tags/NOIP/">NOIP</a></div><div class="post_share"><div class="social-share" data-image="/images/7.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/16/luoguP7076/"><img class="prev-cover" data-lazy-src="/images/20.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【CSP-S2020】动物园-题解</div></div></a></div><div class="next-post pull-right"><a href="/2020/11/06/AGC002E/"><img class="next-cover" data-lazy-src="/images/10.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【AGC002E】Candy Piles-题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/06/26/luoguP5019/" title="【NOIP2013/2018】铺设道路-题解"><img class="cover" data-lazy-src="/images/12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-26</div><div class="title">【NOIP2013/2018】铺设道路-题解</div></div></a></div><div><a href="/2019/06/26/luoguP1969/" title="【NOIP2013/2018】积木大赛-题解"><img class="cover" data-lazy-src="/images/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-06-26</div><div class="title">【NOIP2013/2018】积木大赛-题解</div></div></a></div><div><a href="/2020/11/16/luoguP7077/" title="【CSP-S2020】函数调用-题解"><img class="cover" data-lazy-src="/images/24.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-16</div><div class="title">【CSP-S2020】函数调用-题解</div></div></a></div><div><a href="/2020/11/16/luoguP7076/" title="【CSP-S2020】动物园-题解"><img class="cover" data-lazy-src="/images/20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-16</div><div class="title">【CSP-S2020】动物园-题解</div></div></a></div><div><a href="/2020/10/29/luoguP5664/" title="【CSP-S2019】Emiya家今天的饭-题解"><img class="cover" data-lazy-src="/images/32.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-29</div><div class="title">【CSP-S2019】Emiya家今天的饭-题解</div></div></a></div><div><a href="/2020/04/05/luoguP5658/" title="【CSP-S2019】括号树-题解"><img class="cover" data-lazy-src="/images/14.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-05</div><div class="title">【CSP-S2019】括号树-题解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">输入格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">输出格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Input-amp-Output-%E2%80%98s-examples"><span class="toc-number">4.</span> <span class="toc-text">Input &amp; Output ‘s examples</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-%E2%80%98s-eg-1"><span class="toc-number">4.1.</span> <span class="toc-text">Input ‘s eg 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-%E2%80%98s-eg-1"><span class="toc-number">4.2.</span> <span class="toc-text">Output ‘s eg 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-%E2%80%98s-eg-2"><span class="toc-number">4.3.</span> <span class="toc-text">Input ‘s eg 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-%E2%80%98s-eg-2"><span class="toc-number">4.4.</span> <span class="toc-text">Output ‘s eg 2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-Accepted"><span class="toc-number">6.</span> <span class="toc-text">Code[Accepted]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/7.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

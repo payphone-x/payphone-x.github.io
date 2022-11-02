@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【LYOI】LYOI Summer Round1题解&amp;命题总结 | Album's Blog</title><meta name="keywords" content="题解,模拟,栈,递推,LYOI,字符串,排序"><meta name="author" content="Album."><meta name="copyright" content="Album."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一套超级简单而又神奇的题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LYOI】LYOI Summer Round1题解&amp;命题总结">
+<meta property="og:url" content="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/index.html">
+<meta property="og:site_name" content="Album&#39;s Blog">
+<meta property="og:description" content="一套超级简单而又神奇的题目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://payphone-x.github.io/images/48.png">
+<meta property="article:published_time" content="2019-07-20T02:33:45.000Z">
+<meta property="article:modified_time" content="2019-10-28T02:46:24.000Z">
+<meta property="article:author" content="Album.">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="栈">
+<meta property="article:tag" content="递推">
+<meta property="article:tag" content="LYOI">
+<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="排序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://payphone-x.github.io/images/48.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2019-10-28 10:46:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/48.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Album's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/Template/"><i class="fa-fw fas fa-list"></i><span> 模板墙</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About Me</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">【LYOI】LYOI Summer Round1题解&amp;命题总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-07-20T02:33:45.000Z" title="undefined 2019-07-20 10:33:45">2019-07-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%91%BD%E9%A2%98%E6%8A%A5%E5%91%8A/">命题报告</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>一套超级简单而又神奇的题目<br>（Upd：文章部分转载，已署名）</p>
+<a id="more"></a>
+<h2 id="Grades"><a href="#Grades" class="headerlink" title="Grades"></a>Grades</h2><p>Liuzhe dalao出的<del>签到题</del></p>
+<p>而且卡了冒泡排序这种朴素算法……</p>
+<p>尽管如此，方法还是有很多。比如手打快排，手打归并……</p>
+<p>但在这里，我们使用STL内置的$sort$函数。</p>
+<p>另外需要注意的是，由于我们需要使用结构体进行交换，因此，我们需要手打$cmp$函数</p>
+<p>基本没什么难度吧……</p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20005</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">int</span> grade;</span><br><span class="line">&#125;stu[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Student a , Student b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.grade &gt; b.grade;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; stu[i].num &gt;&gt; stu[i].grade;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(stu + <span class="number">1</span> , stu + <span class="number">1</span> + n , cmp);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; stu[i].num &lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt; stu[i].grade &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Witten By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Unturned"><a href="#Unturned" class="headerlink" title="Unturned"></a>Unturned</h2><p>Struct瓶子 julao出的数据结构题……</p>
+<p>考的是一种极其基础的数据结构：<strong>栈</strong></p>
+<p>我们重新读一遍题目，会发现上边有三种操作：</p>
+<blockquote>
+<ul>
+<li><p>$1$，$s$，$a$，$b$ 表示从你现在的所在地前往到另一个名称为$s$，物资值为$a$，危险值为$b$的地方。</p>
+</li>
+<li><p>$2$ 表示从你现在的所在地返回到你上一次前往的地方(原路返回)。若现在在$Liberator$号上，则无视。</p>
+</li>
+<li><p>$3$ 表示查询你现在的所在地的名称、物资值和危险值。若现在在$Liberator$号上，则输出$-1$。</p>
+</li>
+</ul>
+</blockquote>
+<p>其中，三种操作分别对应了栈的操作中的<strong>入栈</strong>，<strong>弹出栈顶</strong>，<strong>获取栈顶元素</strong>。</p>
+<p>所以我们可以写一个栈，直接进行模拟即可。</p>
+<p>还有什么的话，就是</p>
+<p><strong>注 意 细 节</strong></p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 20001</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Place</span>&#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> thing;</span><br><span class="line">    <span class="keyword">int</span> danger;</span><br><span class="line">&#125;p[N];</span><br><span class="line"></span><br><span class="line"><span class="built_in">stack</span>&lt;Place&gt; S;</span><br><span class="line"></span><br><span class="line"><span class="built_in">pair</span>&lt;<span class="keyword">int</span>  , <span class="built_in">string</span>&gt; Thing_max;</span><br><span class="line"><span class="built_in">pair</span>&lt;<span class="keyword">int</span>  , <span class="built_in">string</span>&gt; Danger_max;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> p_num = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> opt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    p[p_num].name = <span class="string">&quot;Liberator&quot;</span>;</span><br><span class="line">    p[p_num].thing = <span class="number">0</span>;</span><br><span class="line">    p[p_num].danger = <span class="number">0</span>;</span><br><span class="line">    S.push(p[p_num]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; opt;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">1</span>)&#123;</span><br><span class="line">            p_num ++;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; p[p_num].name &gt;&gt; p[p_num].thing &gt;&gt; p[p_num].danger;</span><br><span class="line">            <span class="keyword">if</span>(p[p_num].thing &gt; Thing_max.first)&#123;</span><br><span class="line">                Thing_max.first = p[p_num].thing;</span><br><span class="line">                Thing_max.second = p[p_num].name;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(p[p_num].danger &gt; Danger_max.first)&#123;</span><br><span class="line">                Danger_max.first = p[p_num].danger;</span><br><span class="line">                Danger_max.second = p[p_num].name;</span><br><span class="line">            &#125;</span><br><span class="line">            S.push(p[p_num]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(S.top().name == <span class="string">&quot;Liberator&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            S.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(opt == <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(S.top().name == <span class="string">&quot;Liberator&quot;</span>)&#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-1&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; S.top().name &lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt; S.top().thing &lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt; S.top().danger &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; S.top().name &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Thing_max.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; Danger_max.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="The-Best-String"><a href="#The-Best-String" class="headerlink" title="The Best String"></a>The Best String</h2><p>这题是作者菜鸡出的一道字符串问题……</p>
+<p>如果 这道题的题意如果使用一句话总结出来的话就是：</p>
+<p><strong>将一个01字符串拆分成多个01子串，要求其中每一个子串中0与1的数量不同。</strong></p>
+<p>既然如此，我们就从子串的长度入手进行分析。</p>
+<p>一个字符串的长度必定是<strong>奇数</strong>或<strong>偶数</strong><del>（废话）</del></p>
+<p>若是奇数的话，0与1的数量本来就不可能相等，所以我们也就不需要拆分，直接输出即可。</p>
+<p>若是偶数的话，我们可以考虑偶数可以由两个奇数组成，比如$26 = 11 + 15$</p>
+<p>所以说我们的任务就是要找到这两个奇数。</p>
+<p>题目里又有另一句话</p>
+<ul>
+<li>但Herself32是个左撇子，so……她希望拆分后左边的字符串的长度尽量的短</li>
+</ul>
+<p>不难看出，左边的字符串最短时长度为$1$，即我们只需要把该字符串的第一位单独拆分出来即可。</p>
+<p>最后<strong>别忘了特判长度为偶数且输入的字符串就不需拆分</strong>的状况</p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 101</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">string</span> a;</span><br><span class="line"><span class="keyword">int</span> num0 , num1; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; a;</span><br><span class="line">	<span class="keyword">if</span>(n % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i] == <span class="string">&#x27;0&#x27;</span>)&#123;</span><br><span class="line">			num0 ++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			num1 ++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(num0 != num1)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[<span class="number">0</span>] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; a[i];</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Written By Payphone-X</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="TarjanLusa"><a href="#TarjanLusa" class="headerlink" title="TarjanLusa"></a>TarjanLusa</h2><p>（本部分转载于<a target="_blank" rel="noopener" href="https://herself32.github.io/2019/01/29/QBXTDay3Sol/">Herself32’s Blog</a>，之前转载时忘记署名，实在抱歉。望原作者原谅。）</p>
+<p><del>毒瘤Herself32，出题粘PDF</del></p>
+<p>咳咳，这是一道大模拟题目。</p>
+<p>首先，我们开一个数组直接模拟球位，然后直接把题目中的左右调换，这样更便于操作。</p>
+<p>然后观察题意，我们发现，如果激发一个球之后，它将从数组第一个位置消失（弹出），而如果生成球，就要从后面加入数组。</p>
+<p>这不就是一个队列嘛！</p>
+<p>但是我们这里并不需要循环队列，直接用$head$指针操作即可。</p>
+<p>顺便提醒大家几个小细节：</p>
+<ol>
+<li>当球位不够时不能直接添加，而是要激发队首的几个球。</li>
+<li>被动和技能不一样，触发被动并不会使球消失。</li>
+<li>在生成球的时候，如果球位不够，则激发队首球1次</li>
+</ol>
+<p>好了，那么$80+$行代码也就写出来了。</p>
+<p>(由于作者比较菜，所以作者并没有重写这道题，直接使用的$std$。<del>这说明我实在是菜爆了啊</del>)</p>
+<p><strong>Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1000000007</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, s;</span><br><span class="line"><span class="keyword">int</span> damage, block;</span><br><span class="line"><span class="keyword">int</span> energe[N];</span><br><span class="line"><span class="keyword">char</span> q[N], str[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> front = <span class="number">1</span>, tail = <span class="number">1</span>, size = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">activate</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">&#x27;e&#x27;</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">8</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">&#x27;i&#x27;</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">5</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * energe[p] * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        front--;</span><br><span class="line">    front++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">use</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (q[p] == <span class="string">&#x27;e&#x27;</span>)</span><br><span class="line">        damage = (damage + <span class="number">1l</span>l * max(<span class="number">3</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">&#x27;i&#x27;</span>)</span><br><span class="line">        block = (block + <span class="number">1l</span>l * max(<span class="number">2</span> + s, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (q[p] == <span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">        energe[p] = (energe[p] + <span class="number">1l</span>l * max(s + <span class="number">6</span>, <span class="number">0</span>) * x) % mo;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    q[<span class="number">1</span>] = <span class="string">&#x27;e&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">1</span>; a &lt;= n; a++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> opt;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;opt);</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">int</span> l = <span class="built_in">strlen</span>(str + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">1</span>; b &lt;= l; b++)</span><br><span class="line">            &#123;</span><br><span class="line">                q[++tail] = str[b];</span><br><span class="line">                <span class="keyword">if</span> (str[b] == <span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">                    energe[tail] = <span class="number">6</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (tail - front + <span class="number">1</span> &gt; size)</span><br><span class="line">                activate(front, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">            activate(front, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> i, x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;i, &amp;x);</span><br><span class="line">            use(front + i - <span class="number">1</span>, x);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">4</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">            s += x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (opt == <span class="number">5</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">            size += x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, damage, block);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>今天的比赛题目并没有特别难，但每一个题都需要无限的细心，特别是$T2$与$T4$</p>
+<p>$T3$表面上是一道字符串题，但主要考察的是同学们的数学思想与分析能力。需要冷静分析。</p>
+<p>$T1$是对最最基础的算法进行考察，属于签到题。这种题在考场上绝对不能出错!!!</p>
+<p>综上，这次考试的高分秘诀就在于：<strong>细心</strong> ，<strong>冷静</strong> ， <strong>坚持</strong>。</p>
+<p>最后祝大家在今后的考试中能够取得更好的成绩</p>
+<h1 id="THE-END"><a href="#THE-END" class="headerlink" title="THE END"></a>THE END</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Album.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/">http://payphone-x.github.io/2019/07/20/LYOI-Summer-Round-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://payphone-x.github.io" target="_blank">Album's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a><a class="post-meta__tags" href="/tags/%E6%A0%88/">栈</a><a class="post-meta__tags" href="/tags/%E9%80%92%E6%8E%A8/">递推</a><a class="post-meta__tags" href="/tags/LYOI/">LYOI</a><a class="post-meta__tags" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a><a class="post-meta__tags" href="/tags/%E6%8E%92%E5%BA%8F/">排序</a></div><div class="post_share"><div class="social-share" data-image="/images/48.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/Alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/08/02/Bit-operation/"><img class="prev-cover" data-lazy-src="/images/18.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【位运算】 &amp; 【NOI2014】起床困难综合症-题解</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/15/luoguP5020/"><img class="next-cover" data-lazy-src="/images/32.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【NOIP2018】货币系统-题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/07/30/LYOI2020SummerCompetition1/" title="【LYOI】LYOI2020 Summer Competition1题解&命题总结"><img class="cover" data-lazy-src="/images/10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-30</div><div class="title">【LYOI】LYOI2020 Summer Competition1题解&命题总结</div></div></a></div><div><a href="/2019/01/23/LogeyOIDay1T1/" title="【LYOI】LogeYOI Winter Day1 -T1题解"><img class="cover" data-lazy-src="/images/48.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-23</div><div class="title">【LYOI】LogeYOI Winter Day1 -T1题解</div></div></a></div><div><a href="/2020/11/23/ZLOJ10281/" title="【多校联考2020】盘王节-题解"><img class="cover" data-lazy-src="/images/15.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-23</div><div class="title">【多校联考2020】盘王节-题解</div></div></a></div><div><a href="/2020/11/16/luoguP7075/" title="【CSP-S2020】儒略日-题解"><img class="cover" data-lazy-src="/images/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-16</div><div class="title">【CSP-S2020】儒略日-题解</div></div></a></div><div><a href="/2020/10/29/CF1437-part/" title="Educational Codeforces Round 97 (Rated for Div. 2)-部分题解"><img class="cover" data-lazy-src="/images/47.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-29</div><div class="title">Educational Codeforces Round 97 (Rated for Div. 2)-部分题解</div></div></a></div><div><a href="/2020/09/10/CF1407/" title="【Codeforces】Codeforces Round 669(Div 2)-题解"><img class="cover" data-lazy-src="/images/12.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-10</div><div class="title">【Codeforces】Codeforces Round 669(Div 2)-题解</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">v</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Album.</div><div class="author-info__description">起风了，唯有努力生存</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">126</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">104</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/payphone-x"><i class="fab fa-github"></i><span>Go To My Github</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成为很厉害很厉害的人，最重要的，就是要热血。永远不要让你的血凉下去。</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Grades"><span class="toc-number">1.</span> <span class="toc-text">Grades</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unturned"><span class="toc-number">2.</span> <span class="toc-text">Unturned</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Best-String"><span class="toc-number">3.</span> <span class="toc-text">The Best String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TarjanLusa"><span class="toc-number">4.</span> <span class="toc-text">TarjanLusa</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#THE-END"><span class="toc-number"></span> <span class="toc-text">THE END</span></a></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/48.png)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By Album.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.spacingElementById('content-inner')
+  else {
+    $.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js', () => {
+      pangu.spacingElementById('content-inner')
+    })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguFn)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>
